@@ -1,0 +1,63 @@
+# BACKEND TO IGNORE
+
+paws-n-purpose-backend/paws-n-purpose-backend/HELP.md
+paws-n-purpose-backend/paws-n-purpose-backend/target/
+paws-n-purpose-backend/paws-n-purpose-backend/.mvn/wrapper/maven-wrapper.jar
+!paws-n-purpose-backend/paws-n-purpose-backend/**/src/main/**/target/
+!paws-n-purpose-backend/paws-n-purpose-backend/**/src/test/**/target/
+
+### STS ###
+paws-n-purpose-backend/paws-n-purpose-backend/.apt_generated
+paws-n-purpose-backend/paws-n-purpose-backend/.classpath
+paws-n-purpose-backend/paws-n-purpose-backend/.factorypath
+paws-n-purpose-backend/paws-n-purpose-backend/.project
+paws-n-purpose-backend/paws-n-purpose-backend/.settings
+paws-n-purpose-backend/paws-n-purpose-backend/.springBeans
+paws-n-purpose-backend/paws-n-purpose-backend/.sts4-cache
+
+### IntelliJ IDEA ###
+paws-n-purpose-backend/paws-n-purpose-backend/.idea
+paws-n-purpose-backend/paws-n-purpose-backend/*.iws
+paws-n-purpose-backend/paws-n-purpose-backend/*.iml
+paws-n-purpose-backend/paws-n-purpose-backend/*.ipr
+
+### NetBeans ###
+paws-n-purpose-backend/paws-n-purpose-backend/nbproject/private/
+paws-n-purpose-backend/paws-n-purpose-backend/nbbuild/
+paws-n-purpose-backend/paws-n-purpose-backend/dist/
+paws-n-purpose-backend/paws-n-purpose-backend/nbdist/
+paws-n-purpose-backend/paws-n-purpose-backend/.nb-gradle/
+paws-n-purpose-backend/paws-n-purpose-backend/build/
+!paws-n-purpose-backend/paws-n-purpose-backend/**/src/main/**/build/
+!paws-n-purpose-backend/paws-n-purpose-backend/**/src/test/**/build/
+
+### VS Code ###
+paws-n-purpose-backend/paws-n-purpose-backend/.vscode/
+
+
+
+# FRONTEND TO IGNORE
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/paws-n-purpose-frontend/node_modules
+/paws-n-purpose-frontend/.pnp
+/paws-n-purpose-frontend/.pnp.js
+
+# testing
+/paws-n-purpose-frontend/coverage
+
+# production
+/paws-n-purpose-frontend/build
+
+# misc
+/paws-n-purpose-frontend/.DS_Store
+/paws-n-purpose-frontend/.env.local
+/paws-n-purpose-frontend/.env.development.local
+/paws-n-purpose-frontend/.env.test.local
+/paws-n-purpose-frontend/.env.production.local
+
+/paws-n-purpose-frontend/npm-debug.log*
+/paws-n-purpose-frontend/yarn-debug.log*
+/paws-n-purpose-frontend/yarn-error.log*
