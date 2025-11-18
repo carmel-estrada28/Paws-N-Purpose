@@ -19,11 +19,11 @@ ii. Install dependencies
 ### Backend (Springboot)
 
 i. Navigate inside the springboot project
-  ```bash
-  cd paws-n-purpose-backend\paws-n-purpose-backend
-  ```
+    ```bash
+    cd paws-n-purpose-backend\paws-n-purpose-backend
+    ```
 
 ii. Install dependencies
-  ```bash
-  mvnw.cmd clean install
-  ```
+    ```bash
+    mvnw.cmd clean install
+    ```
