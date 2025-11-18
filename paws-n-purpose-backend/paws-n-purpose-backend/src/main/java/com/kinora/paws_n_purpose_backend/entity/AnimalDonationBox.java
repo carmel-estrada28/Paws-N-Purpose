@@ -27,7 +27,6 @@ public class AnimalDonationBox {
     
     private String animalPhoto;
     private String animalName;
-    private String purpose;
     private String animalCondition;
     
     @Column(precision = 10, scale = 2)

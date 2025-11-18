@@ -40,26 +40,33 @@ public abstract class User {
     
     @Column(precision = 10, scale = 2)
     private BigDecimal userWallet = BigDecimal.ZERO;
-    
+
     private Boolean isNotifsEnabled = false;
     private Boolean is2FAEnabled = false;
-    
-    
+
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+
+    // Relations
     
+        // User can have many rewards identified by the user field in Reward
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserReward> rewards = new ArrayList<>();
     
+        // User can have many badges identified by the user field in UserBadge
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserBadge> badges = new ArrayList<>();
 
+        // User can start many campaigns identified by the owner field in Campaign
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Campaign> ownedCampaigns = new ArrayList<>();
 
+        // User can do many donations identified by the donor field in Donation
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     private List<Donation> donations = new ArrayList<>();
 
+        // User can support many sponsorships identified by the sponsor field in Sponsorship
     @OneToMany(mappedBy = "sponsor", cascade = CascadeType.ALL)
     private List<Sponsorship> sponsorships = new ArrayList<>();
     
