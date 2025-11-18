@@ -23,4 +23,6 @@ i. Navigate inside the springboot project
 
 ii. Install dependencies
 
-    mvnw.cmd clean install
+    mvnw.cmd clean install 
+    ./mvnw clean install
+
