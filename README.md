@@ -24,5 +24,5 @@ i. Navigate inside the springboot project
 ii. Install dependencies
 
     mvnw.cmd clean install 
-    ./mvnw clean install
+    ./mvnw clean install (for Mac)
 
