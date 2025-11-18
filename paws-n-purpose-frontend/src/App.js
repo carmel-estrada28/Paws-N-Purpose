@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard';
 import './App.css';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'login' | 'dashboard'>('login'); 
+  const [currentPage, setCurrentPage] = useState('login'); 
   // <'login' | 'dashboard'> means that only login or dashboard could be the current page
 
   if(currentPage === 'login') {
