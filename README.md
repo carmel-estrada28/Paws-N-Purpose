@@ -7,9 +7,7 @@ Paws 'n Purpose is a web application which serves as a fundraising platform that
 
 i. Nagivate inside the react app
 
-    ```bash
     cd paws-n-purpose-frontend
-    ```
     
 ii. Install dependencies 
 
