@@ -11,21 +11,16 @@ i. Nagivate inside the react app
     
 ii. Install dependencies 
 
-    ```bash
     npm install
     npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
-    ```
+
     
 ### Backend (Springboot)
 
 i. Navigate inside the springboot project
     
-    ```bash
     cd paws-n-purpose-backend\paws-n-purpose-backend
-    ```
 
 ii. Install dependencies
 
-    ```bash
     mvnw.cmd clean install
-    ```
