@@ -5,12 +5,12 @@ Paws 'n Purpose is a web application which serves as a fundraising platform that
 
 ### Frontend (React)
 
-i. Nagivate inside the react app
+    i. Nagivate inside the react app
     ```bash
     cd paws-n-purpose-frontend
     ```
     
-ii. Install dependencies 
+    ii. Install dependencies 
     ```bash
     npm install
     npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
@@ -18,12 +18,12 @@ ii. Install dependencies
     
 ### Backend (Springboot)
 
-i. Navigate inside the springboot project
+    i. Navigate inside the springboot project
     ```bash
     cd paws-n-purpose-backend\paws-n-purpose-backend
     ```
 
-ii. Install dependencies
+    ii. Install dependencies
     ```bash
     mvnw.cmd clean install
     ```
