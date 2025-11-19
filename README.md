@@ -12,7 +12,6 @@ i. Nagivate inside the react app
 ii. Install dependencies 
 
     npm install
-    npm install @mui/material @emotion/react @emotion/styled @mui/icons-material
 
     
 ### Backend (Springboot)
