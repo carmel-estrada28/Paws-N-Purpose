@@ -16,7 +16,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/start-campaign" element={<StartCampaign />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/landing" />} />
       </Routes>
     </Router>
   );
