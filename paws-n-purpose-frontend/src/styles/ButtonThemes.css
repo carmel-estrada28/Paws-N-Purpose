@@ -9,8 +9,6 @@ button {
 }
 
 
-
-
 .pink {
     color: #fff;
     background-color: #DD4391;
@@ -50,4 +48,14 @@ button {
 
 .full-rounded {
     border-radius: 100rem;
+}
+
+
+.green {
+    background-color: #EAEF9F;
+    color: #000;
+    font-weight: bolder;
+}
+.green:hover {
+    background: #d8dd8f;
 }
