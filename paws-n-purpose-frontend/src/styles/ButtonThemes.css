@@ -1,0 +1,53 @@
+
+
+button {
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    font-family: 'DM Sans';
+    font-size: 1rem;
+}
+
+
+
+
+.pink {
+    color: #fff;
+    background-color: #DD4391;
+    font-weight: bolder;
+}
+.pink:hover {
+    background-color: #c73a81;
+}
+
+
+
+.transparent {
+    /* border: 1px solid black; */
+    background-color: transparent;
+    color: #000;
+}
+.transparent:hover {
+    color: #DD4391;
+}
+
+
+
+.grey {
+    background-color: #F6F6F6;
+    color: #000;
+}
+.grey:hover {
+    background-color: #ebebeb;
+}
+
+
+
+
+.semi-rounded {
+    border-radius: 0.5rem;
+}
+
+.full-rounded {
+    border-radius: 100rem;
+}
