@@ -1,0 +1,96 @@
+
+
+.form-header {
+    line-height: 2.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    /* border: 1px solid red; */
+    font-family: Cherry Bomb One;
+    font-size: 2.1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.form-sub-header {
+    margin-bottom: 2rem;
+    line-height: 1rem;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    padding: 0px 3rem;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    color: #053534;
+}
+
+.login-form {
+    margin-bottom: 1.7rem;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+}
+
+    .login-form .inputs {
+        /* border: 1px solid red; */
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+        .forgot-password {
+            /* border: 1px solid red; */
+            font-size: 0.9rem;
+            margin-bottom: 2.2em;
+            width: 12rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+.continue-with-label {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 1.3rem;
+}
+
+.continue-with-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.7rem;
+}
+
+    .continue-with-buttons .button{
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 3rem;
+        /* border: 1px solid red; */
+        border-radius: 0.5rem;
+    }
+
+    .continue-with-buttons .button:hover{
+        background-color: #F6F6F6;
+    }
+
+.sign-up-label {
+    /* border: 1px solid red; */
+    font-size: 0.9rem;
+    display: flex;
+    gap: 0.3rem;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+}
+
+    .sign-up-label a {
+        font-weight: bolder;
+    }
+
+    .sign-up-label a:hover {
+        color: #DD4391;
+    }

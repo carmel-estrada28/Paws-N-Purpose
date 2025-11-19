@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  font-family: 'DM Sans';
+  background-color: #FFFCF3;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
