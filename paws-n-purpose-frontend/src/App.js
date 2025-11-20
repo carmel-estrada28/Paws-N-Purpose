@@ -4,6 +4,7 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import LandingPage from './pages/LandingPage/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import StartCampaign from './pages/StartCampaign/StartCampaign';
+import ViewCampaign from './pages/ViewCampaign/ViewCampaign';
 import './App.css';
 import './styles/ButtonThemes.css';
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/landing" element={<LandingPage />} />
         <Route path="/start-campaign" element={<StartCampaign />} />
+        <Route path="/campaign/:campaignId" element={<ViewCampaign />} />
         <Route path="*" element={<Navigate to="/landing" />} />
       </Routes>
     </Router>
