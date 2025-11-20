@@ -1,10 +1,8 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
 import HeaderBeforeLogin from "../../components/Header/Header";
-/*import HeaderBeforeLoginGreen from '../../components/Headers/HeaderBeforeLoginGreen/HeaderBeforeLoginGreen';
-*/
+import SideBar from '../../components/SideBar/SideBar';
 import CampaignCard from '../../components/CampaignCards/CampaignCard';
-import SearchBox from '../../components/SearchBox/SearchBox';
 import './LandingPage.css';
 
 export default function LandingPage({ onLogin }) {
@@ -22,7 +20,8 @@ export default function LandingPage({ onLogin }) {
       goal: 102000,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper tempor lacus sit amet tristique. Praesent porta enim nulla, et rutrum odio mollis eu.',
       daysLeft: 14,
-      organization: 'Organisation'
+      organization: 'Organisation',
+      category: 'single-pets'
     },
     { 
       id: 2, 
@@ -33,7 +32,8 @@ export default function LandingPage({ onLogin }) {
       goal: 102000,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper tempor lacus sit amet tristique. Praesent porta enim nulla, et rutrum odio mollis eu.',
       daysLeft: 11,
-      organization: 'Eprem'
+      organization: 'Eprem',
+      category: 'single-pets'
     },
     { 
       id: 3, 
@@ -44,92 +44,108 @@ export default function LandingPage({ onLogin }) {
       goal: 102000,
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper tempor lacus sit amet tristique. Praesent porta enim nulla, et rutrum odio mollis eu.',
       daysLeft: 11,
-      organization: 'Gena'
+      organization: 'Gena',
+      category: 'multi-pets'
     }
   ];
 
-  const categories = ['All', 'Single-pets', 'Multi-pets'];
-  const filters = ['Popular', 'Recently Opened', 'Ending Soon'];
+  // Filter campaigns based on selected category, filter, and search query
+  const filteredCampaigns = campaigns.filter(campaign => {
+    // Category filter
+    const categoryMatch = selectedCategory === 'all' || 
+                         campaign.category === selectedCategory;
+    
+    // Search filter
+    const searchMatch = campaign.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                       campaign.driveName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                       campaign.description.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return categoryMatch && searchMatch;
+  });
+
+  // Sort campaigns based on selected filter
+  const sortedAndFilteredCampaigns = [...filteredCampaigns].sort((a, b) => {
+    switch (selectedFilter) {
+      case 'popular':
+        // Sort by progress percentage (amountRaised / goal)
+        const progressA = (a.amountRaised / a.goal) * 100;
+        const progressB = (b.amountRaised / b.goal) * 100;
+        return progressB - progressA;
+      
+      case 'recently-opened':
+        // Assuming newer campaigns have higher IDs - you might want to add a date field
+        return b.id - a.id;
+      
+      case 'ending-soon':
+        // Sort by days left (ascending)
+        return a.daysLeft - b.daysLeft;
+      
+      default:
+        return 0;
+    }
+  });
+
+  const handleViewCampaign = (campaignId) => {
+    console.log('View campaign:', campaignId);
+    // You can add navigation to campaign detail page here
+    // navigate(`/campaign/${campaignId}`);
+  };
+
+  const handleDonate = (campaignId) => {
+    console.log('Donate to campaign:', campaignId);
+    onLogin(); // This will redirect to login as in your current code
+  };
 
   return (
     <div className="landing-page">
       <HeaderBeforeLogin withColor={true} isLoggedIn={false}/>
       
       <div className="landing-content">
-        {/* Sidebar */}
-        <aside className="sidebar">
-          <div className="sidebar-container">
-            {/* Search */}
-            <SearchBox 
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder="Search campaigns"
-            />
-
-            {/* Categories */}
-            <div className="categories-section">
-              <h3 className="section-title">Categories</h3>
-              <div className="categories-list">
-                {categories.map(category => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category.toLowerCase())}
-                    className={`category-btn ${selectedCategory === category.toLowerCase() ? 'category-btn-active' : ''}`}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-
-              {/* Filters */}
-              <div className="filters-section">
-                <div className="filters-row">
-                  <button
-                    onClick={() => setSelectedFilter('popular')}
-                    className={`filter-btn ${selectedFilter === 'popular' ? 'filter-btn-active' : ''}`}
-                  >
-                    Popular
-                  </button>
-                  <button
-                    onClick={() => setSelectedFilter('recently-opened')}
-                    className={`filter-btn ${selectedFilter === 'recently-opened' ? 'filter-btn-active' : ''}`}
-                  >
-                    Recently Opened
-                  </button>
-                </div>
-                <button
-                  onClick={() => setSelectedFilter('ending-soon')}
-                  className={`filter-btn ${selectedFilter === 'ending-soon' ? 'filter-btn-active' : ''}`}
-                >
-                  Ending Soon
-                </button>
-              </div>
-            </div>
-          </div>
-        </aside>
+        <SideBar 
+          selectedCategory={selectedCategory}
+          onCategoryChange={setSelectedCategory}
+          selectedFilter={selectedFilter}
+          onFilterChange={setSelectedFilter}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+        />
 
         {/* Main Content */}
         <main className="main-content">
-  <div className="content-header">
-    <h2 className="content-title">Campaigns</h2>
-    <span className="breadcrumb-arrow">›</span>
-    <span className="breadcrumb-item">All</span>
-  </div>
+          <div className="content-header">
+            <h2 className="content-title">Campaigns</h2>
+            <span className="breadcrumb-arrow">›</span>
+            <span className="breadcrumb-item">
+              {selectedCategory === 'all' ? 'All' : 
+               selectedCategory === 'single-pets' ? 'Single Pets' : 'Multi Pets'}
+            </span>
+            {searchQuery && (
+              <>
+                <span className="breadcrumb-arrow">›</span>
+                <span className="breadcrumb-item">Search: "{searchQuery}"</span>
+              </>
+            )}
+          </div>
 
-  <div className="campaigns-scroll">
-    <div className="campaigns-grid">
-      {campaigns.map(campaign => (
-        <CampaignCard 
-          key={campaign.id}
-          campaign={campaign}
-          onView={() => console.log('View campaign:', campaign.id)}
-          onDonate={onLogin}
-        />
-      ))}
-    </div>
-  </div>
-</main>
-
+          <div className="campaigns-scroll">
+            {sortedAndFilteredCampaigns.length === 0 ? (
+              <div className="no-campaigns">
+                <p>No campaigns found matching your criteria.</p>
+              </div>
+            ) : (
+              <div className="campaigns-grid">
+                {sortedAndFilteredCampaigns.map(campaign => (
+                  <CampaignCard 
+                    key={campaign.id}
+                    campaign={campaign}
+                    onView={() => handleViewCampaign(campaign.id)}
+                    onDonate={() => handleDonate(campaign.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </main>
       </div>
     </div>
   );
