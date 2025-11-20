@@ -130,7 +130,7 @@ export default function Header({withColor, isLoggedIn}) {
               }}
             >
               
-              <Link to={""}>
+              <Link to={"/landing"}>
                 <Button
                   type="button"
                   text="Home"
