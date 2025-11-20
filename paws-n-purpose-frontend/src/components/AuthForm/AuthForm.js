@@ -36,7 +36,7 @@ export default function AuthForm({mode = "login"}) {
             <Button
                 type="submit"
                 text={isLogin ? "Log in" : "Sign up"}
-                vPadding={0.9}
+                vPadding={0.7}
                 hPadding={0}
                 theme={"pink semi-rounded"}
             />

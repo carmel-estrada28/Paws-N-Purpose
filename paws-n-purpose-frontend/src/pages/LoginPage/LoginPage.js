@@ -7,7 +7,7 @@ import lightsAnimation from "../../animations/lights.json";
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import AuthForm from "../../components/Auth/AuthForm";
+import AuthForm from "../../components/AuthForm/AuthForm";
 
 
 
