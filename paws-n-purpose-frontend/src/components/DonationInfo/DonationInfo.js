@@ -41,16 +41,6 @@ export default function DonationInfo({ campaign, onDonate, onShare, processing }
           </div>
         </div>
 
-        {/* Badge Incentive */}
-        <div className="badge-incentive">
-          <p className="incentive-text">
-            🐾 <strong>Earn a "Sponsor of {campaign.name}" badge!</strong>
-          </p>
-          <p className="incentive-subtext">
-            Show your support and get recognized on your profile
-          </p>
-        </div>
-
         {/* Donate Button */}
         <div className="button-container full-width">
             <Link to={"/login"}>
@@ -64,18 +54,6 @@ export default function DonationInfo({ campaign, onDonate, onShare, processing }
                 disabled={processing}
             />          
             </Link>
-        </div>
-
-        {/* Sponsorship Button */}
-        <div className="button-container full-width">
-          <Button
-            type="button"
-            text="Become a Sponsor 💝"
-            onClick={onDonate}
-            vPadding={1}
-            hPadding={2}
-            theme="transparent semi-rounded"
-          />
         </div>
 
         {/* Share Text */}
