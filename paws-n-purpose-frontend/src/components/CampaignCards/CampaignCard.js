@@ -1,8 +1,9 @@
-
 import './CampaignCard.css';
+import Button from '../Buttons/Button'; // ADD THIS
+import { Link } from 'react-router-dom';
 
 export default function CampaignCard({ campaign, onView, onDonate }) {
-  const progress = (campaign.amountRaised / campaign.goal) * 100;
+  const progress = Math.min((campaign.amountRaised / campaign.goal) * 100, 100);
 
   return (
     <div className="campaign-card-new">
@@ -19,7 +20,7 @@ export default function CampaignCard({ campaign, onView, onDonate }) {
             <p className="campaign-drive-name">{campaign.driveName}</p>
             <p className="campaign-days-left">{campaign.daysLeft} days left</p>
           </div>
-          <button className="campaign-menu-btn">
+          <button className="campaign-menu-btn" aria-label="More options">
             <svg width="4" height="16" viewBox="0 0 4 16" fill="none">
               <circle cx="2" cy="2" r="2" fill="#053534" opacity="0.5"/>
               <circle cx="2" cy="8" r="2" fill="#053534" opacity="0.5"/>
@@ -35,7 +36,7 @@ export default function CampaignCard({ campaign, onView, onDonate }) {
           <div className="progress-bar-new">
             <div 
               className="progress-fill-new" 
-              style={{ width: `${Math.min(progress, 100)}%` }}
+              style={{ width: `${progress}%` }}
             ></div>
           </div>
         </div>
@@ -45,12 +46,35 @@ export default function CampaignCard({ campaign, onView, onDonate }) {
         </p>
 
         <div className="campaign-actions">
-          <button className="view-btn" onClick={onView}>
-            View
-          </button>
-          <button className="donate-btn-outline" onClick={onDonate}>
-            Donate
-          </button>
+          {/* REPLACE THESE BUTTONS */}
+          <Link to={""}>
+          <Button
+            type="button"
+            text="View"
+            onClick={onView}
+            vPadding={0.5}
+            hPadding={1.5}
+            theme="pink semi-rounded"
+            style={{ flex: 1 }}
+          />
+          </Link>
+
+          <Link to={"/login"}>
+          <Button
+            type="button"
+            text="Donate"
+            onClick={onDonate}
+            vPadding={0.5}
+            hPadding={1.5}
+            theme="transparent semi-rounded"
+            style={{ 
+              flex: 1,
+              border: '2px solid #DD4391',
+              color: '#DD4391'
+            }}
+          />
+          </Link>
+          
         </div>
       </div>
     </div>
