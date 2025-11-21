@@ -16,6 +16,33 @@ export default function RegisterPage() {
   const [isTransitioning, setIsTransitioning] = useState(false);
 
 
+  const [userFormData, setUserFormData] = useState({
+        email: "",
+        password: "",
+    });
+
+  const handleChange = (e, setFormData) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value}));
+    };
+
+  const registerUser = (e, endpoint, formData, entity) => {
+        e.preventDefault();
+        fetch(`http://localhost:8080/api/user${endpoint}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(`${ent} saved: `, data);
+                alert(`${ent} added successfully!`);
+            })
+            .catch((err) => console.log("Error: ", err));
+    };
+
     // para ni sa pag reverse sa animation
   useEffect(() => {
     if (lottieRef.current) {
