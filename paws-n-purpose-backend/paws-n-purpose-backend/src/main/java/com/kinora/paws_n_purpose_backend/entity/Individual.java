@@ -19,9 +19,24 @@ public class Individual extends User {
     
     public Individual() {}
     
-    public Individual(String email, String password, String firstName, String lastName) {
-        super(email, password, UserRole.INDIVIDUAL);
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

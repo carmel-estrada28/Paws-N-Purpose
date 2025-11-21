@@ -14,8 +14,10 @@ public class Organization extends User {
     
     public Organization() {}
     
-    public Organization(String email, String password, String orgName) {
-        super(email, password, UserRole.ORGANIZATION);
+    public String getOrgName() {
+        return orgName;
+    }
+    public void setOrgName(String orgName) {
         this.orgName = orgName;
     }
 }

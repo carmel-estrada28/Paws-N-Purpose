@@ -10,8 +10,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -23,15 +21,13 @@ import jakarta.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
     @Id
-    private String email; // Email as primary key
+    private String email;
     
     @Column(nullable = false)
     private String password;
     
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role;
-    
+
+    private Boolean isAdmin = false;    
     private String profilePicture;
     private String bio;
     private String contactNumber;
@@ -73,19 +69,140 @@ public abstract class User {
     // Constructors
     public User() {}
 
-    public User(String email, String password, UserRole role) {
+    public User(String email, String password, Boolean isAdmin) {
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.isAdmin = isAdmin;
     }
-    // Getters and Setters
-    // Remove setId(), use getEmail() and setEmail() instead
-    
-    // Getters and setters...
-    
-    // No more getId() and setId() methods
-}
 
-enum UserRole {
-    INDIVIDUAL, ORGANIZATION, ADMIN
+    
+    // Getters and Setters
+
+        // for email
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+        // for password
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+        // for isAdmin
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+        // for profile picture
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+        // for bio
+    public String getBio() {
+        return bio;
+    }
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+        // for contact number
+    public String getContactNumber() {
+        return contactNumber;
+    }
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+        // for reward points
+    public Integer getRewardPoints() {
+        return rewardPoints;
+    }
+    public void setRewardPoints(Integer rewardPoints) {
+        this.rewardPoints = rewardPoints;
+    }
+
+        // for user wallet
+    public BigDecimal getUserWallet() {
+        return userWallet;
+    }
+    public void setUserWallet(BigDecimal userWallet) {
+        this.userWallet = userWallet;
+    }
+
+        // for isNotifsEnabled
+    public Boolean getIsNotifsEnabled() {
+        return isNotifsEnabled;
+    }
+    public void setIsNotifsEnabled(Boolean isNotifsEnabled) {
+        this.isNotifsEnabled = isNotifsEnabled;
+    }
+
+        // for is2FAEnabled
+    public Boolean getIs2FAEnabled() {
+        return is2FAEnabled;
+    }
+    public void setIs2FAEnabled(Boolean is2FAEnabled) {
+        this.is2FAEnabled = is2FAEnabled;
+    }
+
+        // for datetime created
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+        // for rewards
+    public List<UserReward> getRewards() {
+        return rewards;
+    }
+    public void setRewards(List<UserReward> rewards) {
+        this.rewards = rewards;
+    }
+
+        // for badges
+    public List<UserBadge> getBadges() {
+        return badges;
+    }
+    public void setBadges(List<UserBadge> badges) {
+        this.badges = badges;
+    }
+
+        // for ownedCampaigns
+    public List<Campaign> getOwnedCampaigns() {
+        return ownedCampaigns;
+    }
+    public void setOwnedCampaigns(List<Campaign> ownedCampaigns) {
+        this.ownedCampaigns = ownedCampaigns;
+    }
+
+        // for donations
+    public List<Donation> getDonations() {
+        return donations;
+    }
+    public void setDonations(List<Donation> donations) {
+        this.donations = donations;
+    }
+
+        // for sponsorships
+    public List<Sponsorship> getSponsorships() {
+        return sponsorships;
+    }
+    public void setSponsorships(List<Sponsorship> sponsorships) {
+        this.sponsorships = sponsorships;
+    }
 }
