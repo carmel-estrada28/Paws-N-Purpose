@@ -87,13 +87,11 @@ export default function LandingPage({ onLogin }) {
 
   const handleViewCampaign = (campaignId) => {
     console.log('View campaign:', campaignId);
-    // You can add navigation to campaign detail page here
-    // navigate(`/campaign/${campaignId}`);
   };
 
   const handleDonate = (campaignId) => {
     console.log('Donate to campaign:', campaignId);
-    onLogin(); // This will redirect to login as in your current code
+    onLogin();
   };
 
   return (
@@ -110,39 +108,25 @@ export default function LandingPage({ onLogin }) {
           onSearchChange={setSearchQuery}
         />
 
-        {/* Main Content */}
-        <main className="main-content">
-          <div className="content-header">
-            <h2 className="content-title">Campaigns</h2>
-            <span className="breadcrumb-arrow">›</span>
-            <span className="breadcrumb-item">
-              {selectedCategory === 'all' ? 'All' : 
-               selectedCategory === 'single-pets' ? 'Single Pets' : 'Multi Pets'}
-            </span>
-            {searchQuery && (
-              <>
-                <span className="breadcrumb-arrow">›</span>
-                <span className="breadcrumb-item">Search: "{searchQuery}"</span>
-              </>
-            )}
-          </div>
-
-          <div className="campaigns-scroll">
+        {/* Main Content*/}
+        <main className="main-content-new">
+          <h2 className="content-title-new">Campaigns</h2>
+          
+          <div className="campaigns-list-new">
             {sortedAndFilteredCampaigns.length === 0 ? (
               <div className="no-campaigns">
                 <p>No campaigns found matching your criteria.</p>
               </div>
             ) : (
-              <div className="campaigns-grid">
-                {sortedAndFilteredCampaigns.map(campaign => (
+              sortedAndFilteredCampaigns.map(campaign => (
+                <div key={campaign.id} className="campaign-card-wrapper">
                   <CampaignCard 
-                    key={campaign.id}
                     campaign={campaign}
                     onView={() => handleViewCampaign(campaign.id)}
                     onDonate={() => handleDonate(campaign.id)}
                   />
-                ))}
-              </div>
+                </div>
+              ))
             )}
           </div>
         </main>

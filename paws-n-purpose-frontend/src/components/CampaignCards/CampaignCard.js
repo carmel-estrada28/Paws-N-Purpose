@@ -47,16 +47,16 @@ export default function CampaignCard({ campaign, onView, onDonate }) {
 
         <div className="campaign-actions">
           {/* REPLACE THESE BUTTONS */}
-          <Link to={""}>
-          <Button
-            type="button"
-            text="View"
-            onClick={onView}
-            vPadding={0.5}
-            hPadding={1.5}
-            theme="pink semi-rounded"
-            style={{ flex: 1 }}
-          />
+          <Link to={`/campaign/${campaign.id}`}>
+            <Button
+              type="button"
+              text="View"
+              onClick={onView}
+              vPadding={0.5}
+              hPadding={1.5}
+              theme="pink semi-rounded"
+              style={{ flex: 1 }}
+            />
           </Link>
 
           <Link to={"/login"}>
