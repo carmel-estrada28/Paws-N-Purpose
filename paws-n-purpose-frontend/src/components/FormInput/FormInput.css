@@ -1,6 +1,6 @@
 
 
-.input {
+.formInput_input {
     font-family: 'DM Sans';
     border: none;
     border-radius: 0.5rem;
@@ -12,10 +12,10 @@
     font-size: 0.9rem;
 }
 
-.input:hover {
+.formInput_input:hover {
     background-color: #e9e9e9;
 }
 
-.input::placeholder {
+.formInput_input::placeholder {
     color: #8B8B8B;
 }

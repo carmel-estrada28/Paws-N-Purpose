@@ -7,7 +7,7 @@ import "./FormInput.css";
 export default function FormInput({placeholder, type}) {
   return (
     <input 
-    className="input"
+    className="formInput_input"
     type={ type }
     placeholder={ placeholder }
     />
