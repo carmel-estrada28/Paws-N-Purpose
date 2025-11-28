@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 export default function Button({
   type="submit", text, loadingText,
   vPadding=0, hPadding=0, height, width, 
-  theme, onClick, isLoading=false
+  theme, onClick, isLoading=false, disabled
 }) {
     console.log("Button classes:", theme);
 
@@ -24,7 +24,7 @@ export default function Button({
       }}
       type={type}
       onClick={onClick}
-      disabled={isLoading}
+      disabled={disabled}
     >
         {isLoading && 
           <Loader2 

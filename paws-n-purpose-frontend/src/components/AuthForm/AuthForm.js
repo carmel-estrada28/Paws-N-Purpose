@@ -51,6 +51,7 @@ export default function AuthForm({mode = "login", onChange, onClick, values, err
                 text={isLogin ? "Sign in" : "Sign up"}
                 height={"2.6rem"}
                 width={"100%"}
+                disabled={isLoading}
                 isLoading={isLoading}
                 loadingText={isLogin ? "Signing in..." : "Signing up..."}
                 theme={ isLoading ? "pink-loading semi-rounded" : "pink semi-rounded" }

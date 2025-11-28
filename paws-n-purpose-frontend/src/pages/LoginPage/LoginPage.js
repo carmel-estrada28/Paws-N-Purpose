@@ -145,6 +145,13 @@ export default function LoginPage({ onLogin }) {
           mode="login" 
           onChange={handleChange}
           onClick={authenticateUser}
+          // onClick={()=>{
+          //   setIsLoading(true)
+
+          //   setTimeout(()=>{
+          //     setIsLoading(false)
+          //   }, 1000)
+          // }}
           values={userLoginFormData} 
           errors={errors}
           isLoading={isLoading}

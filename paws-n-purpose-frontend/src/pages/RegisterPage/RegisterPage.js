@@ -141,6 +141,13 @@ export default function RegisterPage() {
             mode="register" 
             onChange={handleChange}
             onClick={registerUser}
+            // onClick={()=>{
+            //   setIsLoading(true)
+
+            //   setTimeout(()=>{
+            //     setIsLoading(false)
+            //   }, 1000)
+            // }}
             values={userFormData} 
             isLoading={isLoading}
             errors={errors}
