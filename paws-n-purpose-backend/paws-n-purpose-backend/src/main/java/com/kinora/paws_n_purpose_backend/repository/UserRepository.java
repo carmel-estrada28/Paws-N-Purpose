@@ -8,6 +8,7 @@ import com.kinora.paws_n_purpose_backend.entity.User;
 
 
 @Repository
-public interface  UserRepository extends JpaRepository<User, String> {
+public interface  UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
+    User findByEmail(String email);
 }
