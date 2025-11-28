@@ -8,25 +8,38 @@ import "./AuthForm.css";
 
 
 
-export default function AuthForm({mode = "login"}) {
+export default function AuthForm({mode = "login", onChange, onClick, values, errors, inputRefs, isLoading}) {
     const isLogin = mode === "login";
 
     return (
-    <Card>
+    <Card card_width={"26rem"}>
         <p className="authForm_form-header">
             {isLogin ? "Welcome!" : "Create your Account"}
         </p>
         <p className="authForm_form-sub-header">
-            {isLogin ? "Enter your credentials to log in to your account!" : "Enter your credentials to log in to your account!"}
+            {isLogin ? "Enter your credentials to sign in to your account!" : "Enter your information to get started!"}
         </p>
         <form className="authForm_login-form">
+
+            {errors?.invalid && 
+                <div 
+                    className="authForm_errors-container"
+                >
+                    <svg style={{ fill: "#B3261E" }} xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="0.8rem" height="0.8rem">
+                        <path d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10.011,10.011,0,0,1,12,22Z"/>
+                        <path d="M12,5a1,1,0,0,0-1,1v8a1,1,0,0,0,2,0V6A1,1,0,0,0,12,5Z"/>
+                        <rect x="11" y="17" width="2" height="2" rx="1"/>
+                    </svg>
+                    <p style={{ fontSize: "0.85rem", color: "#B3261E" }}>{errors.invalid}</p>
+                </div>
+            }
 
             <div 
                 className="authForm_inputs"
                 style={isLogin ? {} : { marginBottom: "2.2rem" }}    
             >
-                <FormInput type={"email"} placeholder={"Email / Phone number"}/>
-                <FormInput type={"password"} placeholder={"•••••"}/>
+                <FormInput type={"email"} placeholder={"Email / Phone number"} onChange={onChange} name={"email"} value={values?.email} error={errors?.email && errors.email[0]} inputRef={ inputRefs.emailInput }/>
+                <FormInput type={"password"} placeholder={"•••••"} onChange={onChange} name={"password"} value={values?.password} error={errors?.password && errors.password[0]} inputRef={ inputRefs.passwordInput }/>
             </div>
             
             {isLogin && (
@@ -35,10 +48,13 @@ export default function AuthForm({mode = "login"}) {
 
             <Button
                 type="submit"
-                text={isLogin ? "Log in" : "Sign up"}
-                vPadding={0.7}
-                hPadding={0}
-                theme={"pink semi-rounded"}
+                text={isLogin ? "Sign in" : "Sign up"}
+                height={"2.6rem"}
+                width={"100%"}
+                isLoading={isLoading}
+                loadingText={isLogin ? "Signing in..." : "Signing up..."}
+                theme={ isLoading ? "pink-loading semi-rounded" : "pink semi-rounded" }
+                onClick={onClick}
             />
         </form>
         <p className="authForm_continue-with-label">{isLogin ? "— or continue with —" : "— or sign up with —"}</p>
@@ -78,7 +94,7 @@ export default function AuthForm({mode = "login"}) {
             ) : (
             <>
                 Already have an account?
-                <span><Link to="/login">Log in</Link></span>
+                <span><Link to="/login">Sign in</Link></span>
             </>
             )}
         </p>

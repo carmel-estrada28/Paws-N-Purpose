@@ -1,24 +1,18 @@
 .landing-page {
-  min-height: 100vh;
-  background: #FFFCF3;
-}
-
-.landing-content {
-  display: flex;
-  min-height: calc(100vh - 5rem);
+  height: 100%;
+  overflow-y: auto;
 }
 
 /* New Main Content Styles */
 .main-content-new {
   flex: 1;
-  padding: 2.5rem 4rem 2rem 4rem;
-  margin-left: 30rem;
+  padding: 2rem 4rem 2.5rem 4rem;
+  margin: 5.6rem 0 0 30rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  /* REMOVE: overflow-y: auto; */
-  /* CHANGE: Use min-height instead of fixed height */
-  min-height: calc(100vh - 5rem);
+  /* background-color: magenta; */
+  height: 100%;
 }
 
 .content-title-new {
@@ -85,20 +79,7 @@
 }
 
 /* Keep existing sidebar styles */
-.sidebar {
-  width: 30rem;
-  flex-shrink: 0;
-  border-right: 0.0625rem solid #E5E5E5;
-  background: white;
-  position: fixed;  
-  top: 5.6rem;     
-  left: 0;         
-  /* CHANGE: Use viewport height minus header */
-  height: calc(100vh - 5.6rem);
-  overflow-y: auto; 
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  z-index: 10;      
-}
+
 
 /* Responsive Design */
 @media (max-width: 1024px) {
