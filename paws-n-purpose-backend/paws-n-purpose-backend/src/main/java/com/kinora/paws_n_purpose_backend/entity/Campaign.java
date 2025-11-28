@@ -48,14 +48,17 @@ public class Campaign {
     private Boolean acceptSponsors = false;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_email")
+    @JoinColumn(name = "owner_id")
     private User owner;
     
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
     private List<AnimalDonationBox> animalDonationBoxes = new ArrayList<>();
     
-    // @OneToMany(mappedBy = "campaign")
-    // private List<Donation> donations = new ArrayList<>();
+    @OneToMany(mappedBy = "campaign")
+    private List<Donation> donations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
+    private List<Sponsorship> sponsorships = new ArrayList<>();
     
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
     private List<Update> updates = new ArrayList<>();

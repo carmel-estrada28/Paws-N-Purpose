@@ -10,22 +10,30 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
+public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+
+    @Column(nullable = false)
     private String email;
     
     @Column(nullable = false)
     private String password;
     
+    @Enumerated(EnumType.STRING)
+    private UserRole role; // INDIVIDUAL, ORGANIZATION, ADMIN
 
     private Boolean isAdmin = false;    
     private String profilePicture;
@@ -65,6 +73,14 @@ public abstract class User {
         // User can support many sponsorships identified by the sponsor field in Sponsorship
     @OneToMany(mappedBy = "sponsor", cascade = CascadeType.ALL)
     private List<Sponsorship> sponsorships = new ArrayList<>();
+
+        // User can have one individual profile
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Individual individualProfile;
+
+        // User can have one organization profile
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Organization organizationProfile;
     
     // Constructors
     public User() {}
@@ -77,6 +93,14 @@ public abstract class User {
 
     
     // Getters and Setters
+
+        // for userId
+    public Long getId() {
+        return userId;
+    }
+    public void setId(Long userId) {
+        this.userId = userId;
+    }
 
         // for email
     public String getEmail() {
@@ -93,6 +117,12 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+        // for role
+    public UserRole getRole() { return role; }
+    public void setRole(UserRole role) { this.role = role; }
+
 
         // for isAdmin
     public Boolean getIsAdmin() {
@@ -204,5 +234,21 @@ public abstract class User {
     }
     public void setSponsorships(List<Sponsorship> sponsorships) {
         this.sponsorships = sponsorships;
+    }
+
+        // for individualProfile
+    public Individual getIndividualProfile() {
+        return individualProfile;
+    }
+    public void setIndividualProfile(Individual individualProfile) {
+        this.individualProfile = individualProfile;
+    }
+
+        // for organizationProfile
+    public Organization getOrganizationProfile() {
+        return organizationProfile;
+    }
+    public void setOrganizationProfile(Organization organizationProfile) {
+        this.organizationProfile = organizationProfile;
     }
 }

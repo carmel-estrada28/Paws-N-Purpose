@@ -35,12 +35,12 @@ public class Sponsorship {
     private SponsorshipStatus status;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sponsor_email")
+    @JoinColumn(name = "sponsor_id")
     private User sponsor;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "animal_donation_box_id")
-    private AnimalDonationBox animalDonationBox;
+    @JoinColumn(name = "campaign_id")
+    private Campaign campaign;
 }
 
 enum SponsorshipStatus {

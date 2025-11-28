@@ -26,7 +26,7 @@ public class UserReward {
     private RewardStatus status;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_email")
+    @JoinColumn(name = "user_id")
     private User user;
     
     // Constructors, getters, setters
