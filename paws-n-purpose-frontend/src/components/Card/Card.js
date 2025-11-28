@@ -2,10 +2,13 @@
 import './Card.css';
 
 
-export default function Card({children}) {
+export default function Card({children, card_width}) {
   return (
     <div 
-    className='card'>
+    style={{
+      width: `${card_width}`
+    }}
+    className='card_card'>
       {children}
     </div>
   );

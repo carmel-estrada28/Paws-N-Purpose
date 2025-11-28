@@ -12,26 +12,30 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class User {
+public class User {
     @Id
-    private String email; // Email as primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+
+    @Column(nullable = false)
+    private String email;
     
     @Column(nullable = false)
     private String password;
     
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private UserRole role;
-    
+    private UserRole role; // INDIVIDUAL, ORGANIZATION, ADMIN
+
+    private Boolean isAdmin = false;    
     private String profilePicture;
     private String bio;
     private String contactNumber;
@@ -69,23 +73,182 @@ public abstract class User {
         // User can support many sponsorships identified by the sponsor field in Sponsorship
     @OneToMany(mappedBy = "sponsor", cascade = CascadeType.ALL)
     private List<Sponsorship> sponsorships = new ArrayList<>();
+
+        // User can have one individual profile
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Individual individualProfile;
+
+        // User can have one organization profile
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Organization organizationProfile;
     
     // Constructors
     public User() {}
 
-    public User(String email, String password, UserRole role) {
+    public User(String email, String password, Boolean isAdmin) {
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.isAdmin = isAdmin;
     }
-    // Getters and Setters
-    // Remove setId(), use getEmail() and setEmail() instead
-    
-    // Getters and setters...
-    
-    // No more getId() and setId() methods
-}
 
-enum UserRole {
-    INDIVIDUAL, ORGANIZATION, ADMIN
+    
+    // Getters and Setters
+
+        // for userId
+    public Long getId() {
+        return userId;
+    }
+    public void setId(Long userId) {
+        this.userId = userId;
+    }
+
+        // for email
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+        // for password
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+        // for role
+    public UserRole getRole() { return role; }
+    public void setRole(UserRole role) { this.role = role; }
+
+
+        // for isAdmin
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+        // for profile picture
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+        // for bio
+    public String getBio() {
+        return bio;
+    }
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+        // for contact number
+    public String getContactNumber() {
+        return contactNumber;
+    }
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+        // for reward points
+    public Integer getRewardPoints() {
+        return rewardPoints;
+    }
+    public void setRewardPoints(Integer rewardPoints) {
+        this.rewardPoints = rewardPoints;
+    }
+
+        // for user wallet
+    public BigDecimal getUserWallet() {
+        return userWallet;
+    }
+    public void setUserWallet(BigDecimal userWallet) {
+        this.userWallet = userWallet;
+    }
+
+        // for isNotifsEnabled
+    public Boolean getIsNotifsEnabled() {
+        return isNotifsEnabled;
+    }
+    public void setIsNotifsEnabled(Boolean isNotifsEnabled) {
+        this.isNotifsEnabled = isNotifsEnabled;
+    }
+
+        // for is2FAEnabled
+    public Boolean getIs2FAEnabled() {
+        return is2FAEnabled;
+    }
+    public void setIs2FAEnabled(Boolean is2FAEnabled) {
+        this.is2FAEnabled = is2FAEnabled;
+    }
+
+        // for datetime created
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+        // for rewards
+    public List<UserReward> getRewards() {
+        return rewards;
+    }
+    public void setRewards(List<UserReward> rewards) {
+        this.rewards = rewards;
+    }
+
+        // for badges
+    public List<UserBadge> getBadges() {
+        return badges;
+    }
+    public void setBadges(List<UserBadge> badges) {
+        this.badges = badges;
+    }
+
+        // for ownedCampaigns
+    public List<Campaign> getOwnedCampaigns() {
+        return ownedCampaigns;
+    }
+    public void setOwnedCampaigns(List<Campaign> ownedCampaigns) {
+        this.ownedCampaigns = ownedCampaigns;
+    }
+
+        // for donations
+    public List<Donation> getDonations() {
+        return donations;
+    }
+    public void setDonations(List<Donation> donations) {
+        this.donations = donations;
+    }
+
+        // for sponsorships
+    public List<Sponsorship> getSponsorships() {
+        return sponsorships;
+    }
+    public void setSponsorships(List<Sponsorship> sponsorships) {
+        this.sponsorships = sponsorships;
+    }
+
+        // for individualProfile
+    public Individual getIndividualProfile() {
+        return individualProfile;
+    }
+    public void setIndividualProfile(Individual individualProfile) {
+        this.individualProfile = individualProfile;
+    }
+
+        // for organizationProfile
+    public Organization getOrganizationProfile() {
+        return organizationProfile;
+    }
+    public void setOrganizationProfile(Organization organizationProfile) {
+        this.organizationProfile = organizationProfile;
+    }
 }

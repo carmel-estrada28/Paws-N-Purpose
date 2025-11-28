@@ -39,7 +39,7 @@ public class Donation {
     private Integer pointsEarned;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "donor_email")
+    @JoinColumn(name = "donor_id")
     private User donor;
     
     @ManyToOne(fetch = FetchType.LAZY)

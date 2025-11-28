@@ -6,18 +6,25 @@ button {
     box-sizing: border-box;
     font-family: 'DM Sans';
     font-size: 1rem;
+    transition: background-color 0.1s ease-in;
 }
 
 
 .pink {
     color: #fff;
     background-color: #DD4391;
-    font-weight: bolder;
 }
 .pink:hover {
     background-color: #c73a81;
 }
-
+.pink-disabled {
+    color: #eaeaea;
+    background-color: #cca3b7;
+}
+.pink-loading {
+    color: #fff;
+    background-color: #f09dc6;
+}
 
 
 .transparent {
@@ -42,6 +49,18 @@ button {
 
 
 
+.green {
+    background-color: #EAEF9F;
+    color: #000;
+}
+.green:hover {
+    background: #d8dd8f;
+}
+
+
+
+
+
 .semi-rounded {
     border-radius: 0.5rem;
 }
@@ -51,11 +70,17 @@ button {
 }
 
 
-.green {
-    background-color: #EAEF9F;
-    color: #000;
+
+
+.in-bold {
     font-weight: bolder;
 }
-.green:hover {
-    background: #d8dd8f;
+
+
+
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

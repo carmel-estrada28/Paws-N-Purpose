@@ -26,7 +26,7 @@ public class UserBadge {
     private LocalDateTime assignedAt;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_email")
+    @JoinColumn(name = "user_id")
     private User user;
     
     // Constructors, getters, setters

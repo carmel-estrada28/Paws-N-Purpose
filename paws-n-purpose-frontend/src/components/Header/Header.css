@@ -1,18 +1,15 @@
 
 
-.header {
+.header_header {
     box-sizing: border-box;
     width: 100%;
     display: flex;
     align-content: center;
     padding: 0.8rem 2.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
     background-color: #ffff;
 }
 
-    .inner-layer {
+    .header_inner-layer {
         box-sizing: border-box;
         border-radius: 100rem;
         width: 100%;
@@ -22,14 +19,14 @@
         padding: 0 2rem;
     }
 
-        .nav-button-group {
+        .header_nav-button-group {
             /* border: 1px solid red; */
             display: flex;
             align-items: center;
             height: 100%;
         }
 
-            .nav-button-icon-container {
+            .header_nav-button-icon-container {
                 height: 3rem;
                 width: 3rem;
                 /* border: 1px solid red; */
@@ -39,17 +36,17 @@
                 border-radius: 1rem;
             }
 
-                .nav-button-icon {
+                .header_nav-button-icon {
                     /* border: 1px solid red; */
                     width: 2rem;
                     height: 2rem;
                 }
 
-                .nav-button-icon-container:hover {
+                .header_nav-button-icon-container:hover {
                     background-color: #F6F6F6;
                 }
 
-            .rewards {
+            .header_rewards {
                 background-color: #F3F3F3;
                 border-radius: 100rem;
                 box-sizing: border-box;
@@ -62,4 +59,3 @@
                 min-width: 10.5rem;
                 gap: 1rem;
             }
-

@@ -1,16 +1,21 @@
+
+
 .view-campaign-page {
-  min-height: 100vh;
-  background: linear-gradient(180deg, #78B96C 0%, #78B96C 15%, #FFFCF3 60%);
+  min-height: calc(100vh);
+  background-color: #FFFCF3;
+  display: flex;
+  flex-direction: column;
 }
 
 .view-campaign-content {
-  flex: 1;
+  box-sizing: border-box;
+  min-height: 100%;
   padding: 2rem;
 }
 
 .campaign-main-content {
   flex: 1;
-  min-height: calc(100vh - 6.2rem);
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;

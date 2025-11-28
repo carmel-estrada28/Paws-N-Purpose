@@ -1,0 +1,92 @@
+
+
+.AccountSetupPage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+    .AccountSetupPage_body {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+    }
+
+        .AccountSetupPage_content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        
+
+        .AccountSetupPage_details-content {
+            margin-top: 4rem;
+        }
+
+            .AccountSetupPage_individual-details-container {
+                height: 25rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 4rem;
+            }
+
+                .AccountSetupPage_individual_fields {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1rem;
+                }
+
+                    .AccountSetupPage_individual_fname-lname {
+                        display: flex;
+                        gap: 1rem;
+                    }
+
+
+
+
+            .AccountSetupPage_org-details-container {
+                height: 20rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3.5rem;
+            }
+        
+
+        .AccountSetupPage_user-type-content {
+            margin-top: 7rem;
+        }
+
+            .AccountSetupPage_type-selection-container {
+                height: 20rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 4rem;
+            }
+
+                .AccountSetupPage_user_type_buttons {
+                    width: 100%;
+                    display: flex;
+                    gap: 3rem;
+                }
+
+    
+    .AccountSetupPage_fade-overlay {
+        position: fixed;
+        inset: 0;
+        background: #FFFCF3;
+        opacity: 1;
+        pointer-events: none;
+        transition: opacity 0.8s ease;
+        z-index: 10;
+    }
+    .AccountSetupPage_fade-overlay.fade-out {
+        opacity: 0;
+    }

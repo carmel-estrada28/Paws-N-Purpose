@@ -41,6 +41,16 @@ export default function ViewCampaign({ onLogin }) {
   return (
     <div className="view-campaign-page">
       <HeaderBeforeLogin withColor={true} isLoggedIn={false}/>
+      <div className='green-gradient' 
+        style={{
+          background: "linear-gradient(180deg, #78B96C 0%, #78B96C 15%, #FFFCF3 60%)",
+          position: "absolute",
+          top: "0",
+          left: "0",
+          height: "100vh",
+          width: "100%",
+        }}
+      />
       
       <div className="view-campaign-content">
         <main className="campaign-main-content">

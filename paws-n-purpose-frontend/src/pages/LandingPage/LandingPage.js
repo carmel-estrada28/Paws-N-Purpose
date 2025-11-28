@@ -96,40 +96,38 @@ export default function LandingPage({ onLogin }) {
 
   return (
     <div className="landing-page">
-      <HeaderBeforeLogin withColor={true} isLoggedIn={false}/>
+      <HeaderBeforeLogin withColor={true} isLoggedIn={false} isFixed={true}/>
       
-      <div className="landing-content">
-        <SideBar 
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          selectedFilter={selectedFilter}
-          onFilterChange={setSelectedFilter}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+      <SideBar 
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        selectedFilter={selectedFilter}
+        onFilterChange={setSelectedFilter}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+      />
 
         {/* Main Content*/}
-        <main className="main-content-new">
-          <h2 className="content-title-new">Campaigns</h2>
+      <div className="main-content-new">
+        <h2 className="content-title-new">Campaigns</h2>
           
-          <div className="campaigns-list-new">
-            {sortedAndFilteredCampaigns.length === 0 ? (
-              <div className="no-campaigns">
-                <p>No campaigns found matching your criteria.</p>
+        <div className="campaigns-list-new">
+          {sortedAndFilteredCampaigns.length === 0 ? (
+            <div className="no-campaigns">
+              <p>No campaigns found matching your criteria.</p>
+            </div>
+          ) : (
+            sortedAndFilteredCampaigns.map(campaign => (
+              <div key={campaign.id} className="campaign-card-wrapper">
+                <CampaignCard 
+                  campaign={campaign}
+                  onView={() => handleViewCampaign(campaign.id)}
+                  onDonate={() => handleDonate(campaign.id)}
+                />
               </div>
-            ) : (
-              sortedAndFilteredCampaigns.map(campaign => (
-                <div key={campaign.id} className="campaign-card-wrapper">
-                  <CampaignCard 
-                    campaign={campaign}
-                    onView={() => handleViewCampaign(campaign.id)}
-                    onDonate={() => handleDonate(campaign.id)}
-                  />
-                </div>
-              ))
-            )}
-          </div>
-        </main>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
