@@ -1,23 +1,14 @@
 package com.kinora.paws_n_purpose_backend.dto;
 
+
 public class IndividualRegistrationDTO {
-    private String email;
-    private String password;
 
     private String firstName;
     private String lastName;
     private String nickname;
 
-    public String getEmail(){ return email; }
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    public String getPassword(){ return password; }
-    public void setPassword(String password){
-        this.password = password;
-    }
-
+    // setters & getters
     public String getFirstName() {return firstName;}
     public void setFirstName(String firstName) {
         this.firstName = firstName;
