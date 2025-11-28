@@ -208,7 +208,10 @@ export default function AccountSetupPage() {
                     vPadding={0.3}
                     hPadding={0}
                     width={"4rem"}
-                    onClick={() => setProceed(false)}
+                    onClick={() => {
+                      setProceed(false)
+                      setErrors({})
+                    }}
                   />
 
                   <Card card_width={"32rem"}>
@@ -272,7 +275,10 @@ export default function AccountSetupPage() {
                     vPadding={0.3}
                     hPadding={0}
                     width={"4rem"}
-                    onClick={() => setProceed(false)}
+                    onClick={() => {
+                      setProceed(false)
+                      setErrors({})
+                    }}
                   />
 
                   <Card card_width={"32rem"}>
