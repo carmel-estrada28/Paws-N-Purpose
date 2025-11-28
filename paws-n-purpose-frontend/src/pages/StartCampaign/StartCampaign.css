@@ -57,10 +57,12 @@
 }
 
 .campaign-title {
-  font-size: 1.5rem; 
+  font-size: 1.9rem; 
   font-weight: 700;
+  font-family: 'Cherry Bomb';
   color: #2d3748;
   margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 .campaign-form {

@@ -1,6 +1,5 @@
 // pages/StartCampaign/StartCampaign.js
 import { useState } from 'react';
-import Card from '../../components/Card/Card';
 import Button from '../../components/Buttons/Button';
 import Header from '../../components/Header/Header';
 import FormInput from '../../components/FormInput/FormInput';
@@ -66,7 +65,7 @@ const StartCampaign = () => {
           
           <div className="start-campaign-card">
             <div className="start-campaign-content">
-              <h2 className="campaign-title">Start a Campaign</h2>
+              <h2 className="campaign-title">Start A Campaign!</h2>
               
               <form className="campaign-form">
                 {/* Campaign Type Dropdown */}
