@@ -131,16 +131,21 @@ public class UserController {
             .maxAge(86400)
             .build();
 
-        Map<String, Object> returnedUser = Map.of(
-            "authenticated", true,
-            "hasProfileSet", hasProfileSet,
-            "id", user.getId(),
-            "email", user.getEmail()
-        );
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("authenticated", true);
+
+        Map<String, Object> userMap = new HashMap<>();
+
+        userMap.put("id", user.getId());
+        userMap.put("email", user.getEmail());
+        userMap.put("hasProfileSet", hasProfileSet);
+
+        response.put("user", userMap);
 
         return ResponseEntity.ok()
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
-            .body(new ApiResponse<>(true, returnedUser, null));
+            .body(new ApiResponse<>(true, response, null));
     }
 
 

@@ -2,7 +2,8 @@
 import Lottie from "lottie-react";
 import "./LoginPage.css";
 import lightsAnimation from "../../animations/lights.json";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import { AuthContext } from "../../components/Routes/AuthContext"
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import AuthForm from "../../components/AuthForm/AuthForm";
@@ -36,6 +37,10 @@ export default function LoginPage({ onLogin }) {
       });
 
   const [isLoading, setIsLoading] = useState(false);
+
+
+  // useContexts
+  const { setUser, setHasProfileSet } = useContext(AuthContext);
 
 
   // useEffects
@@ -84,6 +89,8 @@ export default function LoginPage({ onLogin }) {
       console.log("API response:", data);
       
       if (data.success) {
+          setUser(data.data.user);
+          setHasProfileSet(data.data.user.hasProfileSet);
             
           navigate("/dashboard");
 
@@ -91,6 +98,8 @@ export default function LoginPage({ onLogin }) {
 
           return
       } else {
+          setUser(null);
+          setHasProfileSet(false);
 
           await delay(1000);
           setIsLoading(false);
