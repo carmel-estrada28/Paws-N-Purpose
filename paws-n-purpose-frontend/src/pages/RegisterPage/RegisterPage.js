@@ -86,13 +86,13 @@ export default function RegisterPage() {
       console.log("API response:", data);
       
       if (data.success) {
+          setIsTransitioning(true)
+          await delay(800);
+          setIsTransitioning(false)
+
           setUser(data.data.user);
           setHasProfileSet(data.data.user.hasProfileSet);
           
-          setIsTransitioning(true)
-
-          await delay(800);
-          setIsTransitioning(false)
           navigate("/account-setup");
 
           return;

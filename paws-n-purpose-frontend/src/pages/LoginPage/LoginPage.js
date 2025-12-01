@@ -30,6 +30,7 @@ export default function LoginPage({ onLogin }) {
 
   // useStates
   const [errors, setErrors] = useState({});
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const [userLoginFormData, setUserLoginFormData] = useState({
           email: "",
@@ -89,9 +90,13 @@ export default function LoginPage({ onLogin }) {
       console.log("API response:", data);
       
       if (data.success) {
+          setIsTransitioning(true) // unahon ni kay para matrigger ang transition!
+          await delay(800);
+          setIsTransitioning(false)
+
           setUser(data.data.user);
           setHasProfileSet(data.data.user.hasProfileSet);
-            
+          
           navigate("/dashboard");
 
           setIsLoading(false); 
@@ -165,6 +170,7 @@ export default function LoginPage({ onLogin }) {
           isLoading={isLoading}
           inputRefs={inputRefs}/>
       </div>
+      <div className={`LoginPage_fade-overlay ${isTransitioning ? "active" : ""}`}/>
     </div>
     
   );

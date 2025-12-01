@@ -25,3 +25,15 @@
         justify-content: end;
         padding: 3% 10% 4.5% 0;
     }
+
+    .LoginPage_fade-overlay {
+        position: fixed;
+        inset: 0;
+        background: #FFFCF3;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.8s ease;
+    }
+    .LoginPage_fade-overlay.active {
+        opacity: 1;
+    }
