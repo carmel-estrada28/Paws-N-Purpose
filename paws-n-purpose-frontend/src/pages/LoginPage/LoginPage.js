@@ -85,8 +85,7 @@ export default function LoginPage({ onLogin }) {
       
       if (data.success) {
             
-          if (data.data.hasProfileSet) navigate("/dashboard");
-          else navigate("/account-setup");
+          navigate("/dashboard");
 
           setIsLoading(false); 
 
