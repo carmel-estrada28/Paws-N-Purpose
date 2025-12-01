@@ -1,4 +1,4 @@
-package com.kinora.paws_n_purpose_backend.entity;
+package com.kinora.paws_n_purpose_backend.entity.enums;
 
 public enum UserRole {
     INDIVIDUAL,

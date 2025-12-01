@@ -9,95 +9,50 @@ import StartCampaign from './pages/StartCampaign/StartCampaign';
 import ViewCampaign from './pages/ViewCampaign/ViewCampaign';
 import ProtectedRoute from './components/Routes/ProtectedRoute'
 import PublicRoute from './components/Routes/PublicRoute'
+import {AuthProvider} from "./components/Routes/AuthContext";
 
 import './App.css';
 import './styles/ButtonThemes.css';
 
 function App() {
 
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchMe = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/api/users/me", {
-          method: "GET",
-          credentials: "include"
-        })
-
-        const data = await response.json();
-
-        console.log("%cAPI /api/users/me fetched done", "color: green; font-size: 1rem; font-weight: bold;");
-        console.log("API response:", data);
-
-        if (data.authenticated) {
-          setUser(data.user);
-          setProfile(data.user.profile || null);
-        } else {
-          setUser(null);
-          setProfile(null);
-        }
-      } catch (err) {
-        console.log("Error: ", err);
-        
-        setUser(null)
-        setProfile(null)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchMe()
-  }, []);
-
   return (
-    <Router>
-      <Routes>
-        <Route path="*" element={
-          <PublicRoute user={user}>
-            <Navigate to="/landing" />
-          </PublicRoute>  
-        } />
-        <Route path="/landing" element={
-          <PublicRoute user={user}>
-            <LandingPage />
-          </PublicRoute>  
-        } />
-        <Route path="/login" element={
-          <PublicRoute user={user}>
-            <LoginPage />
-          </PublicRoute>
-        } />
-        <Route path="/register" element={
-          <PublicRoute user={user}>  
-            <RegisterPage />
-          </PublicRoute>
-        } />
+    <AuthProvider>
+      <Router>
+        <Routes>
 
-        <Route path="/account-setup" element={
-          <ProtectedRoute user={user} profile={profile} loading={loading}>
-            <AccountSetupPage />
-          </ProtectedRoute>
-        } />
-        <Route path="/dashboard" element={
-          <ProtectedRoute user={user} profile={profile} loading={loading}>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/start-campaign" element={
-          <ProtectedRoute user={user} profile={profile} loading={loading}>
-            <StartCampaign />
-          </ProtectedRoute>
-        } />
-        <Route path="/campaign/:campaignId" element={
-          <ProtectedRoute user={user} profile={profile} loading={loading}>
-            <ViewCampaign />
-          </ProtectedRoute>
-        } />
-      </Routes>
-    </Router>
+          <Route path="*" element={<Navigate to="/landing" />} />
+
+          <Route path="/landing" element={
+            <PublicRoute><LandingPage /></PublicRoute>
+          } />
+
+          <Route path="/login" element={
+            <PublicRoute><LoginPage /></PublicRoute>
+          } />
+
+          <Route path="/register" element={
+            <PublicRoute><RegisterPage /></PublicRoute>
+          } />
+
+          <Route path="/account-setup" element={
+            <ProtectedRoute requireProfile={false}><AccountSetupPage /></ProtectedRoute>
+          } />
+
+          <Route path="/dashboard" element={
+            <ProtectedRoute requireProfile={true}><Dashboard /></ProtectedRoute>
+          } />
+
+          <Route path="/start-campaign" element={
+            <ProtectedRoute requireProfile={true}><StartCampaign /></ProtectedRoute>
+          } />
+
+          <Route path="/campaign/:campaignId" element={
+            <ProtectedRoute requireProfile={true}><ViewCampaign /></ProtectedRoute>
+          } />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
   
 }

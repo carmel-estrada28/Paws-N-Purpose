@@ -19,7 +19,7 @@ import com.kinora.paws_n_purpose_backend.dto.ApiResponse;
 import com.kinora.paws_n_purpose_backend.dto.UserAuthenticationDTO;
 import com.kinora.paws_n_purpose_backend.dto.UserRegistrationDTO;
 import com.kinora.paws_n_purpose_backend.entity.User;
-import com.kinora.paws_n_purpose_backend.entity.UserRole;
+import com.kinora.paws_n_purpose_backend.entity.enums.UserRole;
 import com.kinora.paws_n_purpose_backend.service.JwtService;
 import com.kinora.paws_n_purpose_backend.service.UserService;
 
@@ -31,7 +31,10 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("api/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(
+    origins = "http://localhost:3000",
+    allowCredentials = "true"
+)
 public class UserController {
 
     @Autowired
@@ -62,12 +65,18 @@ public class UserController {
             return ResponseEntity.ok(response);
         }
 
+        boolean hasProfileSet = user.getIndividualProfile() != null || user.getOrganizationProfile() != null;
+
         response.put("authenticated", true);
-        response.put("user", Map.of(
-            "id", user.getId(),
-            "email", user.getEmail(),
-            "role", user.getRole()
-        ));
+        Map<String, Object> userMap = new HashMap<>();
+
+        userMap.put("id", user.getId());
+        userMap.put("email", user.getEmail());
+        userMap.put("role", user.getRole());
+        userMap.put("hasProfileSet", hasProfileSet);
+
+        response.put("user", userMap);
+
         return ResponseEntity.ok(response);
     }
 
@@ -82,6 +91,7 @@ public class UserController {
             .httpOnly(true)
             .secure(false)
             .path("/")
+            .sameSite("Lax")
             .maxAge(86400)
             .build();
 
@@ -109,6 +119,7 @@ public class UserController {
             .httpOnly(true)
             .secure(false)
             .path("/")
+            .sameSite("Lax")
             .maxAge(86400)
             .build();
 

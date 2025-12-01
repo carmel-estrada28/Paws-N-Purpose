@@ -85,8 +85,7 @@ export default function LoginPage({ onLogin }) {
       
       if (data.success) {
             
-          if (data.data.hasProfileSet) navigate("/dashboard");
-          else navigate("/account-setup");
+          navigate("/dashboard");
 
           setIsLoading(false); 
 
@@ -145,6 +144,13 @@ export default function LoginPage({ onLogin }) {
           mode="login" 
           onChange={handleChange}
           onClick={authenticateUser}
+          // onClick={()=>{
+          //   setIsLoading(true)
+
+          //   setTimeout(()=>{
+          //     setIsLoading(false)
+          //   }, 1000)
+          // }}
           values={userLoginFormData} 
           errors={errors}
           isLoading={isLoading}

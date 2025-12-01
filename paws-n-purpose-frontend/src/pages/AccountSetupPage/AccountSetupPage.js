@@ -38,6 +38,7 @@ export default function AccountSetupPage() {
   const [enableIndividualButton, setEnableIndividualButton] = useState(false)
   const [enableOrgButton, setEnableOrgButton] = useState(false)
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
 
   // useEffects
@@ -79,77 +80,107 @@ export default function AccountSetupPage() {
         console.log(`I am an ${userType}`)
     };
 
-  const createUserIndividualProfile = (e) => {
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  const createUserIndividualProfile = async (e) => {
+        setErrors({})
+        setIsLoading(true)
+
         e.preventDefault();
-        fetch('http://localhost:8080/api/users/create-individual-profile', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(individualProfileData),
-            credentials: "include"
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("%cAPI /api/users/create-individual-profile fetched done", "color: green; font-size: 1rem; font-weight: bold;")
 
-                console.log(data)
+        try {
+          const response = await fetch('http://localhost:8080/api/users/create-individual-profile', {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify(individualProfileData),
+              credentials: "include"
+          })
 
-                if (data.success) {
-                  console.log("API response:", data);
+          const data = await response.json()
 
-                  navigate("/dashboard");
+          console.log("%cAPI /api/users/create-individual-profile fetched done", "color: green; font-size: 1rem; font-weight: bold;");
+          console.log("API response:", data);
 
-                  return;
-                } else {
-                  console.log('Errors found:', data.errors);
-                  nicknameInput.current.focus();
+          if (data.success) {
+            console.log("API response:", data);
 
-                  const formatted = {};
-                  Object.entries(data.errors || {}).forEach(([field, errorsArray]) => {
-                    formatted[field] = errorsArray.map(errObj => errObj.message);
-                  });
-                  setErrors(formatted);
-                }
-            })
-            .catch((err) => console.log("Error: ", err));
-    };
+            navigate("/dashboard");
 
-  const createUserOrgProfile = (e) => {
+            return;
+          } else {
+            await delay(1000);
+            setIsLoading(false);
+
+            console.log('Errors found:', data.errors);
+            nicknameInput.current.focus();
+
+            const formatted = {};
+            
+            Object.entries(data.errors || {}).forEach(([field, errorsArray]) => {
+              formatted[field] = errorsArray.map(errObj => errObj.message);
+            });
+
+            setErrors(formatted);
+          }
+        } catch(err) {
+          
+          console.log("Error: ", err)
+
+          setIsLoading(false);
+        }
+  }
+
+  const createUserOrgProfile = async (e) => {
+        setErrors({})
+        setIsLoading(true)
+
         e.preventDefault();
-        fetch('http://localhost:8080/api/users/create-org-profile', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(orgProfileData),
-            credentials: "include"
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("%cAPI /api/users/create-org-profile fetched done", "color: green; font-size: 1rem; font-weight: bold;")
 
-                console.log(data)
+        try {
+          const response = await fetch('http://localhost:8080/api/users/create-org-profile', {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify(orgProfileData),
+              credentials: "include"
+          })
 
-                if (data.success) {
-                  console.log("API response:", data);
+          const data = await response.json()
 
-                  navigate("/dashboard");
+          console.log("%cAPI /api/users/create-org-profile fetched done", "color: green; font-size: 1rem; font-weight: bold;")
+          console.log(data)
 
-                  return;
-                } else {
-                  console.log('Errors found:', data.errors);
-                  orgNameInput.current.focus();
+          if (data.success) {
+            console.log("API response:", data);
 
-                  const formatted = {};
-                  Object.entries(data.errors || {}).forEach(([field, errorsArray]) => {
-                    formatted[field] = errorsArray.map(errObj => errObj.message);
-                  });
-                  setErrors(formatted);
-                }
-            })
-            .catch((err) => console.log("Error: ", err));
-    };
+            navigate("/dashboard");
+
+            return;
+          } else {
+            await delay(1000);
+            setIsLoading(false);
+
+
+            console.log('Errors found:', data.errors);
+            orgNameInput.current.focus();
+
+            const formatted = {};
+            Object.entries(data.errors || {}).forEach(([field, errorsArray]) => {
+              formatted[field] = errorsArray.map(errObj => errObj.message);
+            });
+            setErrors(formatted);
+          }
+        } catch(err) {
+          console.log("Error: ", err)
+
+          setIsLoading(false);
+        }
+  }
 
   return (
     <div 
@@ -177,7 +208,10 @@ export default function AccountSetupPage() {
                     vPadding={0.3}
                     hPadding={0}
                     width={"4rem"}
-                    onClick={() => setProceed(false)}
+                    onClick={() => {
+                      setProceed(false)
+                      setErrors({})
+                    }}
                   />
 
                   <Card card_width={"32rem"}>
@@ -216,10 +250,13 @@ export default function AccountSetupPage() {
                       <Button
                         type='submit'
                         text={"Finish"}
-                        theme={ enableIndividualButton ? "pink semi-rounded" : "pink-disabled semi-rounded" }
+                        theme={ enableIndividualButton ? ( isLoading ? ("pink-loading semi-rounded") : ("pink semi-rounded")) : ("pink-disabled semi-rounded") }
                         vPadding={0.7}
                         hPadding={0}
                         width={"10rem"}
+                        disabled={isLoading || !enableIndividualButton}
+                        isLoading={isLoading}
+                        loadingText={""}
                         onClick={createUserIndividualProfile}
                       />
                     </div>
@@ -238,7 +275,10 @@ export default function AccountSetupPage() {
                     vPadding={0.3}
                     hPadding={0}
                     width={"4rem"}
-                    onClick={() => setProceed(false)}
+                    onClick={() => {
+                      setProceed(false)
+                      setErrors({})
+                    }}
                   />
 
                   <Card card_width={"32rem"}>
@@ -261,10 +301,12 @@ export default function AccountSetupPage() {
                       <Button
                         type='button'
                         text={"Finish"}
-                        theme={ enableOrgButton ? "pink semi-rounded" : "pink-disabled semi-rounded" }
+                        theme={ enableOrgButton ? ( isLoading ? ("pink-loading semi-rounded") : ("pink semi-rounded")) : ("pink-disabled semi-rounded") }
                         vPadding={0.7}
                         hPadding={0}
                         width={"10rem"}
+                        disabled={isLoading || !enableOrgButton}
+                        isLoading={isLoading}
                         onClick={createUserOrgProfile}
                       />
                     </div>

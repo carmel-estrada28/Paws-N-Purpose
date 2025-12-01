@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kinora.paws_n_purpose_backend.dto.IndividualRegistrationDTO;
 import com.kinora.paws_n_purpose_backend.entity.Individual;
 import com.kinora.paws_n_purpose_backend.entity.User;
-import com.kinora.paws_n_purpose_backend.entity.UserRole;
+import com.kinora.paws_n_purpose_backend.entity.enums.UserRole;
 import com.kinora.paws_n_purpose_backend.exception.NicknameAlreadyTakenException;
 import com.kinora.paws_n_purpose_backend.repository.IndividualRepository;
 

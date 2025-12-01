@@ -2,6 +2,7 @@
 
 .LoginPage {
     position: relative;
+    min-height: 100vh;
     height: 100%;
     /* border: 1px solid red; */
 }   
@@ -20,8 +21,7 @@
         /* border: 1px solid red; */
         box-sizing: border-box;
         width: 100%;
-        min-height: 45rem;
         display: flex;
         justify-content: end;
-        padding: 4% 10% 6.5% 0;
+        padding: 3% 10% 4.5% 0;
     }
