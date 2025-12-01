@@ -5,10 +5,11 @@
 import Lottie from "lottie-react";
 import "./RegisterPage.css";
 import lightsAnimation from "../../animations/lights.json";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import HeaderBeforeLogin from "../../components/Header/Header";
 import AuthForm from "../../components/AuthForm/AuthForm";
+import { AuthContext } from "../../components/Routes/AuthContext"
 
 export default function RegisterPage() {
   // useNavigates
@@ -26,6 +27,9 @@ export default function RegisterPage() {
 
   // useLocations
   const location = useLocation();
+
+  // useContexts
+  const { setUser, setHasProfileSet } = useContext(AuthContext);
 
   // useStates
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -82,8 +86,10 @@ export default function RegisterPage() {
       console.log("API response:", data);
       
       if (data.success) {
+          setUser(data.data.user);
+          setHasProfileSet(data.data.user.hasProfileSet);
+          
           setIsTransitioning(true)
-          console.log("API response:", data);
 
           await delay(800);
           setIsTransitioning(false)
@@ -91,7 +97,9 @@ export default function RegisterPage() {
 
           return;
       } else {
-
+          setUser(null);
+          setHasProfileSet(false);
+          
           await delay(1000);
           setIsLoading(false);
 
