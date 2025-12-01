@@ -1,18 +1,18 @@
 
+
 import "../../styles/ButtonThemes.css"
 import { Loader2 } from "lucide-react";
+import { useRef } from "react";
 
 export default function Button({
   type="submit", text, loadingText,
   vPadding=0, hPadding=0, height, width, 
   theme, onClick, isLoading=false, disabled
 }) {
-    console.log("Button classes:", theme);
 
   return (
-    
     <button 
-      className={theme}
+      className={`${theme} ripple-container`}
       style={{
         padding: `${vPadding}rem ${hPadding}rem`,
         width: `${width}`,
@@ -29,11 +29,12 @@ export default function Button({
         {isLoading && 
           <Loader2 
             style={{ 
-              animation: "spin 1s linear infinite ",
+              animation: "spin 1s linear infinite",
               width: "1.2rem"
             }}
-          />}
-        {isLoading ? loadingText : text} {/* change text while loading */}
+          />
+        }
+        {isLoading ? loadingText : text}
     </button>
   );
 }

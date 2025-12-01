@@ -13,9 +13,15 @@ button {
 .pink {
     color: #fff;
     background-color: #DD4391;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 .pink:hover {
     background-color: #c73a81;
+}
+.pink:active {
+    background-color: rgb(155, 40, 98);
 }
 .pink-disabled {
     color: #eaeaea;
@@ -79,6 +85,9 @@ button {
 
 
 
+
+
+/* Animation */
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
