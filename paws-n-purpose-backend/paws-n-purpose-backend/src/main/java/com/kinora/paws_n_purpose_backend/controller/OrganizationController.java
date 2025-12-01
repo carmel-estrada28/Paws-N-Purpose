@@ -24,7 +24,10 @@ import com.kinora.paws_n_purpose_backend.service.UserService;
 
 @RestController
 @RequestMapping("api/users")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(
+    origins = "http://localhost:3000",
+    allowCredentials="true"
+)
 public class OrganizationController {
     private final JwtService jwtService;
     private final OrganizationService organizationService;

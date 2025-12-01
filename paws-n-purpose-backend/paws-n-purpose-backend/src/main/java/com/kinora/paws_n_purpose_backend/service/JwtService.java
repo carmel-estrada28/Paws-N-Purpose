@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
-import com.kinora.paws_n_purpose_backend.entity.UserRole;
+import com.kinora.paws_n_purpose_backend.entity.enums.UserRole;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

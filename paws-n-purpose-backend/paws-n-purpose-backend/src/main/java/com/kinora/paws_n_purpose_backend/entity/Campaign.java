@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kinora.paws_n_purpose_backend.entity.enums.CampaignType;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,6 +27,9 @@ public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long campaignId;
+
+    @Enumerated(EnumType.STRING)
+    private CampaignType campaignType;
     
     @Column(nullable = false)
     private String title;
