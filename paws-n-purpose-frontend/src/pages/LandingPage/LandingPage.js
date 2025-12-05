@@ -118,13 +118,11 @@ export default function LandingPage({ onLogin }) {
             </div>
           ) : (
             sortedAndFilteredCampaigns.map(campaign => (
-              <div key={campaign.id} className="campaign-card-wrapper">
-                <CampaignCard 
-                  campaign={campaign}
-                  onView={() => handleViewCampaign(campaign.id)}
-                  onDonate={() => handleDonate(campaign.id)}
-                />
-              </div>
+              <CampaignCard 
+                campaign={campaign}
+                onView={() => handleViewCampaign(campaign.id)}
+                onDonate={() => handleDonate(campaign.id)}
+              />
             ))
           )}
         </div>
