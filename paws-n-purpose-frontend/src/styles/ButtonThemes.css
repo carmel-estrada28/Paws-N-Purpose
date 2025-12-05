@@ -10,18 +10,18 @@ button {
 }
 
 
-.pink {
+.pink, .pink-ripple {
     color: #fff;
     background-color: #DD4391;
     cursor: pointer;
     position: relative;
     overflow: hidden;
 }
-.pink:hover {
+.pink:hover, .pink-ripple:hover {
     background-color: #c73a81;
 }
 .pink:active {
-    background-color: rgb(155, 40, 98);
+    background-color: #9b2862;
 }
 .pink-disabled {
     color: #eaeaea;
@@ -30,6 +30,29 @@ button {
 .pink-loading {
     color: #fff;
     background-color: #f09dc6;
+}
+
+.ripple-effect {
+    position: absolute;
+    border-radius: 50%;
+    width: 5rem;   /* starting visible size */
+    height: 7rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0); /* start tiny */
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.ripple-effect.dark {
+    background: rgba(136, 136, 136, 0.177);
+}
+.ripple-effect.light {
+    background: rgba(255, 255, 255, 0.3);
+}
+.ripple-effect.active {
+    transform: translate(-50%, -50%) scale(7.5); /* spreads out */
+    opacity: 1;
 }
 
 
@@ -44,12 +67,17 @@ button {
 
 
 
-.grey {
+.grey, .grey-ripple {
     background-color: #F6F6F6;
     color: #000;
+    cursor: pointer;
+    overflow: hidden;
 }
-.grey:hover {
+.grey:hover, .grey-ripple:hover {
     background-color: #ebebeb;
+}
+.grey:active {
+    background-color: #d2d2d2;
 }
 
 

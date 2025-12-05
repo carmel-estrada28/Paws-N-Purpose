@@ -2,18 +2,28 @@
 
 import "../../styles/ButtonThemes.css"
 import { Loader2 } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function Button({
   type="submit", text, loadingText,
   vPadding=0, hPadding=0, height, width, 
-  theme, onClick, isLoading=false, disabled
+  theme, onClick, isLoading=false, disabled, 
+  hasRippleEffect=false, rippleEffectTheme
 }) {
+
+  // useStates
+  const [isPressed, setIsPressed] = useState(false);
+  
+  // useRefs
+  const rippleRef = useRef(null);
+
+  // functions
 
   return (
     <button 
       className={`${theme} ripple-container`}
       style={{
+        position: "relative",
         padding: `${vPadding}rem ${hPadding}rem`,
         width: `${width}`,
         height: `${height}`,
@@ -25,6 +35,9 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
+      onMouseDown={() => setIsPressed(true)}
+      onMouseUp={() => setIsPressed(false)}
+      onMouseLeave={() => setIsPressed(false)}
     >
         {isLoading && 
           <Loader2 
@@ -34,7 +47,16 @@ export default function Button({
             }}
           />
         }
+        
+        {hasRippleEffect && 
+          <span 
+            ref={rippleRef}
+            className={`ripple-effect ${rippleEffectTheme} ${isPressed ? "active" : "fade"}`}
+          />
+        }
+
         {isLoading ? loadingText : text}
+        
     </button>
   );
 }
