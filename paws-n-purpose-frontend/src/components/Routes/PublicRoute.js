@@ -11,11 +11,11 @@ export default function PublicRoute({ children }) {
 
   if (loading) return <div>Loading...</div>;
 
-  if (!user) return children;
+  // if (!user) return children;
 
-  if (user && !hasProfileSet) return <Navigate to="/account-setup" />;
+  // if (user && !hasProfileSet) return <Navigate to="/account-setup" />;
 
-  if (user && hasProfileSet) return <Navigate to="/dashboard" />;
+  // if (user && hasProfileSet) return <Navigate to="/dashboard" />;
 
   return children;
 }

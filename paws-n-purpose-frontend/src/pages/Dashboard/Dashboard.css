@@ -1,0 +1,200 @@
+
+
+
+.Dashboard {
+    position: relative;
+    min-height: 100vh;
+    height: 100%;
+}
+
+    .Dashboard_main-content{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 4rem;
+    }
+
+        .Dashboard_profile {
+            margin: 4rem 2rem 0 2rem;
+            padding: 1rem 4rem 1rem 2.5rem;
+            display: flex;
+        }
+
+            .Dashboard_identity {
+                display: flex;
+                gap: 1.1rem;
+            }
+
+                .Dashboard_fullname {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                }
+
+            .Dashboard_metrics {
+                display: flex;
+                gap: 1rem;
+                margin-left: auto;
+            }
+
+                .Dashboard_campaigns-donated {
+                    width: 10rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .Dashboard_points {
+                    width: 10rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                    .Dashboard_points-amount {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 0.5rem;
+                    }
+
+        .Dashboard_explore {
+            margin: 2.5rem 0 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+            .Dashboard_campaigns {
+                height: auto;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+                .Dashboard_header {
+                    display: flex;
+                    align-items: center;
+                    padding: 0 3rem;
+                }
+
+                    .Dashboard_seeAll {
+                        transform: translateX(0);
+                        transition: transform 0.4s ease;
+                    }
+
+                    .Dashboard_seeAll:active {
+                        transform: translate(0.3rem);
+                    }
+
+                        .Dashboard_seeAll:hover p {
+                            color: #fc006d;
+                        }
+
+                        .Dashboard_seeAll:hover svg {
+                            fill: #fc006d;
+                        }
+
+                .Dashboard_carousel {
+                    position: relative;
+                    display: flex;
+                    width: 100%;
+                }
+
+                    .Dashboard_arrow-btn {
+                        opacity: 0;
+                        visibility: hidden;
+                        position: absolute;
+                        display: flex;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        z-index: 5;
+                        cursor: pointer;
+                        background-color: #DD4391;
+                        transition: background-color 0.2s ease, opacity 0.2s ease;
+                    }
+                    .visible {
+                        opacity: 0.5;
+                        visibility: visible;
+                    }
+                    .Dashboard_arrow-btn:hover {
+                        opacity: 1;
+                        background-color: #c73a81;
+                    }
+                    .Dashboard_arrow-btn:active {
+                        background-color: #ec83b6;
+                    }
+                    .Dashboard_arrow-left {
+
+                    }
+                    .Dashboard_arrow-right {
+
+                    }
+
+                    .Dashboard_carousel-container {
+                        width: 100%;
+                        display: flex;
+                        overflow-x: hidden;
+                        scroll-behavior: smooth;
+                    }
+                
+                    .Dashboard_carousel-container::-webkit-scrollbar {
+                        display: none;
+                    }
+
+                        .Dashboard_carousel-items {
+                            display: flex;
+                            gap: 2rem;
+                            padding: 0 0 0.1rem 3rem;
+                            align-items: center;
+                        }
+
+                            .Carousel_see-all-button {
+                                cursor: pointer;
+                                overflow: hidden;
+                                position: relative;
+                                display: flex;
+                                gap: 0.2rem;
+                                align-items: center;
+                                justify-content: center;
+                                background-color: #DD4391;
+                                border-radius: 100rem;
+                                height: 3rem;
+                                width: 7rem;
+                                color: #fff;
+                                fill: #fff;
+                                transform: translateX(0);
+                                margin-left: 1rem;
+                                transition: transform 0.4s ease;
+                            }
+                            .Carousel_see-all-button:hover {
+                                background-color: #c73a81;
+                            }
+                            .Carousel_see-all-button:active {
+                                transform: translateX(0.5rem);
+                            }
+                            .Carousel_ripple {
+                                position: absolute;
+                                background: rgba(255, 255, 255, 0.3);
+                                border-radius: 50%;
+                                width: 10rem;
+                                height: 10rem;
+                                top: 50%;
+                                left: 50%;
+                                font-size: 1rem;
+                                transform: translate(-50%, -50%) scaleX(0); 
+                                pointer-events: none;
+                                opacity: 0;
+                                transition: transform 0.8s ease, opacity 0.4s ease;
+                            }
+                            .Carousel_see-all-button:active .Carousel_ripple {
+                                transform: translate(-50%, -50%) scale(2.5);
+                                opacity: 1;
+                            }
+
+
+                    

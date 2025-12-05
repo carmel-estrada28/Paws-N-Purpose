@@ -85,6 +85,8 @@ public class UserController {
     public ResponseEntity<ApiResponse<Map<String, Object>, Object>> registerBasic(@Valid @RequestBody UserRegistrationDTO dto) {
         User user = userService.createUser(dto);
 
+        boolean hasProfileSet = user.getIndividualProfile() != null || user.getOrganizationProfile() != null;
+
         String token = jwtService.generateToken(user.getId(), user.getEmail(), null);
 
         ResponseCookie cookie = ResponseCookie.from("jwt", token)
@@ -95,15 +97,21 @@ public class UserController {
             .maxAge(86400)
             .build();
 
-        Map<String, Object> returnedUser = Map.of(
-            "authenticated", true,
-            "id", user.getId(),
-            "email", user.getEmail()
-        );
+        Map<String, Object> response = new HashMap<>();
+        
+        response.put("authenticated", true);
+
+        Map<String, Object> userMap = new HashMap<>();
+
+        userMap.put("id", user.getId());
+        userMap.put("email", user.getEmail());
+        userMap.put("hasProfileSet", hasProfileSet);
+
+        response.put("user", userMap);
 
         return ResponseEntity.ok()
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
-            .body(new ApiResponse<>(true, returnedUser, null));
+            .body(new ApiResponse<>(true, response, null));
     }
 
     @PostMapping("/authenticate")
@@ -123,16 +131,21 @@ public class UserController {
             .maxAge(86400)
             .build();
 
-        Map<String, Object> returnedUser = Map.of(
-            "authenticated", true,
-            "hasProfileSet", hasProfileSet,
-            "id", user.getId(),
-            "email", user.getEmail()
-        );
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("authenticated", true);
+
+        Map<String, Object> userMap = new HashMap<>();
+
+        userMap.put("id", user.getId());
+        userMap.put("email", user.getEmail());
+        userMap.put("hasProfileSet", hasProfileSet);
+
+        response.put("user", userMap);
 
         return ResponseEntity.ok()
             .header(HttpHeaders.SET_COOKIE, cookie.toString())
-            .body(new ApiResponse<>(true, returnedUser, null));
+            .body(new ApiResponse<>(true, response, null));
     }
 
 

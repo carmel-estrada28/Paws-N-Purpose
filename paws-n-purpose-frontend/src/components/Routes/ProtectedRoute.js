@@ -12,15 +12,15 @@ export default function ProtectedRoute({ children, requireProfile }) {
 
   if (loading) return <div>Loading...</div>;
 
-  if (!user) return <Navigate to="/login" />;
+  // if (!user) return <Navigate to="/login" />;
 
-  if (requireProfile && !hasProfileSet) {
-    return <Navigate to="/account-setup" />;
-  }
+  // if (requireProfile && !hasProfileSet) {
+  //   return <Navigate to="/account-setup" />;
+  // }
 
-  if (!requireProfile && hasProfileSet) {
-    return <Navigate to="/dashboard" />;
-  }
+  // if (!requireProfile && hasProfileSet) {
+  //   return <Navigate to="/dashboard" />;
+  // }
 
   return children;
 }

@@ -6,7 +6,7 @@
 /* New Main Content Styles */
 .main-content-new {
   flex: 1;
-  padding: 2rem 4rem 2.5rem 4rem;
+  padding: 2rem 1rem 2.5rem 2rem;
   margin: 5.6rem 0 0 30rem;
   display: flex;
   flex-direction: column;
@@ -30,45 +30,6 @@
   flex: 1;
 }
 
-/* Wrapper to style the CampaignCard component for vertical layout */
-.campaign-card-wrapper {
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 
-              0px 1px 1px 0px rgba(0, 0, 0, 0.14), 
-              0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  overflow: hidden;
-  /* CHANGE: Remove fixed height */
-  /* height: 18rem; */
-  /* ADD: Use min-height and let content determine height */
-  min-height: 18rem;
-}
-
-/* Override CampaignCard styles for vertical layout */
-.campaign-card-wrapper .campaign-card-new {
-  /* REMOVE: height: 100%; */
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.campaign-card-wrapper .campaign-image-new {
-  width: 20rem;
-  /* CHANGE: Use min-height instead of height */
-  min-height: 18rem;
-}
-
-.campaign-card-wrapper .campaign-image-new img {
-  /* REMOVE: height: 100%; */
-  min-height: 18rem;
-  object-fit: cover;
-}
-
-.campaign-card-wrapper .campaign-content-new {
-  padding: 1.5rem;
-  justify-content: space-between;
-}
-
 .no-campaigns {
   text-align: center;
   padding: 3rem;
@@ -82,15 +43,15 @@
 
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .main-content-new {
     margin-left: 0;
     padding: 7.5rem 2rem 2rem 2rem;
   }
   
-  .campaign-card-wrapper {
+  .campaign-card-wrapper { */
     /* REMOVE: height: auto; */
-  }
+  /* }
   
   .campaign-card-wrapper .campaign-card-new {
     flex-direction: column;
@@ -104,4 +65,4 @@
   .campaign-card-wrapper .campaign-image-new img {
     min-height: 12rem;
   }
-}
+} */

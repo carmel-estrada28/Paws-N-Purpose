@@ -2,7 +2,8 @@
 import Lottie from "lottie-react";
 import "./LoginPage.css";
 import lightsAnimation from "../../animations/lights.json";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
+import { AuthContext } from "../../components/Routes/AuthContext"
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import AuthForm from "../../components/AuthForm/AuthForm";
@@ -29,6 +30,7 @@ export default function LoginPage({ onLogin }) {
 
   // useStates
   const [errors, setErrors] = useState({});
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const [userLoginFormData, setUserLoginFormData] = useState({
           email: "",
@@ -36,6 +38,10 @@ export default function LoginPage({ onLogin }) {
       });
 
   const [isLoading, setIsLoading] = useState(false);
+
+
+  // useContexts
+  const { setUser, setHasProfileSet } = useContext(AuthContext);
 
 
   // useEffects
@@ -84,13 +90,21 @@ export default function LoginPage({ onLogin }) {
       console.log("API response:", data);
       
       if (data.success) {
-            
+          setIsTransitioning(true) // unahon ni kay para matrigger ang transition!
+          await delay(800);
+          setIsTransitioning(false)
+
+          setUser(data.data.user);
+          setHasProfileSet(data.data.user.hasProfileSet);
+          
           navigate("/dashboard");
 
           setIsLoading(false); 
 
           return
       } else {
+          setUser(null);
+          setHasProfileSet(false);
 
           await delay(1000);
           setIsLoading(false);
@@ -156,6 +170,7 @@ export default function LoginPage({ onLogin }) {
           isLoading={isLoading}
           inputRefs={inputRefs}/>
       </div>
+      <div className={`LoginPage_fade-overlay ${isTransitioning ? "active" : ""}`}/>
     </div>
     
   );
