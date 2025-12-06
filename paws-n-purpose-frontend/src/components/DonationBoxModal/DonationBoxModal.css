@@ -1,0 +1,160 @@
+.donation-box-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.donation-box-modal {
+  background-color: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+}
+
+.modal-subtitle {
+  font-size: 1rem;
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.photo-upload-section {
+  display: flex;
+  justify-content: center;
+}
+
+.photo-upload-area {
+  width: 150px;
+  height: 150px;
+  border: 2px dashed #cbd5e0;
+  border-radius: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.photo-upload-area:hover {
+  border-color: #4299e1;
+  background-color: #edf2f7;
+}
+
+.photo-upload-area.has-image {
+  border-style: solid;
+  border-color: #e2e8f0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.photo-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #a0aec0;
+}
+
+.photo-text {
+  font-size: 0.9rem;
+  color: #718096;
+  text-align: center;
+  margin: 0;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.7rem;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; 
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.form-label.required::after {
+  content: " *";
+  color: #e53e3e;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modal-actions button {
+  flex: 1;
+}
+
+@media (max-width: 480px) {
+  .donation-box-modal {
+    padding: 1.5rem;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .photo-upload-area {
+    width: 120px;
+    height: 120px;
+  }
+}
