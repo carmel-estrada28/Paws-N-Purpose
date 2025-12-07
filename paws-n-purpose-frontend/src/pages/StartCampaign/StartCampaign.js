@@ -1,12 +1,15 @@
 // pages/StartCampaign/StartCampaign.js
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Buttons/Button';
 import Header from '../../components/Header/Header';
 import FormInput from '../../components/FormInput/FormInput';
 import UploadImage from '../../components/UploadImage/UploadImage';
+import DonationBoxList from '../../components/DonationBoxList/DonationBoxList';
 import './StartCampaign.css';
 
 const StartCampaign = () => {
+  const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({
     campaignType: '',
@@ -16,6 +19,7 @@ const StartCampaign = () => {
     medicalDetails: '',
     agreeToTerms: false
   });
+  const [donationBoxes, setDonationBoxes] = useState([]); // Local state for donation boxes
 
   const handleImageUpload = (imageUrl) => {
     setSelectedImage(imageUrl);
@@ -36,9 +40,38 @@ const StartCampaign = () => {
   };
 
   const handleNext = () => {
-    // Handle form validation and navigation to next step
-    console.log('Form data:', formData);
-    console.log('Image:', selectedImage);
+    if (!formData.campaignType) {
+      alert('Please select a campaign type');
+      return;
+    }
+    
+    if (!formData.name.trim()) {
+      alert('Please enter a pet/organization name');
+      return;
+    }
+    
+    if (!formData.goalAmount || parseFloat(formData.goalAmount) <= 0) {
+      alert('Please enter a valid goal amount');
+      return;
+    }
+    
+    if (!formData.description.trim()) {
+      alert('Please enter a campaign description');
+      return;
+    }
+    
+    if (!formData.agreeToTerms) {
+      alert('Please agree to the Terms and Conditions');
+      return;
+    }
+
+    const campaignData = {
+      ...formData,
+      coverPhoto: selectedImage
+    };
+    
+    localStorage.setItem('campaignData', JSON.stringify(campaignData));
+    navigate('/donation-box');
   };
 
   const handleBack = () => {
@@ -51,7 +84,6 @@ const StartCampaign = () => {
       
       <div className="start-campaign-page">
         <div className="page-container">
-          {/* Back Button */}
           <div className="back-button-container">
             <Button 
               type="button"
@@ -65,10 +97,9 @@ const StartCampaign = () => {
           
           <div className="start-campaign-card">
             <div className="start-campaign-content">
-              <h2 className="campaign-title">Start A Campaign!</h2>
+              <h2 className="campaign-title">Start a Campaign</h2>
               
               <form className="campaign-form">
-                {/* Campaign Type Dropdown */}
                 <div className="form-group">
                   <label className="form-label required">Campaign Type</label>
                   <select 
@@ -83,7 +114,6 @@ const StartCampaign = () => {
                   </select>
                 </div>
 
-                {/* Pet/Organization Name */}
                 <div className="form-group">
                   <label className="form-label required">Pet/Organization Name</label>
                   <FormInput 
@@ -94,7 +124,6 @@ const StartCampaign = () => {
                   />
                 </div>
 
-                {/* Goal Amount */}
                 <div className="form-group">
                   <label className="form-label required">Goal Amount (₱)</label>
                   <FormInput 
@@ -105,7 +134,6 @@ const StartCampaign = () => {
                   />
                 </div>
 
-                {/* Campaign Description */}
                 <div className="form-group">
                   <label className="form-label required">Campaign Description</label>
                   <FormInput 
@@ -116,7 +144,6 @@ const StartCampaign = () => {
                   />
                 </div>
 
-                {/* Medical Details (Optional) */}
                 <div className="form-group">
                   <label className="form-label">Medical Details (Optional)</label>
                   <FormInput 
@@ -127,14 +154,20 @@ const StartCampaign = () => {
                   />
                 </div>
 
-                {/* Upload Cover Photo - Now using UploadImage component */}
                 <UploadImage 
                   selectedImage={selectedImage}
                   onImageUpload={handleImageUpload}
                   label="Upload Animal Cover Photo"
                 />
 
-                {/* Terms and Conditions Checkbox */}
+                {/* Donation Boxes Section - If you have boxes from somewhere */}
+                {donationBoxes.length > 0 && (
+                  <div className="donation-boxes-section">
+                    <h3 className="donation-boxes-title">Your Donation Boxes ({donationBoxes.length})</h3>
+                    <DonationBoxList donationBoxes={donationBoxes} />
+                  </div>
+                )}
+
                 <div className="form-group checkbox-group">
                   <label className="checkbox-label">
                     <input
@@ -147,21 +180,21 @@ const StartCampaign = () => {
                   </label>
                 </div>
 
-                {/* Next Button */}
-                <Button 
-                  type="button"
-                  text="Next"
-                  theme="pink semi-rounded"
-                  hPadding={1.5}
-                  vPadding={.5}
-                  onClick={handleNext}
-                />
+                <div className="next-button-container">
+                  <Button 
+                    type="button"
+                    text="Next"
+                    theme="pink semi-rounded"
+                    hPadding={1.5}
+                    vPadding={.5}
+                    onClick={handleNext}
+                  />
+                </div>
               </form>
             </div>
           </div>
         </div>
         
-        {/* Static Animal Image */}
         <div className="animal-image-section">
           <img 
             src="/CampaignCat.jpeg"
