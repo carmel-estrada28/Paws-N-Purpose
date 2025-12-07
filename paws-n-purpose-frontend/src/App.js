@@ -7,12 +7,14 @@ import LandingPage from './pages/LandingPage/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import StartCampaign from './pages/StartCampaign/StartCampaign';
 import ViewCampaign from './pages/ViewCampaign/ViewCampaign';
+import DonationBox from "./pages/DonationBox/DonationBox";
 import ProtectedRoute from './components/Routes/ProtectedRoute'
 import PublicRoute from './components/Routes/PublicRoute'
 import {AuthProvider} from "./components/Routes/AuthContext";
 
 import './App.css';
 import './styles/ButtonThemes.css';
+
 
 function App() {
 
@@ -45,6 +47,10 @@ function App() {
 
           <Route path="/start-campaign" element={
             <ProtectedRoute requireProfile={true}><StartCampaign /></ProtectedRoute>
+          } />
+
+          <Route path="/donation-box" element={
+            <ProtectedRoute requireProfile={true}><DonationBox /></ProtectedRoute>
           } />
 
           <Route path="/campaign/:campaignId" element={

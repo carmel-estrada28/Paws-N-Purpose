@@ -1,18 +1,22 @@
+// pages/DonationBox/DonationBox.js - UPDATED WITH EDIT
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Buttons/Button';
 import Header from '../../components/Header/Header';
 import DonationBoxModal from '../../components/DonationBoxModal/DonationBoxModal';
 import './DonationBox.css';
 
 const DonationBox = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [donationBoxes, setDonationBoxes] = useState([]);
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [campaignData, setCampaignData] = useState(null);
+  const [editingBox, setEditingBox] = useState(null); // Track which box is being edited
 
   useEffect(() => {
+    setIsModalOpen(false);
+    
     const savedCampaignData = localStorage.getItem('campaignData');
     if (savedCampaignData) {
       setCampaignData(JSON.parse(savedCampaignData));
@@ -20,12 +24,34 @@ const DonationBox = () => {
   }, []);
 
   const handleAddDonationBox = () => {
+    setEditingBox(null); // Reset editing state
+    setIsModalOpen(true);
+  };
+
+  const handleEditDonationBox = (box) => {
+    setEditingBox(box); // Set the box to edit
     setIsModalOpen(true);
   };
 
   const handleSaveDonationBox = (newBox) => {
-    setDonationBoxes([...donationBoxes, newBox]);
+    if (editingBox) {
+      // Update existing box
+      setDonationBoxes(prevBoxes =>
+        prevBoxes.map(box => box.id === editingBox.id ? newBox : box)
+      );
+    } else {
+      // Add new box
+      setDonationBoxes([...donationBoxes, newBox]);
+    }
+    
     setIsModalOpen(false);
+    setEditingBox(null); // Reset editing state
+  };
+
+  const handleDeleteDonationBox = (boxId) => {
+    if (window.confirm('Are you sure you want to delete this donation box?')) {
+      setDonationBoxes(prevBoxes => prevBoxes.filter(box => box.id !== boxId));
+    }
   };
 
   const handleCreateCampaign = () => {
@@ -53,7 +79,7 @@ const DonationBox = () => {
   };
 
   const handleBack = () => {
-    navigate(-1);
+    navigate('/start-campaign');
   };
 
   return (
@@ -69,7 +95,7 @@ const DonationBox = () => {
               theme="green semi-rounded"
               hPadding={1.5}
               vPadding={.5}
-              onClick={handleBack}
+              onClick={handleBack} 
             />
           </div>
           
@@ -77,7 +103,6 @@ const DonationBox = () => {
             <div className="donation-box-content">
               <h2 className="donation-box-title">Create A Donation Box</h2>
               
-              {}
               {campaignData && (
                 <div className="campaign-summary">
                   <p><strong>Campaign:</strong> {campaignData.name}</p>
@@ -109,19 +134,40 @@ const DonationBox = () => {
                   ) : (
                     donationBoxes.map((box) => (
                       <div key={box.id} className="donation-box-display">
-                        {box.image && (
+                        {box.image ? (
                           <img 
                             src={box.image} 
                             alt={box.name} 
                             className="donation-box-image"
                           />
+                        ) : (
+                          <div className="donation-box-image-placeholder">
+                            🐾
+                          </div>
                         )}
                         <div className="donation-box-info">
                           <h3 className="donation-box-name">{box.name}</h3>
                           <p className="donation-box-condition">{box.condition}</p>
                           {box.goalAmount && (
-                            <p className="donation-box-amount">Goal: ₱{parseFloat(box.goalAmount).toLocaleString()}</p>
+                            <p className="donation-box-amount">
+                              Goal: ₱{parseFloat(box.goalAmount).toLocaleString()}
+                            </p>
                           )}
+                          {/* EDIT AND DELETE BUTTONS */}
+                          <div className="donation-box-actions">
+                            <button 
+                              className="edit-btn"
+                              onClick={() => handleEditDonationBox(box)}
+                            >
+                              Edit
+                            </button>
+                            <button 
+                              className="delete-btn"
+                              onClick={() => handleDeleteDonationBox(box.id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
                         </div>
                       </div>
                     ))
@@ -140,14 +186,16 @@ const DonationBox = () => {
                   </label>
                 </div>
 
-                <Button 
-                  type="button"
-                  text="Create Campaign"
-                  theme="pink semi-rounded"
-                  hPadding={1.5}
-                  vPadding={.75}
-                  onClick={handleCreateCampaign}
-                />
+                <div className="create-campaign-container">
+                  <Button 
+                    type="button"
+                    text="Create Campaign"
+                    theme="pink semi-rounded"
+                    hPadding={1.5}
+                    vPadding={.75}
+                    onClick={handleCreateCampaign}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -162,10 +210,15 @@ const DonationBox = () => {
         </div>
       </div>
 
+      {/* Pass editingBox data to modal */}
       <DonationBoxModal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditingBox(null);
+        }}
         onSave={handleSaveDonationBox}
+        editingBox={editingBox} // Pass the box to edit
       />
     </div>
   );

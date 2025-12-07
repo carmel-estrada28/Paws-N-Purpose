@@ -1,9 +1,9 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Button from '../Buttons/Button';
 import FormInput from '../FormInput/FormInput';
 import './DonationBoxModal.css';
 
-const DonationBoxModal = ({ isOpen, onClose, onSave }) => {
+const DonationBoxModal = ({ isOpen, onClose, onSave, editingBox }) => {
   const [formData, setFormData] = useState({
     name: '',
     condition: '',
@@ -11,6 +11,25 @@ const DonationBoxModal = ({ isOpen, onClose, onSave }) => {
   });
   const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (editingBox) {
+      setFormData({
+        name: editingBox.name || '',
+        condition: editingBox.condition || '',
+        goalAmount: editingBox.goalAmount || '',
+      });
+      setSelectedImage(editingBox.image || null);
+    } else {
+      setFormData({
+        name: '',
+        condition: '',
+        goalAmount: '',
+      });
+      setSelectedImage(null);
+    }
+  }, [editingBox, isOpen]); 
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -48,48 +67,52 @@ const DonationBoxModal = ({ isOpen, onClose, onSave }) => {
     }
 
     const donationBox = {
-      id: Date.now(),
+      id: editingBox ? editingBox.id : Date.now(),
       name: formData.name,
       condition: formData.condition,
       goalAmount: formData.goalAmount,
       image: selectedImage,
-      dateAdded: new Date().toISOString()
+      dateAdded: editingBox ? editingBox.dateAdded : new Date().toISOString(),
+      dateUpdated: new Date().toISOString()
     };
 
     onSave(donationBox);
-    
-    setFormData({
-      name: '',
-      condition: '',
-      goalAmount: '',
-    });
-    setSelectedImage(null);
   };
 
   const handleCancel = () => {
-    setFormData({
-      name: '',
-      condition: '',
-      goalAmount: '',
-    });
-    setSelectedImage(null);
     onClose();
+  };
+
+  const handleOverlayClick = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="donation-box-modal-overlay">
-      <div className="donation-box-modal">
+    <div 
+      className="donation-box-modal-overlay" 
+      onClick={handleOverlayClick}
+    >
+      <div 
+        className="donation-box-modal" 
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="modal-header">
-          <h2 className="modal-title">Make A Donation Box!</h2>
+          <h2 className="modal-title">
+            {editingBox ? 'Edit Donation Box' : 'Make A Donation Box!'}
+          </h2>
           <p className="modal-subtitle">
-            Provide your animal's information to make a donation box!
+            {editingBox 
+              ? 'Edit your animal\'s information' 
+              : 'Provide your animal\'s information to make a donation box!'}
           </p>
         </div>
 
         <div className="modal-content">
-          {/* Add Photo */}
           <div className="photo-upload-section">
             <div 
               className={`photo-upload-area ${selectedImage ? 'has-image' : ''}`}
@@ -117,9 +140,7 @@ const DonationBoxModal = ({ isOpen, onClose, onSave }) => {
             />
           </div>
 
-          {/* Form Fields*/}
           <div className="modal-form">
-            {/* Name - text input */}
             <div className="form-group">
               <label className="form-label required">Name / Nickname</label>
               <FormInput
@@ -130,7 +151,6 @@ const DonationBoxModal = ({ isOpen, onClose, onSave }) => {
               />
             </div>
 
-            {/*textarea (same FormInput component, different type) */}
             <div className="form-group">
               <label className="form-label required">Condition / Description</label>
               <FormInput
@@ -142,7 +162,6 @@ const DonationBoxModal = ({ isOpen, onClose, onSave }) => {
               />
             </div>
 
-            {/* Goal Amount*/}
             <div className="form-group">
               <label className="form-label required">Goal Amount (₱)</label>
               <FormInput
@@ -154,11 +173,10 @@ const DonationBoxModal = ({ isOpen, onClose, onSave }) => {
             </div>
           </div>
 
-          {}
           <div className="modal-actions">
             <Button
               type="button"
-              text="Save"
+              text={editingBox ? 'Update' : 'Save'}
               theme="pink semi-rounded"
               hPadding={2}
               vPadding={0.75}
