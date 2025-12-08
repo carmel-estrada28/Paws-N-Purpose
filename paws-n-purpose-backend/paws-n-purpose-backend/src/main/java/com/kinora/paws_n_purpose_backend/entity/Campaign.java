@@ -1,11 +1,13 @@
 package com.kinora.paws_n_purpose_backend.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kinora.paws_n_purpose_backend.entity.enums.CampaignType;
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.kinora.paws_n_purpose_backend.entity.enums.CampaignStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,9 +29,6 @@ public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long campaignId;
-
-    @Enumerated(EnumType.STRING)
-    private CampaignType campaignType;
     
     @Column(nullable = false)
     private String title;
@@ -39,39 +38,20 @@ public class Campaign {
     
     private String coverPhoto;
     
-    @Column(precision = 10, scale = 2)
-    private BigDecimal goalAmount;
-    
-    @Column(precision = 10, scale = 2)
-    private BigDecimal currentAmount = BigDecimal.ZERO;
-    
     private LocalDate targetDate;
     
     @Enumerated(EnumType.STRING)
     private CampaignStatus status = CampaignStatus.ACTIVE;
-    
-    private Boolean acceptSponsors = false;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;
     
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<AnimalDonationBox> animalDonationBoxes = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "campaign")
-    private List<Donation> donations = new ArrayList<>();
+    private List<DonationBox> animalDonationBoxes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<Sponsorship> sponsorships = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<Update> updates = new ArrayList<>();
+    @CreationTimestamp
+    private LocalDateTime postedOn;
     
     // Constructors, getters, setters
 }
-
-enum CampaignStatus {
-    ACTIVE, CLOSED, SUCCESSFUL, EXPIRED
-}
-

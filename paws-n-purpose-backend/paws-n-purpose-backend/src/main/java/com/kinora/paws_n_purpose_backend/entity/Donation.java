@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.kinora.paws_n_purpose_backend.entity.enums.DonationStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,26 +31,22 @@ public class Donation {
     private BigDecimal donatedAmount;
     
     @CreationTimestamp
-    private LocalDateTime dateTime;
+    private LocalDateTime paidAt;
+
+    private String paymentProvider;
+
+    private String paymentMethod;
     
     @Enumerated(EnumType.STRING)
     private DonationStatus status = DonationStatus.PENDING;
-    
-    private String paymentMethod;
-    
-    private Integer pointsEarned;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "donor_id")
     private User donor;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "campaign_id")
-    private Campaign campaign;
+    @JoinColumn(name = "donation_box_id")
+    private DonationBox donationBox;
     
     // Constructors, getters, setters
-}
-
-enum DonationStatus {
-    PENDING, COMPLETED, FAILED, REFUNDED
 }

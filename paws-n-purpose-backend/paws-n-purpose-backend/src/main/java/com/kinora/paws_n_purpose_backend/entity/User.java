@@ -35,20 +35,18 @@ public class User {
     private String password;
     
     @Enumerated(EnumType.STRING)
-    private UserRole role; // INDIVIDUAL, ORGANIZATION, ADMIN
+    private UserRole role; // INDIVIDUAL, ORGANIZATION
 
     private Boolean isAdmin = false;    
     private String profilePicture;
     private String bio;
     private String contactNumber;
     
-    private Integer rewardPoints = 0;
     
     @Column(precision = 10, scale = 2)
     private BigDecimal userWallet = BigDecimal.ZERO;
 
     private Boolean isNotifsEnabled = false;
-    private Boolean is2FAEnabled = false;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -56,13 +54,6 @@ public class User {
 
     // Relations
     
-        // User can have many rewards identified by the user field in Reward
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserReward> rewards = new ArrayList<>();
-    
-        // User can have many badges identified by the user field in UserBadge
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserBadge> badges = new ArrayList<>();
 
         // User can start many campaigns identified by the owner field in Campaign
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
@@ -71,10 +62,6 @@ public class User {
         // User can do many donations identified by the donor field in Donation
     @OneToMany(mappedBy = "donor", cascade = CascadeType.ALL)
     private List<Donation> donations = new ArrayList<>();
-
-        // User can support many sponsorships identified by the sponsor field in Sponsorship
-    @OneToMany(mappedBy = "sponsor", cascade = CascadeType.ALL)
-    private List<Sponsorship> sponsorships = new ArrayList<>();
 
         // User can have one individual profile
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -158,14 +145,6 @@ public class User {
         this.contactNumber = contactNumber;
     }
 
-        // for reward points
-    public Integer getRewardPoints() {
-        return rewardPoints;
-    }
-    public void setRewardPoints(Integer rewardPoints) {
-        this.rewardPoints = rewardPoints;
-    }
-
         // for user wallet
     public BigDecimal getUserWallet() {
         return userWallet;
@@ -182,36 +161,12 @@ public class User {
         this.isNotifsEnabled = isNotifsEnabled;
     }
 
-        // for is2FAEnabled
-    public Boolean getIs2FAEnabled() {
-        return is2FAEnabled;
-    }
-    public void setIs2FAEnabled(Boolean is2FAEnabled) {
-        this.is2FAEnabled = is2FAEnabled;
-    }
-
         // for datetime created
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-        // for rewards
-    public List<UserReward> getRewards() {
-        return rewards;
-    }
-    public void setRewards(List<UserReward> rewards) {
-        this.rewards = rewards;
-    }
-
-        // for badges
-    public List<UserBadge> getBadges() {
-        return badges;
-    }
-    public void setBadges(List<UserBadge> badges) {
-        this.badges = badges;
     }
 
         // for ownedCampaigns
@@ -229,15 +184,7 @@ public class User {
     public void setDonations(List<Donation> donations) {
         this.donations = donations;
     }
-
-        // for sponsorships
-    public List<Sponsorship> getSponsorships() {
-        return sponsorships;
-    }
-    public void setSponsorships(List<Sponsorship> sponsorships) {
-        this.sponsorships = sponsorships;
-    }
-
+    
         // for individualProfile
     public Individual getIndividualProfile() {
         return individualProfile;
