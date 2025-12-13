@@ -18,19 +18,14 @@ export default function Sidebar({
   return (
     <div className="sideBar_sidebar">
       <div className="sideBar_sidebar-container">
-        <SearchBox 
-          value={searchQuery}
-          onChange={onSearchChange}
-          placeholder="Search campaigns"
-        />
+        
 
         <div className="sideBar_categories-section">
-          <h3 className="sideBar_section-title">Categories</h3>
           <div className="sideBar_categories-list">
             {categories.map(category => (
               <button
                 key={category.value}
-                onClick={() => onCategoryChange(category.value)}
+                onClick={() => onCategoryChange(selectedCategory === category.value ? 'all' : category.value)}
                 className={`sideBar_category-btn ${selectedCategory === category.value ? 'sideBar_category-btn-active' : ''}`}
               >
                 {category.label}
@@ -42,20 +37,20 @@ export default function Sidebar({
           <div className="sideBar_filters-section">
             <div className="sideBar_filters-row">
               <button
-                onClick={() => onFilterChange('popular')}
+                onClick={() => onFilterChange(selectedFilter === 'popular' ? null : 'popular')}
                 className={`sideBar_filter-btn ${selectedFilter === 'popular' ? 'sideBar_filter-btn-active' : ''}`}
               >
                 Popular
               </button>
               <button
-                onClick={() => onFilterChange('recently-opened')}
+                onClick={() => onFilterChange(selectedFilter === 'recently-opened' ? null : 'recently-opened')}
                 className={`sideBar_filter-btn ${selectedFilter === 'recently-opened' ? 'sideBar_filter-btn-active' : ''}`}
               >
                 Recently Opened
               </button>
             </div>
             <button
-              onClick={() => onFilterChange('ending-soon')}
+              onClick={() => onFilterChange(selectedFilter === 'ending-soon' ? null : 'ending-soon')}
               className={`sideBar_filter-btn ${selectedFilter === 'ending-soon' ? 'sideBar_filter-btn-active' : ''}`}
             >
               Ending Soon
