@@ -1,0 +1,130 @@
+.create-donation-box {
+  background: #fffcf3;
+  min-height: 90vh;
+  padding-top: 2rem;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.create-donation-box-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.back-pill {
+  background: #eaf3c1;
+  border: none;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.donation-box-card {
+  background: white;
+  border-radius: 18px;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.donation-box-card h1 {
+  margin: 0 0 2rem 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* GRID */
+.donation-box-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+}
+
+/* LABELS */
+.simple-label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+/* INPUTS */
+.simple-input,
+.simple-textarea {
+  width: 100%;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+}
+
+.simple-textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+/* PHOTO */
+.photo-dropzone {
+  background: #f7f7f7;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  color: #888;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.photo-dropzone p {
+  font-weight: 500;
+}
+
+.photo-dropzone input[type="text"] {
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+}
+
+.upload-hidden input {
+  display: none;
+}
+
+.photo-preview {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+/* SAVE BUTTON */
+.donation-save-button {
+  margin-top: 2.5rem;
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 1rem;
+  background: linear-gradient(90deg, #d0509f, #c14c8f);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.donation-save-button:hover {
+  background: #c14c8f;
+  transform: translateY(-1px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .donation-box-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .donation-box-card {
+    padding: 2rem;
+  }
+}
