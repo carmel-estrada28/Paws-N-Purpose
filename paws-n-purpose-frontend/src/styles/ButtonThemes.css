@@ -113,6 +113,22 @@ button {
 
 
 
+.Button_bottom-line {
+    position: absolute;
+    bottom: 0;
+    background-color: #c73a81;
+    width: 0%;
+    height: 0.2rem;
+    border-radius: 100rem;
+    transition: width 0.1s ease;
+}
+.transparent:hover .Button_bottom-line {
+    width: 100%;
+}
+
+
+
+
 
 
 /* Animation */
