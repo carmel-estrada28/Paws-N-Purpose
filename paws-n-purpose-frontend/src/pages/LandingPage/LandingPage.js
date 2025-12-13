@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from "react-router-dom";
 import HeaderBeforeLogin from "../../components/Header/Header";
 import SideBar from '../../components/SideBar/SideBar';
-import CampaignCard from '../../components/CampaignCards/CampaignCard';
+import CampaignCard from '../../components/Projects/CampaignCard';
 import './LandingPage.css';
 
 export default function LandingPage({ onLogin }) {
