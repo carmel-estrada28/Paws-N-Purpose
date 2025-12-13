@@ -14,66 +14,18 @@
         padding-bottom: 4rem;
     }
 
-        .Dashboard_profile {
-            margin: 4rem 2rem 0 2rem;
-            padding: 1rem 4rem 1rem 2.5rem;
-            display: flex;
-        }
-
-            .Dashboard_identity {
-                display: flex;
-                gap: 1.1rem;
-            }
-
-                .Dashboard_fullname {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    flex-direction: column;
-                }
-
-            .Dashboard_metrics {
-                display: flex;
-                gap: 1rem;
-                margin-left: auto;
-            }
-
-                .Dashboard_campaigns-donated {
-                    width: 10rem;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .Dashboard_points {
-                    width: 10rem;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                    .Dashboard_points-amount {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        gap: 0.5rem;
-                    }
-
         .Dashboard_explore {
-            margin: 2.5rem 0 0 0;
+            margin: 1rem 0 0 0;
             display: flex;
             flex-direction: column;
-            gap: 2.5rem;
+            gap: 2rem;
         }
 
             .Dashboard_campaigns {
                 height: auto;
                 box-sizing: border-box;
-                display: flex;
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 1.5rem;
             }
 
                 .Dashboard_header {
@@ -149,7 +101,7 @@
                         .Dashboard_carousel-items {
                             display: flex;
                             gap: 2rem;
-                            padding: 0 0 0.1rem 3rem;
+                            padding: 0.5rem 0 0.5rem 3rem;
                             align-items: center;
                         }
 
