@@ -16,6 +16,7 @@ import {AuthProvider} from "./components/Routes/AuthContext";
 import './App.css';
 import './styles/ButtonThemes.css';
 
+
 function App() {
 
   return (
@@ -40,7 +41,7 @@ function App() {
           <Route path="/account-setup" element={
             <ProtectedRoute requireProfile={false}><AccountSetupPage /></ProtectedRoute>
           } />
-
+          
           <Route path="/dashboard" element={
             <ProtectedRoute requireProfile={true}><Dashboard /></ProtectedRoute>
           } />

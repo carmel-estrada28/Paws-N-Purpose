@@ -5,10 +5,39 @@ import Logo from "../Icons/Logo";
 import RewardIcon from "../Icons/RewardIcon"
 import { Link } from "react-router-dom";
 import Button from "../Buttons/Button";
+import { useState, useEffect, useRef } from "react";
 
 
 
 export default function Header({withColor, isLoggedIn, isFixed, logoOnly=false}) {
+
+  // useStates
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false)
+
+  // useRefs
+  const dropdownRef = useRef(null)
+
+  // useEffects
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // if naay dropdown and ang click (event.target) is outside the dropdown
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsProfileDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // functions
+  function clickDropdownButton() {
+    setIsProfileDropdownOpen(prev => !prev);
+  }
+  
   return (
     <div 
       className="header_header"
@@ -45,27 +74,37 @@ export default function Header({withColor, isLoggedIn, isFixed, logoOnly=false})
                   gap: "2.5rem"
                 }}
               >
-                <Link to={""}>
-                  <Button
-                    type="button"
-                    text="Home"
-                    theme={"transparent semi-rounded"}
-                  />
-                </Link>
-                <Link to={""}>
-                  <Button
-                    type="button"
-                    text="Campaigns"
-                    theme={"transparent semi-rounded"}
-                  />
-                </Link>
-                <Link to={""}>
-                  <Button
-                    type="button"
-                    text="Start a Campaign"
-                    theme={"transparent semi-rounded"}
-                  />
-                </Link>
+
+                <div className="header_nav-button-container">
+                  <Link to={""}>
+                    <Button
+                      type="button"
+                      text="Home"
+                      theme={"transparent semi-rounded"}
+                    />
+                  </Link>
+                  <div className="header_bottom-line"/>
+                </div>
+                <div className="header_nav-button-container">
+                  <Link to={""}>
+                    <Button
+                      type="button"
+                      text="Discover"
+                      theme={"transparent semi-rounded"}
+                    />
+                  </Link>
+                  <div className="header_bottom-line"/>
+                </div>
+                <div className="header_nav-button-container">
+                  <Link to={""}>
+                    <Button
+                      type="button"
+                      text="My Projects"
+                      theme={"transparent semi-rounded"}
+                    />
+                  </Link>
+                  <div className="header_bottom-line"/>
+                </div>
               </div>
             
             }
@@ -78,11 +117,11 @@ export default function Header({withColor, isLoggedIn, isFixed, logoOnly=false})
                   justifyContent: "flex-end"
                 }}
               >
-                <div className="header_nav-button-icon-container messages">
+                {/* <div className="header_nav-button-icon-container messages">
                   <svg className="header_nav-button-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6.82641 17.9514C6.94894 18.2605 6.97622 18.5992 6.90474 18.9239L6.01724 21.6656C5.98865 21.8046 5.99604 21.9487 6.03872 22.084C6.0814 22.2194 6.15796 22.3416 6.26113 22.4391C6.3643 22.5366 6.49067 22.6062 6.62824 22.6411C6.76582 22.6761 6.91004 22.6753 7.04724 22.6389L9.89141 21.8072C10.1978 21.7465 10.5152 21.773 10.8072 21.8839C12.5867 22.7149 14.6025 22.8907 16.499 22.3803C18.3955 21.8699 20.0508 20.7061 21.1728 19.0942C22.2948 17.4823 22.8115 15.5259 22.6317 13.5702C22.4518 11.6145 21.587 9.78514 20.1898 8.40491C18.7926 7.02468 16.9528 6.18228 14.9951 6.02633C13.0373 5.87037 11.0874 6.4109 9.48928 7.55253C7.8912 8.69416 6.74769 10.3635 6.26049 12.2661C5.77329 14.1687 5.97372 16.1822 6.82641 17.9514Z" stroke="#053534" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                </div>
+                </div> */}
 
 
                 <div
@@ -98,23 +137,95 @@ export default function Header({withColor, isLoggedIn, isFixed, logoOnly=false})
                 </div>
 
 
-                <div className="header_rewards">
-                  <RewardIcon width={1.5} height={1.5}/>
+                <div className="header_wallet"
+                  // style={{border: "1px solid red"}}
+                >
+                  <svg style={{ width: "1.4rem", height: "1.4rem" }} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                    <path d="M21,6H5c-.859,0-1.672-.372-2.235-.999,.55-.614,1.349-1.001,2.235-1.001H23c.553,0,1-.448,1-1s-.447-1-1-1H5C2.239,2,0,4.239,0,7v10c0,2.761,2.239,5,5,5H21c1.657,0,3-1.343,3-3V9c0-1.657-1.343-3-3-3Zm1,13c0,.551-.448,1-1,1H5c-1.654,0-3-1.346-3-3V6.998c.854,.639,1.904,1.002,3,1.002H21c.552,0,1,.449,1,1v10Zm-2-5c0,.552-.448,1-1,1s-1-.448-1-1,.448-1,1-1,1,.448,1,1Z"/>
+                  </svg>
                   <p 
                     style={{
                       width: "3rem",
-                      textAlign: "center"
+                      textAlign: "center",
+                      marginRight: "0.3rem"
                     }}
                   >99999</p>
-                  <img
-                    style={{
-                      maxHeight: "100%",
-                      borderRadius: "100rem",
-                      backgroundColor: "#fff",
-                    }}
-                    src="/pawsnpurpose-icon.png" 
-                    alt="profile-picture"
-                  />
+                  <div 
+                    className="header_profile-container"
+                    ref={dropdownRef}
+                    // style={{border: "1px solid red"}}
+                  >
+                    <div className="header_profile-button"
+                      onClick={clickDropdownButton}
+                      // style={{border: "1px solid red"}}
+                    > 
+                      <div className="header_profile-dropdown-icon"
+                        // style={{border: "1px solid red"}}  
+                      >
+                        <svg style={{width:"0.7rem", height: "0.7rem"}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <g id="_01_align_center" data-name="01 align center">
+                            <path d="M12,15.5a1.993,1.993,0,0,1-1.414-.585L5.293,9.621,6.707,8.207,12,13.5l5.293-5.293,1.414,1.414-5.293,5.293A1.993,1.993,0,0,1,12,15.5Z"/>
+                          </g>
+                        </svg>
+                      </div>
+
+                      <div className="header_profile-img"
+                        // style={{border:"1px solid red"}}
+                      >
+                        <img
+                          style={{
+                            maxHeight: "100%"
+                          }}
+                          src="https://i.pinimg.com/736x/df/14/35/df14354dfd73264b73f33c2e4f0fdf1b.jpg" 
+                          alt="profile-picture"
+                        />
+                      </div>
+                    </div>
+
+                    <div 
+                      className={`header_profile-dropdown ${isProfileDropdownOpen ? "active" : ""}`}
+                      // style={{border: "1px solid red"}}
+                    >
+                      <div className="header_profile-dropdown-buttons"
+                        // style={{border: "1px solid red"}}
+                      >
+                        <div className="header_profile-dropdown-button">
+                          <div className="header_profile-dropdown-button-icon">
+                            <img
+                              style={{width: "100%", height: "100%", borderRadius: "100rem"}}
+                              src="https://i.pinimg.com/736x/df/14/35/df14354dfd73264b73f33c2e4f0fdf1b.jpg"
+                              alt="profile-pic"
+                            />
+                          </div>
+                          
+                          <p>Profile</p>
+                        </div>
+                        <div className="header_profile-dropdown-button">
+                          <div className="header_profile-dropdown-button-icon">
+                            <svg style={{height: "1.3rem", width:"1.3rem"}} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                              <path d="M12.208,8.328c-.916-.077-1.788,.326-2.67,1.209-1.634,1.635-1.634,3.292,0,4.925,.481,.482,1.239,1.142,2.254,1.21,.966,.064,1.854-.392,2.67-1.21,1.634-1.634,1.633-3.292,0-4.925-.481-.482-1.239-1.132-2.254-1.21Zm.84,4.721s0,0,0,0c-.302,.302-.767,.655-1.102,.629-.262-.02-.596-.232-.993-.629-.787-.787-.897-1.2,0-2.098,.291-.291,.706-.63,1.061-.63,.014,0,.028,0,.041,.001,.262,.02,.596,.232,.993,.629,.787,.787,.897,1.2,0,2.098Z"/>
+                              <path d="M22.994,11.954c.006-1.206-.452-2.662-2.571-3.05-.11-.21-.231-.421-.364-.633,1.068-1.479,.986-2.851-.248-4.085-1.235-1.236-2.607-1.317-4.087-.245-.209-.132-.418-.252-.627-.36-.382-2.112-1.824-2.58-3.027-2.58-1.69,0-2.771,.891-3.086,2.624-.208,.109-.418,.23-.629,.362-1.473-1.064-2.846-.973-4.093,.272-1.243,1.244-1.333,2.618-.272,4.091-.133,.212-.255,.423-.366,.633-1.729,.316-2.609,1.345-2.618,3.063-.006,1.206,.452,2.662,2.571,3.05,.11,.21,.231,.421,.365,.633-1.069,1.479-.987,2.851,.247,4.085,1.235,1.236,2.608,1.317,4.087,.245,.209,.132,.418,.252,.627,.36,.382,2.112,1.824,2.58,3.027,2.58,1.721,0,2.771-.891,3.086-2.624,.208-.109,.418-.23,.629-.362,1.471,1.061,2.84,.968,4.092-.272s1.334-2.618,.273-4.092c.133-.212,.255-.423,.366-.632,1.729-.316,2.609-1.345,2.618-3.063Zm-3.369,1.147c-.364,.031-.682,.259-.829,.593-.201,.456-.483,.934-.839,1.419-.282,.385-.252,.917,.071,1.269,1.073,1.166,.713,1.527,.295,1.945-.435,.436-.78,.78-1.943-.296-.352-.324-.883-.354-1.27-.072-.483,.354-.959,.635-1.416,.834-.335,.147-.563,.465-.595,.831-.118,1.37-.6,1.373-1.157,1.375-.565,0-1.018,.006-1.122-1.326-.029-.371-.261-.695-.603-.841-.454-.195-.927-.472-1.405-.825-.177-.131-.386-.195-.594-.195-.244,0-.487,.089-.678,.265-1.179,1.087-1.532,.732-1.939,.324-.409-.409-.762-.763,.322-1.94,.325-.353,.354-.886,.068-1.272-.356-.481-.635-.955-.83-1.407-.146-.341-.47-.573-.839-.602-1.325-.106-1.323-.555-1.32-1.123,.003-.581,.005-1.04,1.369-1.158,.364-.031,.682-.259,.829-.593,.202-.457,.484-.935,.839-1.42,.282-.385,.252-.917-.071-1.269-1.073-1.165-.712-1.526-.295-1.944,.435-.435,.78-.779,1.943,.295,.352,.325,.883,.354,1.269,.072,.484-.354,.96-.634,1.417-.834,.335-.147,.563-.465,.595-.831,.118-1.37,.6-1.373,1.157-1.375,.573,.004,1.018-.006,1.122,1.326,.029,.371,.261,.695,.603,.841,.454,.195,.927,.472,1.405,.825,.385,.284,.919,.255,1.271-.069,1.179-1.087,1.531-.732,1.939-.324,.409,.409,.763,.763-.322,1.94-.325,.353-.354,.887-.069,1.272,.356,.481,.635,.955,.83,1.407,.146,.341,.47,.573,.839,.602,1.325,.106,1.323,.555,1.32,1.123-.003,.581-.005,1.04-1.369,1.158Z"/>
+                            </svg>
+                          </div>
+                          
+
+                          <p>Settings</p>
+                        </div>
+                        <div className="header_profile-dropdown-button">
+                          
+                          <div className="header_profile-dropdown-button-icon">
+                            <svg style={{height: "1rem", width:"1rem"}} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
+                              <path d="M22.763,10.232l-4.95-4.95L16.4,6.7,20.7,11H6.617v2H20.7l-4.3,4.3,1.414,1.414,4.95-4.95a2.5,2.5,0,0,0,0-3.536Z"/>
+                              <path d="M10.476,21a1,1,0,0,1-1,1H3a1,1,0,0,1-1-1V3A1,1,0,0,1,3,2H9.476a1,1,0,0,1,1,1V8.333h2V3a3,3,0,0,0-3-3H3A3,3,0,0,0,0,3V21a3,3,0,0,0,3,3H9.476a3,3,0,0,0,3-3V15.667h-2Z"/>
+                            </svg>
+                          </div>
+                          
+
+                          <p>Sign out</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
               </div>

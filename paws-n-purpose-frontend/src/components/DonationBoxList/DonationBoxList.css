@@ -1,26 +1,27 @@
+/* components/DonationBoxList/DonationBoxList.css */
 .donation-boxes-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 2em;
-  padding: 1rem;
+  gap: 1rem;
+  padding: 0.5rem;
 }
 
 .donation-box-card-item {
   background-color: white;
-  border-radius: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease;
   border: 1px solid #e2e8f0;
 }
 
 .donation-box-card-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .donation-box-image-container {
-  height: 150px;
+  height: 120px;
   overflow: hidden;
 }
 
@@ -37,16 +38,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2rem;
   color: #cbd5e0;
 }
 
 .donation-box-card-info {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .donation-box-card-name {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #2d3748;
   margin: 0 0 0.5rem 0;
@@ -56,57 +57,61 @@
 }
 
 .donation-box-card-condition {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #4a5568;
   line-height: 1.4;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   line-clamp: 2;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 3rem;
+  min-height: 2.4em;
 }
 
 .donation-box-card-goal {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.75rem;
+  padding-top: 0.5rem;
   border-top: 1px solid #e2e8f0;
 }
 
 .goal-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #718096;
   font-weight: 600;
 }
 
 .goal-amount {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #2d3748;
 }
 
 .no-boxes-message {
   text-align: center;
-  padding: 3rem;
+  padding: 2rem;
   color: #a0aec0;
   font-style: italic;
   background-color: #f8f9fa;
-  border-radius: 0.75rem;
-  border: 2px dashed #cbd5e0;
+  border-radius: 0.5rem;
+  border: 1px dashed #cbd5e0;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
   .donation-boxes-container {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 0.5rem;
+    gap: 0.75rem;
+    padding: 0.25rem;
   }
   
   .donation-box-card-info {
-    padding: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .donation-box-image-container {
+    height: 100px;
   }
 }

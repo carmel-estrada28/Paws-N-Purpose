@@ -23,6 +23,7 @@ export default function Button({
     <button 
       className={`${theme} ripple-container`}
       style={{
+        // border: "1px solid red",
         position: "relative",
         padding: `${vPadding}rem ${hPadding}rem`,
         width: `${width}`,

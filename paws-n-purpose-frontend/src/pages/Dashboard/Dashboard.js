@@ -1,15 +1,15 @@
 import { Calculator } from "lucide-react";
 import Header from "../../components/Header/Header";
 import "./Dashboard.css"
-import RewardIcon from "../../components/Icons/RewardIcon";
 import { Link } from "react-router-dom";
-import CarouselCampaignCard from "../../components/CampaignCards/CarouselCampaignCard";
+import Campaign from "../../components/Projects/Campaign";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Button from "../../components/Buttons/Button";
+import DonationBox from "../../components/Projects/DonationBox";
 
 
 // carousel component
-function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
+function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false}) {
 
 
     // useStates
@@ -28,12 +28,14 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
     const paddingLeft = 48;
 
     // useEffects
+
+      // set scroll steps
     useEffect(() => {
       if (!scrollContainerRef.current) return;
 
       const scrollContainer = scrollContainerRef.current;
       
-      const cards = Array.from(scrollContainer.children[0].children);
+      const cards = Array.from(itemsContainerRef.current.children);
 
       const nextCard = [...cards].find(card => card.offsetLeft + card.clientWidth > scrollContainer.scrollLeft + scrollContainer.clientWidth);
 
@@ -43,6 +45,7 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
 
     }, [])
 
+      // setting arrow behavior
     useEffect(() => {
       const el = scrollContainerRef.current;
       if (!el) return;
@@ -62,6 +65,8 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
 
 
     // useLayoutEffects
+
+      // setting the filler space
     useLayoutEffect(() => {
       const scrollContainer = scrollContainerRef.current;
       if (!scrollContainer) return;
@@ -77,7 +82,6 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
       const leftover = scrollWidth % scrollStepRef.current;
 
 
-        // The phantom card must fill the missing space
       const extraRightPadding =
         leftover === 0 ? 0 : containerWidth - leftover;
 
@@ -151,6 +155,7 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
         <div 
           className="Dashboard_campaigns"
           style={{
+            display: `${ isDisplayed ? "flex" : "none" }`
             // border: "1px solid #d1a400ff"
           }}
         > 
@@ -166,7 +171,7 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
               style={{
                 // border: "1px solid #00b0c7ff",
                 fontFamily: "Cherry Bomb One",
-                fontSize: "1.5rem"
+                fontSize: "1.9rem"
               }}
             >{headerText}</p>
 
@@ -255,6 +260,7 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
                 // border: "1px solid rgba(255, 0, 132, 1)"
               }}
             >
+
               <div
                 className="Dashboard_carousel-items"
                 ref={itemsContainerRef}
@@ -263,17 +269,12 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
                   // border: "1px solid #3700ffff"
                 }}
               >
-                <CarouselCampaignCard campaignTitle={"Card 1"} myCampaign={myCampaigns} />
-                <CarouselCampaignCard campaignTitle={"Card 2"} myCampaign={myCampaigns} />
-                <CarouselCampaignCard campaignTitle={"Card 3"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 4"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 5"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 6"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 7"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 8"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 9"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 10"}  myCampaign={myCampaigns}  />
-                <CarouselCampaignCard campaignTitle={"Card 11"}  myCampaign={myCampaigns}  />
+
+                <Campaign campaignTitle={"Campaign Dummy"} />
+                <DonationBox donationBoxTitle={"Donation Box Dummy"} />
+                <Campaign campaignTitle={"Campaign Dummy"} />
+                <DonationBox donationBoxTitle={"Donation Box Dummy"} />
+
                 <button 
                   type="button"
                   className="Carousel_see-all-button"
@@ -297,7 +298,10 @@ function Carousel({ headerText, seeAllLink="/dashboard", myCampaigns=false}) {
 }
 
 export default function Dashboard() {
-
+  
+  // useStates
+  const [hasDonated, setHasDonated] = useState(false)
+  const [hasProjects, setHasProjects] = useState(false)
 
 
 
@@ -339,85 +343,14 @@ export default function Dashboard() {
         }}  
       >
 
-        <div 
-          className="Dashboard_profile"
+        <p 
           style={{
-            // border: "1px solid #27b500ff",
-            backgroundColor: "#fff",
-            borderRadius: "1rem",
-            boxShadow: "0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)"
+            fontSize: "3rem",
+            fontFamily: "Cherry Bomb One",
+            margin: "1.5rem 3rem 1rem 3rem",
+            // border: "1px solid red"
           }}
-        >
-
-          <div 
-            className="Dashboard_identity"
-            style={{
-              // border: "1px solid rgba(44, 255, 2, 1)",
-            }}
-          >
-
-            <img 
-              src="" 
-              alt="profile-picture"
-              style={{
-                margin: "0",
-                width: "4.5rem",
-                height: "4.5rem",
-                borderRadius: "100%",
-                backgroundColor: "#828282ff"
-              }}
-            />
-            
-            <div 
-              className="Dashboard_fullname"
-              style={{
-                // border: "1px solid red"
-              }}
-            >
-                <p style={{ fontSize: "1.2rem" }}>Full name</p>
-                <p style={{ fontSize: "1rem", marginTop: "-0.35rem", color: "#9F9F9F" }}>@nickname</p>
-            </div>
-          </div>
-
-          <div 
-            className="Dashboard_metrics"
-            style={{
-              // border: "1px solid #ff9900ff"
-            }}
-          >
-
-            <div 
-              className="Dashboard_campaigns-donated"
-              style={{
-                // border: "1px solid red"
-              }}
-            >
-
-              <p style={{ display: "flex", alignItems: "center", fontSize: "1.8rem" }}>56</p>
-              <p style={{ fontSize: "1rem" }}>Campaigns Donated</p>
-            </div>
-
-            <div 
-              className="Dashboard_points"
-              style={{
-                // border: "1px solid red"
-              }}
-            >
-
-              <div 
-                className="Dashboard_points-amount"
-                style={{
-                  // border: "1px solid #0084ffff"
-                }}
-              >
-                <RewardIcon width={2} height={2}/>
-                <p style={{ display: "flex", alignItems: "center", fontSize: "1.8rem" }}>100</p>
-              </div>
-              <p style={{ fontSize: "1rem" }}>Care Points</p>
-
-            </div>
-          </div>
-        </div>
+        >Home</p>
 
         <div 
           className="Dashboard_explore"
@@ -426,14 +359,17 @@ export default function Dashboard() {
           }}
         >
 
-          {/* My Campaigns Carousel */}
-          <Carousel headerText={"My Campaigns"} myCampaigns={true} />
+          {/* My Projects */}
+          <Carousel headerText={"Manage your projects"}/>
 
-          {/* Single-Pets Carousel */}
-          <Carousel headerText={"Single-pet Campaigns"}/>
+          {/* Donate again */}
+          <Carousel headerText={"Donate again"}/>
 
-          {/* Multi-Pets Carousel */}
-          <Carousel headerText={"Multi-pet Campaigns"}/>
+          {/* Featured Campaigns */}
+          <Carousel headerText={"Featured Campaigns"} isDisplayed={true}/>
+
+          {/* Donation Boxes */}
+          <Carousel headerText={"Featured Donation Boxes"} isDisplayed={true}/>
 
         </div>
       </div>
@@ -441,16 +377,71 @@ export default function Dashboard() {
       <div 
         className="Dashboard_bg-container"
         style={{
-          position: "absolute",
+          position: "fixed",
+          overflow: "hidden",
           top: "0",
           left: "0",
           width: "100%",
-          height: "100%",
+          height: "100vh",
           zIndex: "-1",
           // border: "1px solid red",
         }}
       >
+        <svg viewBox="0 0 525 643" fill="none" xmlns="http://www.w3.org/2000/svg"
+          style={{
+            zIndex: "1",
+            marginLeft: "-2rem",
+            marginTop: "-1rem",
+            width: "27rem",
+            height: "27rem",
+            position: "absolute",
+            top: "0rem",
+            left: "0rem"
+          }}
+        >
+          <g filter="url(#filter0_f_1121_359)">
+          <circle cx="56" cy="174" r="169" fill="#bbedffff"/>
+          </g>
+          <defs>
+            <filter id="filter0_f_1121_359" x="-413" y="-295" width="938" height="938" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="150" result="effect1_foregroundBlur_1121_359"/>
+            </filter>
+          </defs>
+        </svg>
 
+        <svg viewBox="0 0 756 986" fill="none" xmlns="http://www.w3.org/2000/svg"
+          style={{
+            zIndex: "1",
+            marginRight: "-2rem",
+            marginTop: "-1rem",
+            width: "50rem",
+            height: "50rem",
+            position: "absolute",
+            top: "0rem",
+            right: "0rem"
+          }}
+        >
+          <g filter="url(#filter0_f_1218_361)">
+            <circle cx="627" cy="359" r="227" fill="#EAEF9F"/>
+          </g>
+          <g filter="url(#filter1_f_1218_361)">
+            <circle cx="423" cy="327" r="105" fill="#BBE7D6"/>
+          </g>
+          <defs>
+            <filter id="filter0_f_1218_361" x="0" y="-268" width="1254" height="1254" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="200" result="effect1_foregroundBlur_1218_361"/>
+            </filter>
+            <filter id="filter1_f_1218_361" x="168" y="72" width="510" height="510" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+              <feGaussianBlur stdDeviation="75" result="effect1_foregroundBlur_1218_361"/>
+            </filter>
+          </defs>
+        </svg>
       </div>
     </div>
   );

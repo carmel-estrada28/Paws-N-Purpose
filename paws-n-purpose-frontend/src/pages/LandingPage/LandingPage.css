@@ -1,3 +1,4 @@
+
 .landing-page {
   height: 100%;
   overflow-y: auto;
@@ -6,28 +7,128 @@
 /* New Main Content Styles */
 .main-content-new {
   flex: 1;
-  padding: 2rem 1rem 2.5rem 2rem;
-  margin: 5.6rem 0 0 30rem;
+  padding: 2rem 2.5rem 3rem 2.5rem;
+  margin: 5.6rem 0 0 18.5rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  /* background-color: magenta; */
+  gap: 1.5rem;
   height: 100%;
+  background: #FBF9F3;
 }
 
-.content-title-new {
+.landing-search-row {
+  max-width: 50rem;
+  width: 100%;
+  position: relative;
+}
+
+/* Search modal styles */
+.search-modal {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  z-index: 30;
+  padding: 0;
+}
+
+.search-modal-inner {
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+
+.search-result-item:hover {
+  background: #FBF3F8;
+}
+
+.result-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.result-tag {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border-radius: 1rem;
+  border: 1px solid #DD4391;
+  color: #DD4391;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.result-title {
   font-family: 'Cherry Bomb', cursive;
-  font-size: 1.75rem;
+  font-size: 1.1rem;
+  color: #053534;
+}
+
+.result-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.result-image img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.empty-results {
+  padding: 1rem;
+  color: #666;
+}
+
+.discover-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.discover-title {
+  font-family: 'Cherry Bomb', cursive;
+  font-size: 1.6rem;
   color: #053534;
   margin: 0;
+}
+
+.discover-breadcrumb {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #053534;
+  opacity: 0.7;
 }
 
 .campaigns-list-new {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  /* ADD: Allow natural flow instead of fixed container */
+  gap: 1.5rem;
   flex: 1;
+  max-width: 72.3rem;
 }
 
 .no-campaigns {
@@ -39,30 +140,33 @@
   font-size: 1.1rem;
 }
 
+.campaign-card-wrapper {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 1rem;
+}
+
 /* Keep existing sidebar styles */
 
-
 /* Responsive Design */
-/* @media (max-width: 1024px) {
+/*
+@media (max-width: 1024px) {
   .main-content-new {
     margin-left: 0;
     padding: 7.5rem 2rem 2rem 2rem;
   }
-  
-  .campaign-card-wrapper { */
-    /* REMOVE: height: auto; */
-  /* }
-  
+
   .campaign-card-wrapper .campaign-card-new {
     flex-direction: column;
   }
-  
+
   .campaign-card-wrapper .campaign-image-new {
     width: 100%;
     min-height: 12rem;
   }
-  
+
   .campaign-card-wrapper .campaign-image-new img {
     min-height: 12rem;
   }
-} */
+}
+*/
