@@ -1,0 +1,204 @@
+/* pages/ViewDonationBox/ViewDonationBox.css - COMPLETELY REDESIGNED */
+.view-donation-box-page {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.view-donation-box-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* Back Navigation */
+.back-navigation {
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: #053534;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.back-link:hover {
+  color: #DD4391;
+}
+
+.back-link svg {
+  transition: transform 0.2s;
+}
+
+.back-link:hover svg {
+  transform: translateX(-4px);
+}
+
+/* TOP SECTION: Image left, Progress right */
+.donation-box-top-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .donation-box-top-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Image Section */
+.donation-box-image-section {
+  width: 100%;
+}
+
+.donation-box-image-section .campaign-hero {
+  height: 23.8rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Progress Section */
+.donation-box-progress-section {
+  width: 100%;
+}
+
+/* BOTTOM SECTION: Description left, Campaign card right */
+.donation-box-bottom-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .donation-box-bottom-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Description Card */
+.donation-box-description-card {
+  padding: 1rem 0;
+}
+
+.description-title {
+  font-family: 'Cherry Bomb', cursive;
+  font-size: 2rem;
+  color: #053534;
+  margin: 0 0 1.5rem 0;
+}
+
+.description-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #495057;
+  margin: 0 0 1.5rem 0;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: #DD4391;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 500;
+  transition: color 0.2s;
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.read-more-btn:hover {
+  color: #b33771;
+}
+
+/* Horizontal Line Divider */
+.description-divider {
+  border: none;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 2rem 0;
+}
+
+/* Updates Section */
+.updates-section {
+  width: 100%;
+}
+
+.updates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.updates-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #053534;
+  margin: 0;
+}
+
+/* Campaign Card Section */
+.campaign-section-title {
+  font-family: 'Cherry Bomb', cursive;
+  font-size: 1.5rem;
+  color: #053534;
+  margin: 0 0 1rem 0;
+}
+
+.campaign-card-container {
+  width: 100%;
+}
+
+.campaign-card-content {
+  padding: 0;
+}
+
+/* Override CampaignCard styles */
+.campaign-card-content .campaign-card-wrapper {
+  box-shadow: none;
+  border: 1px solid #e9ecef;
+  margin-bottom: 1rem;
+}
+
+.campaign-card-content .campaign-card-new {
+  flex-direction: column;
+}
+
+.campaign-card-content .campaign-image-new {
+  width: 100%;
+  min-height: 12rem;
+}
+
+.campaign-card-content .campaign-content-new {
+  padding: 1rem;
+}
+
+.campaign-card-content .campaign-actions {
+  display: none;
+}
+
+/* Loading and Error States */
+.loading, .error, .not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.25rem;
+  color: #053534;
+}
