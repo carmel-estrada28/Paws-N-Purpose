@@ -6,13 +6,13 @@ import AccountSetupPage from './pages/AccountSetupPage/AccountSetupPage'
 import LandingPage from './pages/LandingPage/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ViewCampaign from './pages/ViewCampaign/ViewCampaign';
+import CampaignList from "./pages/CampaignListPage/CampaignList";
 import MyProjects from "./pages/MyProjects/MyProjects";
 import CreateDonationBox from "./pages/CreateDonationBox/CreateDonationBox";
 import CreateCampaign from "./pages/CreateCampaign/CreateCampaign";
 import ProtectedRoute from './components/Routes/ProtectedRoute'
 import PublicRoute from './components/Routes/PublicRoute'
 import {AuthProvider} from "./components/Routes/AuthContext";
-
 import './App.css';
 import './styles/ButtonThemes.css';
 
@@ -46,9 +46,22 @@ function App() {
             <ProtectedRoute requireProfile={true}><Dashboard /></ProtectedRoute>
           } />
 
+          // App.js - Update these routes:
+
+          {/* Public ViewCampaign route for non-logged-in users */}
           <Route path="/campaign/:campaignId" element={
+            <ViewCampaign />
+          } />
+
+          {/* Protected ViewCampaign route for logged-in users */}
+          <Route path="/user/campaign/:campaignId" element={
             <ProtectedRoute requireProfile={true}><ViewCampaign /></ProtectedRoute>
           } />
+
+          <Route path="/campaign-list" element={
+            <ProtectedRoute requireProfile={true}><CampaignList /></ProtectedRoute>
+          } />
+          
 
           <Route path="/my-projects" element={
             <ProtectedRoute requireProfile={true}><MyProjects /></ProtectedRoute>
