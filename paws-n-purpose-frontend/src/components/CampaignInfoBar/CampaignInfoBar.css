@@ -1,0 +1,36 @@
+.campaign-info-bar {
+  background: #EAEF9F;
+  border: 1.5px solid #dbe47e;
+  border-radius: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: #053534;
+  font-weight: 500;
+}
+
+.campaign-info-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.campaign-info-bar-btn {
+  background: none;
+  border: none;
+  color: #053534;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  transition: color 0.2s;
+}
+.campaign-info-bar-btn:hover {
+  color: #388e3c;
+}
