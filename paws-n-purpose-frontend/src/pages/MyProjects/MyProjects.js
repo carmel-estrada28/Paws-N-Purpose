@@ -1,6 +1,6 @@
 import "./MyProjects.css";
 import Header from '../../components/Header/Header';
-import Card from "../../components/Card/Card";
+import Campaign from "../../components/Projects/Campaign";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import Button from "../../components/Buttons/Button";
 import { useState, useEffect } from "react";
@@ -74,16 +74,20 @@ export default function MyProjects() {
       <div className="myprojects-content-wrapper">
         <div className="myprojects-content">
           <div className="myprojects-sidebar">
-            <Card card_width="100%">
+            {/* <Card card_width="100%"> */}
               <div className="sideBar_categories-section">
-                <h3 className="sideBar_section-title">Categories</h3>
                 <div className="sideBar_categories-list">
                   {categories.map(category => {
                     const count = campaigns.filter(camp => camp.category === category.value).length;
                     return (
                       <button
                         key={category.value}
-                        onClick={() => setSelectedCategory(category.value)}
+                        onClick={() => {
+                          // Toggle selection - if clicking the same category, set to "All Campaigns"
+                          setSelectedCategory(prevCategory => 
+                            prevCategory === category.value ? "All Campaigns" : category.value
+                          );
+                        }}
                         className={`sideBar_category-btn ${selectedCategory === category.value ? 'sideBar_category-btn-active' : ''}`}
                       >
                         {category.label}
@@ -93,7 +97,7 @@ export default function MyProjects() {
                   })}
                 </div>
               </div>
-            </Card>
+            {/* </Card> */}
           </div>
 
           <div className="myprojects-main">
@@ -142,7 +146,7 @@ export default function MyProjects() {
                 <Button 
                   type="button" 
                   text="Create Donation Box" 
-                  theme="primary"
+                  theme="semi-rounded"
                   vPadding={0.75}
                   hPadding={1.5}
                   onClick={handleCreateDonationBox}
@@ -153,76 +157,36 @@ export default function MyProjects() {
                   theme="semi-rounded"
                   vPadding={0.75}
                   hPadding={1.5}
-                  onClick={() => navigate('/create-campaign')}
+                  onClick={() => navigate('/create-campaign/step-1')}
                 />
               </div>
             </div>
 
-            <div className="myprojects-campaigns-grid">
-              {filteredCampaigns.length > 0 ? (
-                filteredCampaigns.map((campaign) => {
-                  const progress = (campaign.raised / campaign.goal) * 100;
-                  
-                  return (
-                    <Card key={campaign.id} card_width="100%">
-                      <div className="myprojects-campaign-card">
-                        <div className="myprojects-campaign-image">
-                          <img 
-                            src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" 
-                            alt={campaign.title}
-                          />
-                        </div>
-                        <h3 className="myprojects-campaign-title">{campaign.title}</h3>
-                        
-                        <div className="myprojects-progress-container">
-                          <div className="myprojects-progress-bar">
-                            <div 
-                              className="myprojects-progress-fill"
-                              style={{ width: `${Math.min(progress, 100)}%` }}
-                            ></div>
-                          </div>
-                          
-                          <div className="myprojects-progress-text">
-                            <span className="myprojects-raised">
-                              ${campaign.raised.toLocaleString()}
-                            </span>
-                            <span className="myprojects-goal">
-                              / ${campaign.goal.toLocaleString()}
-                            </span>
-                          </div>
-                          
-                          <div className="myprojects-progress-percentage">
-                            {Math.round(progress)}%
-                          </div>
-                        </div>
-                        
-                        <div className="myprojects-campaign-actions">
-                          <Button 
-                            type="button"
-                            text="Edit"
-                            theme="semi-rounded"
-                            vPadding={0.5}
-                            hPadding={1}
-                            onClick={() => {/* Handle edit */}}
-                          />
-                          <Button 
-                            type="button"
-                            text={campaign.status === "active" ? "Close" : "Archive"}
-                            theme="semi-rounded"
-                            vPadding={0.5}
-                            hPadding={1}
-                            onClick={() => {/* Handle close/archive */}}
-                          />
-                        </div>
-                      </div>
-                    </Card>
-                  );
-                })
-              ) : (
-                <div className="myprojects-no-results">
-                  <p>No campaigns found. Try a different search or category.</p>
-                </div>
-              )}
+            <div className="myprojects-campaigns-container">
+              <div className="myprojects-campaigns-grid">
+                {filteredCampaigns.length > 0 ? (
+                  filteredCampaigns.map((campaign) => (
+                    <Campaign 
+                      key={campaign.id}
+                      campaignTitle={campaign.title}
+                      campaign={{
+                        id: campaign.id,
+                        title: campaign.title,
+                        description: "Help support this important cause with your donation.",
+                        raised: campaign.raised,
+                        goal: campaign.goal,
+                        status: campaign.status,
+                        category: campaign.category,
+                        image: "https://source.unsplash.com/random/400x300/?animal,pet"
+                      }}
+                    />
+                  ))
+                ) : (
+                  <div className="myprojects-no-results">
+                    <p>No campaigns found. Try a different search or category.</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
