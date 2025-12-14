@@ -10,10 +10,15 @@ import "../Projects/DonationBox.css"
 
 
 
-export default function DonationBox({ donationBox, onView, onDonate, donationBoxTitle, myDonationBox=false }) {
+export default function DonationBox({ donationBox, onView, onDonate, donationBoxTitle, hasMaxWidth=false}) {
     return (
         <div 
             className="DonationBox"
+            style={ hasMaxWidth ? {
+                maxWidth: "23.1rem"
+            } : {
+
+            }}
         >
             <div 
                 className="DonationBox_image-container"

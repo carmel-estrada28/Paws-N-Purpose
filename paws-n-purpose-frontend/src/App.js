@@ -18,6 +18,8 @@ import PublicRoute from './components/Routes/PublicRoute'
 import {AuthProvider} from "./components/Routes/AuthContext";
 import './App.css';
 import './styles/ButtonThemes.css';
+import BasePageTemplate from "./pages/BasePageTemplate/BasePageTemplate";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 
 
@@ -29,6 +31,10 @@ function App() {
         <Routes>
 
           <Route path="*" element={<Navigate to="/landing" />} />
+
+          <Route path="/base" element={
+            <PublicRoute><BasePageTemplate /></PublicRoute>
+          } />
 
           <Route path="/landing" element={
             <PublicRoute><LandingPage /></PublicRoute>
@@ -97,6 +103,10 @@ function App() {
 
           <Route path="/create-campaign/step-3" element={
             <ProtectedRoute requireProfile={true}><ReviewCampaign /></ProtectedRoute>
+          } />
+
+          <Route path="/profile" element={
+            <ProtectedRoute requireProfile={true}><ProfilePage /></ProtectedRoute>
           } />
 
         </Routes>

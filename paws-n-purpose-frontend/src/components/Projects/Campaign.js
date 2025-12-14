@@ -9,10 +9,15 @@ import { Calendar } from 'lucide-react';
 
 
 
-export default function Campaign({ campaign, onView, onDonate, campaignTitle, myCampaign=false }) {
+export default function Campaign({ campaign, onView, onDonate, scale=1, campaignTitle, hasMaxWidth=false }) {
     return (
         <div 
             className="Campaign"
+            style={ hasMaxWidth ? {
+                maxWidth: "29.7rem",
+            }
+            :
+            {}}
         >
             <div 
                 className="Campaign_image-container"
