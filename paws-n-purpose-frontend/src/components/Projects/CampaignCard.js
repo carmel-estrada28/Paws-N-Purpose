@@ -1,5 +1,5 @@
 import './CampaignCard.css';
-import Button from '../Buttons/Button'; // ADD THIS
+import Button from '../Buttons/Button'; 
 import { Link } from 'react-router-dom';
 
 export default function CampaignCard({ campaign, onView, onDonate }) {
@@ -48,8 +48,6 @@ export default function CampaignCard({ campaign, onView, onDonate }) {
           </p>
 
           <div className="campaign-actions">
-            {/* REPLACE THESE BUTTONS */}
-            <Link to={`/campaign/${campaign.id}`}>
               <Button
                 type="button"
                 text="View"
@@ -59,9 +57,9 @@ export default function CampaignCard({ campaign, onView, onDonate }) {
                 theme="pink semi-rounded"
                 style={{ flex: 1 }}
               />
-            </Link>
+            
 
-            <Link to={"/login"}>
+            
             <Button
               type="button"
               text="Donate"
@@ -75,7 +73,7 @@ export default function CampaignCard({ campaign, onView, onDonate }) {
                 color: '#DD4391'
               }}
             />
-            </Link>
+            
             
           </div>
         </div>
