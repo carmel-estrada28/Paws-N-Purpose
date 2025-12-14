@@ -6,6 +6,7 @@ import AccountSetupPage from './pages/AccountSetupPage/AccountSetupPage'
 import LandingPage from './pages/LandingPage/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ViewCampaign from './pages/ViewCampaign/ViewCampaign';
+import ViewDonationBox from "./pages/ViewDonationBox/ViewDonationBox";
 import CampaignList from "./pages/CampaignListPage/CampaignList";
 import MyProjects from "./pages/MyProjects/MyProjects";
 import CreateDonationBox from "./pages/CreateDonationBox/CreateDonationBox";
@@ -57,6 +58,18 @@ function App() {
           <Route path="/user/campaign/:campaignId" element={
             <ProtectedRoute requireProfile={true}><ViewCampaign /></ProtectedRoute>
           } />
+
+          {/* Public ViewDonationBox route for non-logged-in users */}
+          <Route path="/donation-box/:donationBoxId" element={
+            <ViewDonationBox />
+          } />
+
+          {/* Protected ViewDonationBox route for logged-in users */}
+          <Route path="/user/donation-box/:donationBoxId" element={
+            <ProtectedRoute requireProfile={true}><ViewDonationBox /></ProtectedRoute>
+          } />
+
+
 
           <Route path="/campaign-list" element={
             <ProtectedRoute requireProfile={true}><CampaignList /></ProtectedRoute>
