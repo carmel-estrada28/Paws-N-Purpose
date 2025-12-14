@@ -3,11 +3,10 @@ import Header from '../../components/Header/Header';
 import Campaign from "../../components/Projects/Campaign";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import Button from "../../components/Buttons/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function MyProjects() {
-  const [showFilter, setShowFilter] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All Campaigns");
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
@@ -24,17 +23,10 @@ export default function MyProjects() {
   ];
 
   const categories = [
-    { label: 'Drafts', value: 'Drafts' },
     { label: 'Active', value: 'Active' },
     { label: 'Archived', value: 'Archived' },
-    { label: 'Saved', value: 'Saved'}
   ];
 
-  const filterOptions = [
-    "All Campaigns",
-    "Donation Boxes",
-    "Campaigns"
-  ];
 
   // Filter campaigns based on selected category and search
   const filteredCampaigns = campaigns.filter(campaign => {
@@ -50,17 +42,6 @@ export default function MyProjects() {
     });
   };
 
-  // Close filter dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (showFilter && !event.target.closest('.myprojects-filter-container')) {
-        setShowFilter(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [showFilter]);
 
   return (
     <div className="myprojects-container">
@@ -106,42 +87,10 @@ export default function MyProjects() {
                 <SearchBox 
                   value={searchQuery}
                   onChange={setSearchQuery}
-                  placeholder=" Search campaigns"
+                  placeholder="Search campaigns"
                 />
-                
-                <div className="myprojects-filter-container">
-                  <button 
-                    className="myprojects-filter-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setShowFilter(!showFilter);
-                    }}
-                  >
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="#053534" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    Filter
-                  </button>
-                  
-                  {showFilter && (
-                    <div className="myprojects-filter-dropdown">
-                      {filterOptions.map((option, index) => (
-                        <div 
-                          key={index} 
-                          className="myprojects-filter-option"
-                          onClick={() => {
-                            setSelectedCategory(option);
-                            setShowFilter(false);
-                          }}
-                        >
-                          {option}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
               </div>
-              
+            
               <div className="myprojects-create-buttons">
                 <Button 
                   type="button" 

@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Upload, X, Image as ImageIcon } from 'lucide-react';
+import { X, Image as ImageIcon, Upload, ArrowLeft } from 'lucide-react';
 import Header from '../../components/Header/Header';
+import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 import './CreateDonationBox.css';
 
 function CreateDonationBox() {
@@ -11,15 +12,45 @@ function CreateDonationBox() {
     title: '',
     description: '',
     goalAmount: '',
-    targetDate: '',
     photoFile: null,
     photoUrl: ''
   });
 
   const [photoPreview, setPhotoPreview] = useState(null);
   const [dragActive, setDragActive] = useState(false);
+  const [showDiscardModal, setShowDiscardModal] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [error, setError] = useState('');
   const fileInputRef = useRef(null);
+
+  // Check for unsaved changes
+  useEffect(() => {
+    const hasChanges = 
+      formData.title || 
+      formData.description || 
+      formData.goalAmount || 
+      formData.photoFile || 
+      photoPreview;
+    
+    setHasUnsavedChanges(!!hasChanges);
+  }, [formData, photoPreview]);
+
+  const handleBack = () => {
+    if (hasUnsavedChanges) {
+      setShowDiscardModal(true);
+    } else {
+      navigate(-1);
+    }
+  };
+
+  const handleConfirmDiscard = () => {
+    setShowDiscardModal(false);
+    navigate(-1);
+  };
+
+  const handleCancelDiscard = () => {
+    setShowDiscardModal(false);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -103,9 +134,19 @@ function CreateDonationBox() {
       <Header withColor isLoggedIn isFixed />
 
       <div className="create-donation-box-content">
-        <button className="back-pill" onClick={() => navigate(-1)}>
+        <button className="back-pill" onClick={handleBack}>
           <ArrowLeft size={16} /> Back
         </button>
+        
+        <ConfirmationModal
+          isOpen={showDiscardModal}
+          onClose={handleCancelDiscard}
+          onConfirm={handleConfirmDiscard}
+          title="Discard Changes?"
+          message="You have unsaved changes. Are you sure you want to leave?"
+          confirmText="Discard"
+          cancelText="Cancel"
+        />
 
         <div className="donation-box-create-card">
           <h1>Create Donation Box</h1>
@@ -230,14 +271,6 @@ function CreateDonationBox() {
                   required
                 />
 
-                <label className="simple-label">Target Date (Optional)</label>
-                <input
-                  className="simple-input"
-                  type="date"
-                  name="targetDate"
-                  value={formData.targetDate}
-                  onChange={handleChange}
-                />
               </div>
             </div>
 

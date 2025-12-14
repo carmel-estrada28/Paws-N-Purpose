@@ -17,15 +17,15 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  /* margin-bottom: 2rem; */
+  /* margin-top: 2rem; */
 }
 
 .back-pill {
   background: #eaf3c1;
-  border: none;
+  /* border: none; */
   border-radius: 999px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -55,7 +55,7 @@
   margin: 0 auto;
   position: relative;
   padding: 0 1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
 }
 
