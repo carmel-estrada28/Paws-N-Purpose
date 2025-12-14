@@ -244,7 +244,13 @@ export default function LandingPage() {
           modalRef={modalRef}
           modalStyle={modalStyle}
           campaigns={filteredDonationBoxes}
-          onCampaignSelect={() => setSearchModalOpen(false)}
+          onCampaignSelect={(id) => {
+            setSearchModalOpen(false);
+            // Navigate to public donation box view
+            navigate(`/donation-box/${id}`, {
+              state: { from: '/landing', isPublic: true }
+            });
+          }}
           navigate={navigate}
         />
 

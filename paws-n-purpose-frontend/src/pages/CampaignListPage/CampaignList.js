@@ -236,7 +236,13 @@ const handleViewCampaign = (campaignId) => {
             modalRef={modalRef}
             modalStyle={modalStyle}
             campaigns={filteredCampaigns}
-            onCampaignSelect={() => setSearchModalOpen(false)}
+            onCampaignSelect={(id) => {
+              setSearchModalOpen(false);
+              // Navigate to user donation box view
+              navigate(`/user/donation-box/${id}`, {
+                state: { from: '/campaign-list', isPublic: false }
+              });
+            }}
             navigate={navigate}
           />
         </div>
