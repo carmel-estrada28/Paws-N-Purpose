@@ -1,7 +1,8 @@
+// components/DonationBoxList/DonationBoxList.js - COMPLETE UPDATED
 import Button from '../Buttons/Button';
 import './DonationBoxList.css';
 
-const DonationBoxList = ({ donationBoxes }) => {
+const DonationBoxList = ({ donationBoxes, onViewBox }) => { // ADDED onViewBox prop
   if (!donationBoxes || donationBoxes.length === 0) {
     return (
       <div className="no-boxes-message">
@@ -47,8 +48,14 @@ const DonationBoxList = ({ donationBoxes }) => {
               <div className="donation-box-progress-fill" style={{ width: `${progress}%` }} />
             </div>
 
-            {/* View Button */}
-            <Button text="View" theme="pink semi-rounded" height="2.75rem" style={{ width: '100%' }} />
+            {/* View Button - UPDATED WITH onClick */}
+            <Button 
+              text="View" 
+              theme="pink semi-rounded" 
+              height="2.75rem" 
+              style={{ width: '100%' }}
+              onClick={() => onViewBox && onViewBox(box)} // ADDED THIS LINE
+            />
           </div>
         </div>
         );

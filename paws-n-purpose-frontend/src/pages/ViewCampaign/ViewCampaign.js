@@ -1,4 +1,4 @@
-// pages/ViewCampaign/ViewCampaign.js
+// pages/ViewCampaign/ViewCampaign.js - COMPLETE UPDATED
 import React, { useState, useContext } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import Header from "../../components/Header/Header";
@@ -41,6 +41,30 @@ export default function ViewCampaign() {
   
   const { campaign, loading: campaignLoading, error } = useCampaign(campaignId);
   const { donate, processing } = useDonation();
+
+  // NEW FUNCTION: Handle clicking on a donation box
+  const handleViewDonationBox = (donationBox) => {
+    // Determine the correct route based on authentication
+    const fromPage = location.state?.from || null;
+    
+    if (isAuthenticated) {
+      // Logged-in users go to /user/donation-box/{id}
+      navigate(`/user/donation-box/${donationBox.id}`, {
+        state: { 
+          from: fromPage || `/campaign/${campaignId}`,
+          campaignId: campaignId
+        }
+      });
+    } else {
+      // Non-logged-in users go to /donation-box/{id}
+      navigate(`/donation-box/${donationBox.id}`, {
+        state: { 
+          from: fromPage || `/campaign/${campaignId}`,
+          campaignId: campaignId
+        }
+      });
+    }
+  };
 
   // Show loading only for campaign data
   if (campaignLoading) {
@@ -161,9 +185,13 @@ export default function ViewCampaign() {
             <div className="campaign-grid-three">
               <div className="col-left">
                 <h3 className="section-heading">Donation Boxes</h3>
-                <DonationBoxList donationBoxes={campaign.donationBoxes || [
-                  { id: 1, name: campaign.name, image: campaign.image, condition: '', goalAmount: campaign.goal },
-                ]} />
+                {/* UPDATED: Added onViewBox prop */}
+                <DonationBoxList 
+                  donationBoxes={campaign.donationBoxes || [
+                    { id: 1, name: campaign.name, image: campaign.image, condition: '', goalAmount: campaign.goal },
+                  ]} 
+                  onViewBox={handleViewDonationBox} // ADDED THIS
+                />
               </div>
 
               <div className="col-center">
@@ -171,9 +199,13 @@ export default function ViewCampaign() {
                   Target Date: {campaign.targetDate || 'December 09,2025'}
                 </div>
                 <div className="center-cards">
-                  <DonationBoxList donationBoxes={campaign.donationBoxes || [
-                    { id: 10, name: campaign.name, image: campaign.image, condition: '', goalAmount: campaign.goal },
-                  ]} />
+                  {/* UPDATED: Added onViewBox prop */}
+                  <DonationBoxList 
+                    donationBoxes={campaign.donationBoxes || [
+                      { id: 10, name: campaign.name, image: campaign.image, condition: '', goalAmount: campaign.goal },
+                    ]} 
+                    onViewBox={handleViewDonationBox} // ADDED THIS
+                  />
                 </div>
               </div>
 

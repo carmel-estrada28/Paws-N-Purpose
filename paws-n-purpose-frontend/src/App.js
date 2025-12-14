@@ -6,10 +6,13 @@ import AccountSetupPage from './pages/AccountSetupPage/AccountSetupPage'
 import LandingPage from './pages/LandingPage/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ViewCampaign from './pages/ViewCampaign/ViewCampaign';
+import ViewDonationBox from "./pages/ViewDonationBox/ViewDonationBox";
 import CampaignList from "./pages/CampaignListPage/CampaignList";
 import MyProjects from "./pages/MyProjects/MyProjects";
 import CreateDonationBox from "./pages/CreateDonationBox/CreateDonationBox";
 import CreateCampaign from "./pages/CreateCampaign/CreateCampaign";
+import AddDonationBoxes from "./pages/CreateCampaign/AddDonationBoxes";
+import ReviewCampaign from "./pages/CreateCampaign/ReviewCampaign";
 import ProtectedRoute from './components/Routes/ProtectedRoute'
 import PublicRoute from './components/Routes/PublicRoute'
 import {AuthProvider} from "./components/Routes/AuthContext";
@@ -17,6 +20,7 @@ import './App.css';
 import './styles/ButtonThemes.css';
 import BasePageTemplate from "./pages/BasePageTemplate/BasePageTemplate";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+
 
 
 function App() {
@@ -64,6 +68,18 @@ function App() {
             <ProtectedRoute requireProfile={true}><ViewCampaign /></ProtectedRoute>
           } />
 
+          {/* Public ViewDonationBox route for non-logged-in users */}
+          <Route path="/donation-box/:donationBoxId" element={
+            <ViewDonationBox />
+          } />
+
+          {/* Protected ViewDonationBox route for logged-in users */}
+          <Route path="/user/donation-box/:donationBoxId" element={
+            <ProtectedRoute requireProfile={true}><ViewDonationBox /></ProtectedRoute>
+          } />
+
+
+
           <Route path="/campaign-list" element={
             <ProtectedRoute requireProfile={true}><CampaignList /></ProtectedRoute>
           } />
@@ -77,8 +93,16 @@ function App() {
             <ProtectedRoute requireProfile={true}><CreateDonationBox /></ProtectedRoute>
           } />
 
-          <Route path="/create-campaign" element={
+          <Route path="/create-campaign/step-1" element={
             <ProtectedRoute requireProfile={true}><CreateCampaign /></ProtectedRoute>
+          } />
+
+          <Route path="/create-campaign/step-2" element={
+            <ProtectedRoute requireProfile={true}><AddDonationBoxes /></ProtectedRoute>
+          } />
+
+          <Route path="/create-campaign/step-3" element={
+            <ProtectedRoute requireProfile={true}><ReviewCampaign /></ProtectedRoute>
           } />
 
           <Route path="/profile" element={
