@@ -23,6 +23,15 @@ function CreateCampaign() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleNext = () => {
+    // Navigate to the next step (Add Donation Boxes)
+    navigate('/create-campaign/step-2');
+  };
+
+  const handleBack = () => {
+    navigate('/my-projects');
+  };
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -257,11 +266,11 @@ function CreateCampaign() {
               </div>
             </div>
 
-            <div className="form-actions">
+            <div className="form-actions" onClick={handleBack}>
               <button type="button" className="draft-button">
                 Save Draft
               </button>
-              <button type="submit" className="next-button">
+              <button type="button" className="next-button" onClick={handleNext}>
                 Next: Add Donation Boxes
               </button>
             </div>

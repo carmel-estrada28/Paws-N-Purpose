@@ -1,0 +1,90 @@
+.confirmation-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.confirmation-modal {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.confirmation-modal-content {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.confirmation-modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.confirmation-modal-message {
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  font-size: 0.9375rem;
+}
+
+.confirmation-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Button overrides to match design system */
+.confirmation-modal .primary-button {
+  background: linear-gradient(90deg, #d0509f, #c14c8f);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.confirmation-modal .primary-button:hover {
+  background: #c14c8f;
+  transform: translateY(-1px);
+}
+
+.confirmation-modal .secondary-button {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.confirmation-modal .secondary-button:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}

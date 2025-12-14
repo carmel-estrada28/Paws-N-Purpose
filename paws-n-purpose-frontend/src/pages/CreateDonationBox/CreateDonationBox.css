@@ -50,6 +50,8 @@
   font-weight: 600;
   margin-bottom: 0.4rem;
   display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
 }
 
 /* INPUTS */
@@ -62,6 +64,8 @@
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   font-size: 1rem;
   margin-bottom: 1.2rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
 }
 
 .simple-textarea {
