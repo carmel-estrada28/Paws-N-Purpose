@@ -25,23 +25,15 @@ public class Organization {
     
     public Organization() {}
 
+
     // setters & getters
 
-    public Long getId() {
-        return organizationId;
-    }
+    public Long getOrganizationId() { return organizationId; }
+    public void setOrganizationId(Long organizationId) {this.organizationId = organizationId;}
     
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public User getUser() { return user;}
+    public void setUser(User user) { this.user = user;}
     
-    public String getOrgName() {
-        return orgName;
-    }
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
+    public String getOrgName() { return orgName; }
+    public void setOrgName(String orgName) { this.orgName = orgName; }
 }

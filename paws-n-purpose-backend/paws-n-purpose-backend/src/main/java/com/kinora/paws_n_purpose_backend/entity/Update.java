@@ -27,12 +27,29 @@ public class Update {
     private String message;
     
     @CreationTimestamp
-    private LocalDateTime postedAt;
+    private LocalDateTime createdAt;
+
+
+    // Relations
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "donation_box_id")
     private DonationBox donationBox;
     
     
-    // Constructors, getters, setters
+    //  getters, setters
+
+    public void setUpdateId(Long updateId) {this.updateId = updateId;}
+    public Long getUpdateId() {return updateId;}
+
+    public void setPhoto(String photo) {this.photo = photo;}
+    public String getPhoto() {return photo;}
+
+    public void setMessage(String message) {this.message = message;}
+    public String getMessage() {return message;}
+
+    public LocalDateTime getCreatedAt() {return createdAt;}
+
+    public void setDonationBox(DonationBox donationBox) {this.donationBox = donationBox;}
+    public DonationBox getDonationBox() {return donationBox;}
 }

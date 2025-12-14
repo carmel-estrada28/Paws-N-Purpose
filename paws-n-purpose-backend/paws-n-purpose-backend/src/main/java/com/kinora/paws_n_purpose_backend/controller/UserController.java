@@ -86,6 +86,7 @@ public class UserController {
         User user = userService.createUser(dto);
 
         boolean hasProfileSet = user.getIndividualProfile() != null || user.getOrganizationProfile() != null;
+        boolean hasWalletSet = user.getWallet() != null;
 
         String token = jwtService.generateToken(user.getId(), user.getEmail(), null);
 
@@ -106,6 +107,7 @@ public class UserController {
         userMap.put("id", user.getId());
         userMap.put("email", user.getEmail());
         userMap.put("hasProfileSet", hasProfileSet);
+        userMap.put("hasWalletSet", hasWalletSet);
 
         response.put("user", userMap);
 

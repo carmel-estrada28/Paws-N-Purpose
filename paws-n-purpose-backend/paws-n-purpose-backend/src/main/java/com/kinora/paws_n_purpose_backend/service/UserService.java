@@ -12,16 +12,21 @@ import com.kinora.paws_n_purpose_backend.exception.EmailAlreadyExistsException;
 import com.kinora.paws_n_purpose_backend.exception.InvalidEmailPasswordException;
 import com.kinora.paws_n_purpose_backend.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder; 
+    private final WalletService walletService;
     
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, WalletService walletService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.walletService = walletService;
     }
 
+    @Transactional
     public User createUser(UserRegistrationDTO dto) {
         if (userRepository.existsByEmail(dto.getEmail())) {
             throw new EmailAlreadyExistsException("Email already exists");
@@ -31,7 +36,11 @@ public class UserService {
         user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        walletService.createWallet(savedUser);
+
+        return savedUser;
     }
 
     public User authenticateUser(UserAuthenticationDTO dto) {

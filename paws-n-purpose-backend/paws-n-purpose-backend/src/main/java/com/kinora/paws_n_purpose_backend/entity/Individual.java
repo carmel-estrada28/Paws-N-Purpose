@@ -32,37 +32,21 @@ public class Individual {
     
     public Individual() {}
 
+    
     // setters & getters
 
-    public Long getId() {
-        return individualId;
-    }
-    
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
+    public Long getIndividualId() { return individualId; }
+    public void setIndividualId(Long individualId) {this.individualId = individualId;}
 
-    public String getFirstName() {
-        return firstName;
-    }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    public User getUser() { return user;}
+    public void setUser(User user) { this.user = user; }
 
-    public String getLastName() {
-        return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName;}
 
-    public String getNickname() {
-        return nickname;
-    }
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public String getNickname() { return nickname;}
+    public void setNickname(String nickname) { this.nickname = nickname;}
 }
