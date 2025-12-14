@@ -11,15 +11,11 @@ export default function Sidebar({
 }) {
   const categories = [
     { label: 'All', value: 'all' },
-    { label: 'Single-pets', value: 'single-pets' },
-    { label: 'Multi-pets', value: 'multi-pets' }
+    { label: 'Donation Boxes', value: 'donation-boxes' }
   ];
-  
   return (
     <div className="sideBar_sidebar">
       <div className="sideBar_sidebar-container">
-        
-
         <div className="sideBar_categories-section">
           <div className="sideBar_categories-list">
             {categories.map(category => (
@@ -32,25 +28,23 @@ export default function Sidebar({
               </button>
             ))}
           </div>
-
-          {/* Filters Section */}
           <div className="sideBar_filters-section">
             <div className="sideBar_filters-row">
               <button
-                onClick={() => onFilterChange(selectedFilter === 'popular' ? null : 'popular')}
+                onClick={() => onFilterChange('popular')}
                 className={`sideBar_filter-btn ${selectedFilter === 'popular' ? 'sideBar_filter-btn-active' : ''}`}
               >
                 Popular
               </button>
               <button
-                onClick={() => onFilterChange(selectedFilter === 'recently-opened' ? null : 'recently-opened')}
+                onClick={() => onFilterChange('recently-opened')}
                 className={`sideBar_filter-btn ${selectedFilter === 'recently-opened' ? 'sideBar_filter-btn-active' : ''}`}
               >
                 Recently Opened
               </button>
             </div>
             <button
-              onClick={() => onFilterChange(selectedFilter === 'ending-soon' ? null : 'ending-soon')}
+              onClick={() => onFilterChange('ending-soon')}
               className={`sideBar_filter-btn ${selectedFilter === 'ending-soon' ? 'sideBar_filter-btn-active' : ''}`}
             >
               Ending Soon
