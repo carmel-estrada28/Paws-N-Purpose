@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation } from "react-router-dom";
 import Header from "../../components/Header/Header"; // Assuming this is the header component for logged-in users
 import SideBar from '../../components/SideBar/SideBar';
-import CampaignCard from '../../components/Projects/CampaignCard';
+import DonationBox from '../../components/Projects/DonationBox';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import SearchModal from '../../components/SearchModal/SearchModal';
 import './CampaignList.css';
@@ -85,56 +85,86 @@ export default function CampaignList() {
 
   // Note: do not lock body scrolling so main content stays scrollable while modal is fixed
 
+  // Use 6 dummy donation boxes for campaigns for demo
   const campaigns = [
-    { 
-      id: 1, 
-      name: 'They need your help',
-      driveName: 'Emergency Surgery Fund - 1 day ago',
-      image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&h=300&fit=crop',
-      amountRaised: 72000,
-      goal: 102000,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper tempor lacus sit amet tristique. Praesent porta enim nulla, et rutrum odio mollis eu.',
-      daysLeft: 14,
-      organization: 'Organisation',
-      category: 'single-pets'
+    {
+      id: 1,
+      title: 'Operation Rescue 2025',
+      description: 'Max was found abandoned with a broken leg. He needs immediate surgery to walk again and live...',
+      image: 'https://i.pinimg.com/1200x/ed/09/16/ed0916a30e5d23e1c94c08dd8b8fb41f.jpg',
+      amountRaised: 12000,
+      goal: 100000,
+      daysLeft: 12,
+      targetDate: 'June 15, 2026',
+      category: 'donation-boxes',
     },
-    { 
-      id: 2, 
-      name: 'Please help Gurt',
-      driveName: 'Emergency Surgery Fund',
-      image: 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=400&h=300&fit=crop',
-      amountRaised: 72000,
-      goal: 102000,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper tempor lacus sit amet tristique. Praesent porta enim nulla, et rutrum odio mollis eu.',
-      daysLeft: 11,
-      organization: 'Eprem',
-      category: 'single-pets'
+    {
+      id: 2,
+      title: 'Operation Rescue 2025',
+      description: 'Max was found abandoned with a broken leg. He needs immediate surgery to walk again and live...',
+      image: 'https://i.pinimg.com/1200x/ed/09/16/ed0916a30e5d23e1c94c08dd8b8fb41f.jpg',
+      amountRaised: 12000,
+      goal: 100000,
+      daysLeft: 12,
+      targetDate: 'June 15, 2026',
+      category: 'donation-boxes',
     },
-    { 
-      id: 3, 
-      name: 'Gella',
-      driveName: 'Emergency Surgery Fund',
-      image: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=400&h=300&fit=crop',
-      amountRaised: 72000,
-      goal: 102000,
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras semper tempor lacus sit amet tristique. Praesent porta enim nulla, et rutrum odio mollis eu.',
-      daysLeft: 11,
-      organization: 'Gena',
-      category: 'multi-pets'
-    }
+    {
+      id: 3,
+      title: 'Operation Rescue 2025',
+      description: 'Max was found abandoned with a broken leg. He needs immediate surgery to walk again and live...',
+      image: 'https://i.pinimg.com/1200x/ed/09/16/ed0916a30e5d23e1c94c08dd8b8fb41f.jpg',
+      amountRaised: 12000,
+      goal: 100000,
+      daysLeft: 12,
+      targetDate: 'June 15, 2026',
+      category: 'donation-boxes',
+    },
+    {
+      id: 4,
+      title: 'Operation Rescue 2025',
+      description: 'Max was found abandoned with a broken leg. He needs immediate surgery to walk again and live...',
+      image: 'https://i.pinimg.com/1200x/ed/09/16/ed0916a30e5d23e1c94c08dd8b8fb41f.jpg',
+      amountRaised: 12000,
+      goal: 100000,
+      daysLeft: 12,
+      targetDate: 'June 15, 2026',
+      category: 'donation-boxes',
+    },
+    {
+      id: 5,
+      title: 'Operation Rescue 2025',
+      description: 'Max was found abandoned with a broken leg. He needs immediate surgery to walk again and live...',
+      image: 'https://i.pinimg.com/1200x/ed/09/16/ed0916a30e5d23e1c94c08dd8b8fb41f.jpg',
+      amountRaised: 12000,
+      goal: 100000,
+      daysLeft: 12,
+      targetDate: 'June 15, 2026',
+      category: 'donation-boxes',
+    },
+    {
+      id: 6,
+      title: 'Operation Rescue 2025',
+      description: 'Max was found abandoned with a broken leg. He needs immediate surgery to walk again and live...',
+      image: 'https://i.pinimg.com/1200x/ed/09/16/ed0916a30e5d23e1c94c08dd8b8fb41f.jpg',
+      amountRaised: 12000,
+      goal: 100000,
+      daysLeft: 12,
+      targetDate: 'June 15, 2026',
+      category: 'donation-boxes',
+    },
   ];
 
   // Filter campaigns based on selected category, filter, and search query
   const filteredCampaigns = campaigns.filter(campaign => {
     // Category filter
-    const categoryMatch = selectedCategory === 'all' || 
-                         campaign.category === selectedCategory;
-    
-    // Search filter
-    const searchMatch = campaign.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                       campaign.driveName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                       campaign.description.toLowerCase().includes(searchQuery.toLowerCase());
-    
+    const categoryMatch = selectedCategory === 'all' || campaign.category === selectedCategory;
+    // Use title/description fallback for new donationBox structure
+    const search = (searchQuery || '').toLowerCase();
+    const name = (campaign.name || campaign.title || '').toLowerCase();
+    const driveName = (campaign.driveName || '').toLowerCase();
+    const description = (campaign.description || '').toLowerCase();
+    const searchMatch = name.includes(search) || driveName.includes(search) || description.includes(search);
     return categoryMatch && searchMatch;
   });
 
@@ -195,7 +225,7 @@ const handleViewCampaign = (campaignId) => {
             <SearchBox
               value={searchQuery}
               onChange={(val) => { setSearchQuery(val); setSearchModalOpen(true); }}
-              placeholder="Search campaigns"
+              placeholder="Search donations"
               onFocus={() => setSearchModalOpen(true)}
               onBlur={() => {/* keep modal open until click outside handled below */}}
             />
@@ -216,19 +246,36 @@ const handleViewCampaign = (campaignId) => {
           <div className="discover-breadcrumb">&nbsp;›&nbsp;All</div>
         </div>
 
-        <div className="campaigns-list-new">
+        <div className="campaigns-list-new" style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '2rem',
+          marginTop: '2rem',
+        }}>
           {sortedAndFilteredCampaigns.length === 0 ? (
-            <div className="no-campaigns">
+            <div className="no-campaigns" style={{ gridColumn: '1 / -1' }}>
               <p>No campaigns found matching your criteria.</p>
             </div>
           ) : (
-            sortedAndFilteredCampaigns.map(campaign => (
-              <CampaignCard 
-                key={campaign.id}
-                campaign={campaign}
-                onView={() => handleViewCampaign(campaign.id)}
-                onDonate={() => handleDonate(campaign.id)}
-              />
+            sortedAndFilteredCampaigns.map(box => (
+              <div
+                key={box.id}
+                style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'stretch', cursor: 'pointer' }}
+                onClick={e => {
+                  // Prevent click if a button was clicked
+                  if (e.target.tagName === 'BUTTON') return;
+                  navigate(`/donation-box/${box.id}`, {
+                    state: { from: '/campaign-list', isPublic: true }
+                  });
+                }}
+              >
+                <DonationBox
+                  donationBox={box}
+                  hasMaxWidth={true}
+                  onView={() => navigate(`/donation-box/${box.id}`, { state: { from: '/campaign-list', isPublic: true } })}
+                  onDonate={() => handleDonate(box.id)}
+                />
+              </div>
             ))
           )}
         </div>
