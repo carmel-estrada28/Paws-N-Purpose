@@ -11,11 +11,14 @@ import CampaignList from "./pages/CampaignListPage/CampaignList";
 import MyProjects from "./pages/MyProjects/MyProjects";
 import CreateDonationBox from "./pages/CreateDonationBox/CreateDonationBox";
 import CreateCampaign from "./pages/CreateCampaign/CreateCampaign";
+import AddDonationBoxes from "./pages/CreateCampaign/AddDonationBoxes";
+import ReviewCampaign from "./pages/CreateCampaign/ReviewCampaign";
 import ProtectedRoute from './components/Routes/ProtectedRoute'
 import PublicRoute from './components/Routes/PublicRoute'
 import {AuthProvider} from "./components/Routes/AuthContext";
 import './App.css';
 import './styles/ButtonThemes.css';
+
 
 
 function App() {
@@ -84,8 +87,16 @@ function App() {
             <ProtectedRoute requireProfile={true}><CreateDonationBox /></ProtectedRoute>
           } />
 
-          <Route path="/create-campaign" element={
+          <Route path="/create-campaign/step-1" element={
             <ProtectedRoute requireProfile={true}><CreateCampaign /></ProtectedRoute>
+          } />
+
+          <Route path="/create-campaign/step-2" element={
+            <ProtectedRoute requireProfile={true}><AddDonationBoxes /></ProtectedRoute>
+          } />
+
+          <Route path="/create-campaign/step-3" element={
+            <ProtectedRoute requireProfile={true}><ReviewCampaign /></ProtectedRoute>
           } />
 
         </Routes>

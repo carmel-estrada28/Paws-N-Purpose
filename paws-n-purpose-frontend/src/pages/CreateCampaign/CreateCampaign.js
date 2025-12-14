@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Upload } from 'lucide-react';
+import { ArrowLeft, Upload, X, Image as ImageIcon } from 'lucide-react';
 import Header from '../../components/Header/Header';
 import './CreateCampaign.css';
 
@@ -16,6 +16,7 @@ function CreateCampaign() {
     coverPhotoUrl: ''
   });
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +46,25 @@ function CreateCampaign() {
       coverPhotoUrl: value,
       coverPhoto: null
     }));
-    setPhotoPreview(value);
+  };
+
+  const handleUseUrl = () => {
+    if (formData.coverPhotoUrl) {
+      // Basic URL validation
+      try {
+        new URL(formData.coverPhotoUrl);
+        setPhotoPreview(formData.coverPhotoUrl);
+        setFormData(prev => ({
+          ...prev,
+          coverPhoto: null
+        }));
+        setError('');
+      } catch (e) {
+        setError('Please enter a valid URL (e.g., https://example.com/image.jpg)');
+      }
+    } else {
+      setError('Please enter an image URL');
+    }
   };
 
   const handleSubmit = (e) => {
@@ -87,7 +106,7 @@ function CreateCampaign() {
       
       <div className="create-campaign-content">
         <div className="create-campaign-header">
-          <button className="back-pill" onClick={() => navigate(-1)}>
+          <button className="back-pill" onClick={() => navigate('/my-projects')}>
             <ArrowLeft size={16} /> Back
           </button>
           
@@ -160,11 +179,46 @@ function CreateCampaign() {
                   onDragOver={handleDragOver}
                 >
                   {photoPreview ? (
-                    <img src={photoPreview} alt="Preview" />
+                    <div className="photo-preview-container">
+                      <img src={photoPreview} alt="Preview" className="photo-preview-img" />
+                      <div className="photo-actions">
+                        <button 
+                          type="button" 
+                          className="change-photo-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            triggerFileInput();
+                          }}
+                        >
+                          Change
+                        </button>
+                        <button 
+                          type="button" 
+                          className="remove-photo-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setPhotoPreview(null);
+                            setFormData(prev => ({
+                              ...prev,
+                              coverPhoto: null,
+                              coverPhotoUrl: ''
+                            }));
+                            if (fileInputRef.current) {
+                              fileInputRef.current.value = '';
+                            }
+                          }}
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </div>
                   ) : (
-                    <div className="upload-instructions">
-                      <Upload size={32} />
-                      <span>Upload cover photo</span>
+                    <div className="upload-content">
+                      <div className="upload-icon">
+                        <ImageIcon size={32} />
+                      </div>
+                      <p className="upload-text">Click to upload or drag and drop</p>
+                      <p className="upload-subtext">PNG, JPG, JPEG (max. 5MB)</p>
                     </div>
                   )}
                   <input
@@ -172,18 +226,34 @@ function CreateCampaign() {
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
-                    style={{ display: 'none' }}
+                    className="upload-hidden"
                   />
                 </div>
 
-                <div className="url-input">
-                  <input
-                    type="text"
-                    placeholder="Paste image URL..."
-                    value={formData.coverPhotoUrl}
-                    onChange={handleImageUrlChange}
-                  />
+                <div className="or-divider">
+                  <span>or</span>
                 </div>
+
+                <div className="url-upload">
+                  <div className="url-input">
+                    <input
+                      type="text"
+                      name="coverPhotoUrl"
+                      placeholder="Paste image URL..."
+                      value={formData.coverPhotoUrl}
+                      onChange={handleImageUrlChange}
+                      onKeyPress={(e) => e.key === 'Enter' && handleUseUrl()}
+                    />
+                  </div>
+                  <button 
+                    type="button" 
+                    className="use-url-btn"
+                    onClick={handleUseUrl}
+                  >
+                    Use URL
+                  </button>
+                </div>
+                {error && <div className="error-message">{error}</div>}
               </div>
             </div>
 
