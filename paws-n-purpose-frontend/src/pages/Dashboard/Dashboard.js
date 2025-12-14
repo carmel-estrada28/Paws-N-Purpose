@@ -270,10 +270,10 @@ function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false}) {
                 }}
               >
 
-                <Campaign campaignTitle={"Campaign Dummy"} />
-                <DonationBox donationBoxTitle={"Donation Box Dummy"} />
-                <Campaign campaignTitle={"Campaign Dummy"} />
-                <DonationBox donationBoxTitle={"Donation Box Dummy"} />
+                <Campaign campaignTitle={"Campaign Dummy"} hasMaxWidth={true}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} />
+                <Campaign campaignTitle={"Campaign Dummy"}  hasMaxWidth={true}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true}/>
 
                 <button 
                   type="button"
