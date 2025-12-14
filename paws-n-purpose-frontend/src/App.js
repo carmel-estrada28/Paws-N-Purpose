@@ -5,13 +5,14 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import AccountSetupPage from './pages/AccountSetupPage/AccountSetupPage'
 import LandingPage from './pages/LandingPage/LandingPage';
 import Dashboard from './pages/Dashboard/Dashboard';
-import StartCampaign from './pages/StartCampaign/StartCampaign';
 import ViewCampaign from './pages/ViewCampaign/ViewCampaign';
-import DonationBox from "./pages/DonationBox/DonationBox";
+import CampaignList from "./pages/CampaignListPage/CampaignList";
+import MyProjects from "./pages/MyProjects/MyProjects";
+import CreateDonationBox from "./pages/CreateDonationBox/CreateDonationBox";
+import CreateCampaign from "./pages/CreateCampaign/CreateCampaign";
 import ProtectedRoute from './components/Routes/ProtectedRoute'
 import PublicRoute from './components/Routes/PublicRoute'
 import {AuthProvider} from "./components/Routes/AuthContext";
-
 import './App.css';
 import './styles/ButtonThemes.css';
 
@@ -40,22 +41,40 @@ function App() {
           <Route path="/account-setup" element={
             <ProtectedRoute requireProfile={false}><AccountSetupPage /></ProtectedRoute>
           } />
-
+          
           <Route path="/dashboard" element={
             <ProtectedRoute requireProfile={true}><Dashboard /></ProtectedRoute>
           } />
 
-          <Route path="/start-campaign" element={
-            <ProtectedRoute requireProfile={true}><StartCampaign /></ProtectedRoute>
-          } />
+          // App.js - Update these routes:
 
-          <Route path="/donation-box" element={
-            <ProtectedRoute requireProfile={true}><DonationBox /></ProtectedRoute>
-          } />
-
+          {/* Public ViewCampaign route for non-logged-in users */}
           <Route path="/campaign/:campaignId" element={
+            <ViewCampaign />
+          } />
+
+          {/* Protected ViewCampaign route for logged-in users */}
+          <Route path="/user/campaign/:campaignId" element={
             <ProtectedRoute requireProfile={true}><ViewCampaign /></ProtectedRoute>
           } />
+
+          <Route path="/campaign-list" element={
+            <ProtectedRoute requireProfile={true}><CampaignList /></ProtectedRoute>
+          } />
+          
+
+          <Route path="/my-projects" element={
+            <ProtectedRoute requireProfile={true}><MyProjects /></ProtectedRoute>
+          } />
+
+          <Route path="/create-donation-box" element={
+            <ProtectedRoute requireProfile={true}><CreateDonationBox /></ProtectedRoute>
+          } />
+
+          <Route path="/create-campaign" element={
+            <ProtectedRoute requireProfile={true}><CreateCampaign /></ProtectedRoute>
+          } />
+
         </Routes>
       </Router>
     </AuthProvider>

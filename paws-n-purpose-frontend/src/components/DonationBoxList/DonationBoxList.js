@@ -1,3 +1,4 @@
+import Button from '../Buttons/Button';
 import './DonationBoxList.css';
 
 const DonationBoxList = ({ donationBoxes }) => {
@@ -11,9 +12,14 @@ const DonationBoxList = ({ donationBoxes }) => {
 
   return (
     <div className="donation-boxes-container">
-      {donationBoxes.map((box) => (
+      {donationBoxes.map((box) => {
+        const goalAmount = parseFloat(box.goalAmount) || 0;
+        const amountRaised = box.amountRaised || Math.floor(goalAmount * 0.7);
+        const progress = goalAmount > 0 ? Math.min((amountRaised / goalAmount) * 100, 100) : 0;
+
+        return (
         <div key={box.id} className="donation-box-card-item">
-          {/* Box Image or Placeholder */}
+          {/* Box Image with Name Overlay */}
           <div className="donation-box-image-container">
             {box.image ? (
               <img 
@@ -26,21 +32,27 @@ const DonationBoxList = ({ donationBoxes }) => {
                 🐾
               </div>
             )}
+            <div className="donation-box-name-overlay">{box.name}</div>
           </div>
           
           {/* Box Info */}
           <div className="donation-box-card-info">
-            <h3 className="donation-box-card-name">{box.name}</h3>
-            <p className="donation-box-card-condition">{box.condition}</p>
-            
-            {/* Goal Amount */}
-            <div className="donation-box-card-goal">
-              <span className="goal-label">Goal:</span>
-              <span className="goal-amount">₱{parseFloat(box.goalAmount).toLocaleString()}</span>
+            {/* Amount Raised / Goal */}
+            <div className="donation-box-amount">
+              ₱{amountRaised.toLocaleString()} / ₱{goalAmount.toLocaleString()}
             </div>
+
+            {/* Progress Bar */}
+            <div className="donation-box-progress-track">
+              <div className="donation-box-progress-fill" style={{ width: `${progress}%` }} />
+            </div>
+
+            {/* View Button */}
+            <Button text="View" theme="pink semi-rounded" height="2.75rem" style={{ width: '100%' }} />
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

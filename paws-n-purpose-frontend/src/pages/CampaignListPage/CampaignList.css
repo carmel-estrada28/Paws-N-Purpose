@@ -1,10 +1,9 @@
-
-.landing-page {
+.campaign-list-page {
   height: 100%;
   overflow-y: auto;
 }
 
-/* New Main Content Styles */
+/* Main Content Styles */
 .main-content-new {
   flex: 1;
   padding: 2rem 2.5rem 3rem 2.5rem;
@@ -16,13 +15,19 @@
   background: #FBF9F3;
 }
 
+.landing-search-row-wrapper {
+  max-width: 50rem;
+  width: 100%;
+  position: relative;
+}
+
 .landing-search-row {
   max-width: 50rem;
   width: 100%;
   position: relative;
 }
 
-/* Pin search row when modal open*/
+/* Pin search row when modal open (YouTube-like behavior) */
 .landing-search-row.fixed-top {
   position: fixed;
   top: 5.6rem; /* adjust if header height differs */
@@ -31,7 +36,6 @@
   width: 50rem;
   max-width: 95%;
   z-index: 1200;
-
 }
 
 .discover-row {
@@ -76,4 +80,3 @@
   background: #ffffff;
   border-radius: 1rem;
 }
-

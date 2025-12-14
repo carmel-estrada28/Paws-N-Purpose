@@ -1,18 +1,20 @@
 /* components/DonationBoxList/DonationBoxList.css */
 .donation-boxes-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-  padding: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
 }
 
 .donation-box-card-item {
   background-color: white;
-  border-radius: 0.75rem;
+  border-radius: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.2s ease;
   border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
 }
 
 .donation-box-card-item:hover {
@@ -21,8 +23,10 @@
 }
 
 .donation-box-image-container {
-  height: 120px;
+  height: 160px;
   overflow: hidden;
+  position: relative;
+  background: #f7fafc;
 }
 
 .donation-box-card-image {
@@ -42,8 +46,48 @@
   color: #cbd5e0;
 }
 
+/* Text overlay on image */
+.donation-box-name-overlay {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  background: rgba(255, 255, 255, 0.95);
+  color: #053534;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+}
+
 .donation-box-card-info {
-  padding: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.donation-box-amount {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #053534;
+  letter-spacing: 0.01em;
+}
+
+.donation-box-progress-track {
+  height: 0.5rem;
+  background: #EDEDED;
+  border-radius: 999px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.donation-box-progress-fill {
+  height: 100%;
+  background: #DD4391;
+  border-radius: 999px;
+  transition: width 0.3s ease;
 }
 
 .donation-box-card-name {
@@ -73,8 +117,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.5rem;
+  padding-top: 0.75rem;
   border-top: 1px solid #e2e8f0;
+  margin-bottom: 0.5rem;
 }
 
 .goal-label {
@@ -87,6 +132,15 @@
   font-size: 1rem;
   font-weight: 700;
   color: #2d3748;
+}
+
+/* Style the View button (reusable Button component) */
+.donation-box-card-info .ripple-container {
+  width: 100%;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .no-boxes-message {

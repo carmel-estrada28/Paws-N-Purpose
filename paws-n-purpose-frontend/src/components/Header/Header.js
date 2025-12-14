@@ -76,7 +76,7 @@ export default function Header({withColor, isLoggedIn, isFixed, logoOnly=false})
               >
 
                 <div className="header_nav-button-container">
-                  <Link to={""}>
+                  <Link to={"/dashboard"}>
                     <Button
                       type="button"
                       text="Home"
@@ -86,7 +86,7 @@ export default function Header({withColor, isLoggedIn, isFixed, logoOnly=false})
                   <div className="header_bottom-line"/>
                 </div>
                 <div className="header_nav-button-container">
-                  <Link to={""}>
+                  <Link to={"/campaign-list"}>
                     <Button
                       type="button"
                       text="Discover"
@@ -96,7 +96,7 @@ export default function Header({withColor, isLoggedIn, isFixed, logoOnly=false})
                   <div className="header_bottom-line"/>
                 </div>
                 <div className="header_nav-button-container">
-                  <Link to={""}>
+                  <Link to={"/my-projects"}>
                     <Button
                       type="button"
                       text="My Projects"

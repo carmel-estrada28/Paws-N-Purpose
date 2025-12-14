@@ -1,14 +1,14 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header/Header"; // Assuming this is the header component for logged-in users
 import SideBar from '../../components/SideBar/SideBar';
 import CampaignCard from '../../components/Projects/CampaignCard';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import SearchModal from '../../components/SearchModal/SearchModal';
-import './LandingPage.css';
+import './CampaignList.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function LandingPage() {
+export default function CampaignList() {
   const [selectedCategory, setSelectedCategory] = React.useState('all');
   const [selectedFilter, setSelectedFilter] = React.useState('recently-opened');
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -82,6 +82,8 @@ export default function LandingPage() {
       window.removeEventListener('resize', computeStyle);
     };
   }, [searchModalOpen]);
+
+  // Note: do not lock body scrolling so main content stays scrollable while modal is fixed
 
   const campaigns = [
     { 
@@ -158,24 +160,23 @@ export default function LandingPage() {
     }
   });
 
-
-    // LandingPage.js - Update handleViewCampaign:
-  const handleViewCampaign = (campaignId) => {
-    // For non-logged-in users, go to public route
-    navigate(`/campaign/${campaignId}`, {
-      state: { from: '/landing', isPublic: true }
-    });
-  };
+// CampaignList.js - Update handleViewCampaign:
+const handleViewCampaign = (campaignId) => {
+  // For logged-in users, go to protected route
+  navigate(`/user/campaign/${campaignId}`, {
+    state: { from: '/campaign-list', isPublic: false }
+  });
+};
 
   const handleDonate = (campaignId) => {
-    navigate('/login', {
-      state: { from: `/campaign/${campaignId}`, isPublic: true }
-    });
+    console.log('Donate to campaign:', campaignId);
+    navigate(`/campaign/${campaignId}/donate`);
   };
 
   return (
-    <div className="landing-page">
-      <Header withColor={true} isLoggedIn={false} isFixed={true}/>
+    <div className="campaign-list-page">
+      {/* Using Header with isLoggedIn={true} as requested */}
+      <Header withColor={true} isLoggedIn={true} isFixed={true}/>
       
       <SideBar 
         selectedCategory={selectedCategory}
@@ -186,7 +187,7 @@ export default function LandingPage() {
         onSearchChange={setSearchQuery}
       />
 
-        {/* Main Content*/}
+      {/* Main Content*/}
       <div className="main-content-new">
         <div className="landing-search-row-wrapper">
           {rowStyle && <div style={{ height: placeholderHeight }} aria-hidden="true" />}
@@ -199,16 +200,16 @@ export default function LandingPage() {
               onBlur={() => {/* keep modal open until click outside handled below */}}
             />
           </div>
-        </div>
 
-        <SearchModal
-          isOpen={searchModalOpen}
-          modalRef={modalRef}
-          modalStyle={modalStyle}
-          campaigns={filteredCampaigns}
-          onCampaignSelect={() => setSearchModalOpen(false)}
-          navigate={navigate}
-        />
+          <SearchModal
+            isOpen={searchModalOpen}
+            modalRef={modalRef}
+            modalStyle={modalStyle}
+            campaigns={filteredCampaigns}
+            onCampaignSelect={() => setSearchModalOpen(false)}
+            navigate={navigate}
+          />
+        </div>
 
         <div className="discover-row">
           <h2 className="discover-title">Discover Campaigns</h2>
@@ -223,6 +224,7 @@ export default function LandingPage() {
           ) : (
             sortedAndFilteredCampaigns.map(campaign => (
               <CampaignCard 
+                key={campaign.id}
                 campaign={campaign}
                 onView={() => handleViewCampaign(campaign.id)}
                 onDonate={() => handleDonate(campaign.id)}

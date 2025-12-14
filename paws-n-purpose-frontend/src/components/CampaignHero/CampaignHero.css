@@ -1,0 +1,46 @@
+.campaign-hero {
+  background-size: cover;
+  background-position: center;
+  height: 19rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.campaign-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.08) 40%, rgba(255,255,255,0.0) 100%);
+  display: flex;
+  align-items: flex-end;
+}
+
+.campaign-hero-inner {
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  color: white;
+}
+
+.campaign-hero-tag {
+  display: inline-block;
+  background: rgba(255,255,255,0.9);
+  color: #DD4391;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: #DD4391;
+}
+
+.campaign-hero-title {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.campaign-hero-sub {
+  margin: 0.5rem 0 0 0;
+  color: rgba(255,255,255,0.95);
+  font-size: 0.95rem;
+}
