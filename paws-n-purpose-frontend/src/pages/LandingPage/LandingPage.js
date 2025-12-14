@@ -1,19 +1,23 @@
 import React from 'react';
 import { useLocation } from "react-router-dom";
-import HeaderBeforeLogin from "../../components/Header/Header";
+import Header from "../../components/Header/Header";
 import SideBar from '../../components/SideBar/SideBar';
 import CampaignCard from '../../components/Projects/CampaignCard';
 import SearchBox from '../../components/SearchBox/SearchBox';
+import SearchModal from '../../components/SearchModal/SearchModal';
 import './LandingPage.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function LandingPage({ onLogin }) {
+export default function LandingPage() {
   const [selectedCategory, setSelectedCategory] = React.useState('all');
   const [selectedFilter, setSelectedFilter] = React.useState('recently-opened');
   const [searchQuery, setSearchQuery] = React.useState('');
   const [searchModalOpen, setSearchModalOpen] = React.useState(false);
   const searchRowRef = React.useRef(null);
   const modalRef = React.useRef(null);
+  const [modalStyle, setModalStyle] = React.useState(null);
+  const [rowStyle, setRowStyle] = React.useState(null);
+  const [placeholderHeight, setPlaceholderHeight] = React.useState(0);
   const navigate = useNavigate();
   
   React.useEffect(() => {
@@ -35,6 +39,49 @@ export default function LandingPage({ onLogin }) {
       document.removeEventListener('keydown', handleEsc);
     };
   }, []);
+
+  // compute fixed style for the floating modal (keeps input in-flow)
+  React.useEffect(() => {
+    if (!searchModalOpen) {
+      setModalStyle(null);
+      setRowStyle(null);
+      setPlaceholderHeight(0);
+      return;
+    }
+
+    // Compute position once when opened; keep both row and modal fixed together while scrolling
+    function computeStyle() {
+      const row = searchRowRef.current;
+      if (!row) return;
+      const rect = row.getBoundingClientRect();
+      // use rect.top for row fixed top, and rect.bottom - 1 for modal top to remove tiny gap
+      const rowFixed = {
+        position: 'fixed',
+        left: `${rect.left}px`,
+        top: `${rect.top}px`,
+        width: `${rect.width}px`,
+        zIndex: 1200
+      };
+      const modalFixed = {
+        position: 'fixed',
+        left: `${rect.left}px`,
+        top: `${rect.bottom - 1}px`,
+        width: `${rect.width}px`,
+        zIndex: 1200
+      };
+
+      setRowStyle(rowFixed);
+      setModalStyle(modalFixed);
+      setPlaceholderHeight(rect.height);
+    }
+
+    computeStyle();
+    // Update on window resize only; do NOT update on scroll so both stay in place
+    window.addEventListener('resize', computeStyle);
+    return () => {
+      window.removeEventListener('resize', computeStyle);
+    };
+  }, [searchModalOpen]);
 
   const campaigns = [
     { 
@@ -111,19 +158,24 @@ export default function LandingPage({ onLogin }) {
     }
   });
 
+
+    // LandingPage.js - Update handleViewCampaign:
   const handleViewCampaign = (campaignId) => {
-    // navigate to campaign view
-    navigate(`/campaign/${campaignId}`);
+    // For non-logged-in users, go to public route
+    navigate(`/campaign/${campaignId}`, {
+      state: { from: '/landing', isPublic: true }
+    });
   };
 
   const handleDonate = (campaignId) => {
-    console.log('Donate to campaign:', campaignId);
-    onLogin();
+    navigate('/login', {
+      state: { from: `/campaign/${campaignId}`, isPublic: true }
+    });
   };
 
   return (
     <div className="landing-page">
-      <HeaderBeforeLogin withColor={true} isLoggedIn={false} isFixed={true}/>
+      <Header withColor={true} isLoggedIn={false} isFixed={true}/>
       
       <SideBar 
         selectedCategory={selectedCategory}
@@ -136,40 +188,27 @@ export default function LandingPage({ onLogin }) {
 
         {/* Main Content*/}
       <div className="main-content-new">
-        <div className="landing-search-row" ref={searchRowRef}>
-          <SearchBox
-            value={searchQuery}
-            onChange={(val) => { setSearchQuery(val); setSearchModalOpen(true); }}
-            placeholder="Search campaigns"
-            onFocus={() => setSearchModalOpen(true)}
-            onBlur={() => {/* keep modal open until click outside handled below */}}
-          />
-
-          {searchModalOpen && (
-            <div className="search-modal" ref={modalRef} role="dialog" aria-label="Search results">
-              <div className="search-modal-inner">
-                <div className="search-results-list">
-                  {filteredCampaigns.length === 0 ? (
-                    <div className="empty-results">No campaigns found</div>
-                  ) : (
-                    filteredCampaigns.map(item => (
-                      <button key={item.id} className="search-result-item" onMouseDown={(e) => { e.preventDefault(); setSearchModalOpen(false); navigate(`/campaign/${item.id}`); }}>
-                        <div className="result-left">
-                          <div className="result-tag">Donation Box</div>
-                          <div className="result-title">{item.name}</div>
-                          <div className="result-sub">₱{item.amountRaised.toLocaleString()} raised of ₱{item.goal.toLocaleString()}</div>
-                        </div>
-                        <div className="result-image">
-                          <img src={item.image} alt={item.name} />
-                        </div>
-                      </button>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
+        <div className="landing-search-row-wrapper">
+          {rowStyle && <div style={{ height: placeholderHeight }} aria-hidden="true" />}
+          <div className="landing-search-row" ref={searchRowRef} style={rowStyle || {}}>
+            <SearchBox
+              value={searchQuery}
+              onChange={(val) => { setSearchQuery(val); setSearchModalOpen(true); }}
+              placeholder="Search campaigns"
+              onFocus={() => setSearchModalOpen(true)}
+              onBlur={() => {/* keep modal open until click outside handled below */}}
+            />
+          </div>
         </div>
+
+        <SearchModal
+          isOpen={searchModalOpen}
+          modalRef={modalRef}
+          modalStyle={modalStyle}
+          campaigns={filteredCampaigns}
+          onCampaignSelect={() => setSearchModalOpen(false)}
+          navigate={navigate}
+        />
 
         <div className="discover-row">
           <h2 className="discover-title">Discover Campaigns</h2>
