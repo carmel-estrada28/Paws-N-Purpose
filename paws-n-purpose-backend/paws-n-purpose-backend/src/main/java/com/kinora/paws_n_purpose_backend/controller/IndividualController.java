@@ -78,7 +78,7 @@ public class IndividualController {
 
         Map<String, Object> data = new HashMap<>();
         data.put("userId", user.getId());
-        data.put("individualId", individual.getId());
+        data.put("individualId", individual.getIndividualId());
         data.put("email", user.getEmail());
 
         return ResponseEntity.ok(

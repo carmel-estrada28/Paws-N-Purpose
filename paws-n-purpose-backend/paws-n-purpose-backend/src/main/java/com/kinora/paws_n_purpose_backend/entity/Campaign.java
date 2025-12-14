@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.kinora.paws_n_purpose_backend.entity.enums.CampaignStatus;
+import com.kinora.paws_n_purpose_backend.entity.enums.ProjectStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -41,17 +41,47 @@ public class Campaign {
     private LocalDate targetDate;
     
     @Enumerated(EnumType.STRING)
-    private CampaignStatus status = CampaignStatus.ACTIVE;
+    private ProjectStatus status = ProjectStatus.ACTIVE;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+
+    // Relations
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;
     
     @OneToMany(mappedBy = "campaign", cascade = CascadeType.ALL)
-    private List<DonationBox> animalDonationBoxes = new ArrayList<>();
+    private List<DonationBox> donationBoxes = new ArrayList<>();
 
-    @CreationTimestamp
-    private LocalDateTime postedOn;
     
     // Constructors, getters, setters
+
+    public Long getCampaignId() { return campaignId; }
+    public void setCampaignId(Long campaignId) { this.campaignId = campaignId; }
+
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public String getCoverPhoto() { return coverPhoto; }
+    public void setCoverPhoto(String coverPhoto) { this.coverPhoto = coverPhoto; }
+
+    public LocalDate getTargetDate() { return targetDate; }
+    public void setTargetDate(LocalDate targetDate) { this.targetDate = targetDate; }
+
+    public ProjectStatus getStatus() { return status; }
+    public void setStatus(ProjectStatus status) { this.status = status; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    public User getOwner() { return owner; }
+    public void setOwner(User owner) { this.owner = owner; }
+
+    public List<DonationBox> getDonationBoxes() { return donationBoxes;}
+
 }

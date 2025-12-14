@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.kinora.paws_n_purpose_backend.entity.enums.ProjectStatus;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,10 +38,16 @@ public class DonationBox {
     private BigDecimal goalAmount;
 
     @Column(precision = 10, scale = 2)
-    private BigDecimal fundsRaised;
+    private BigDecimal fundsRaised = BigDecimal.ZERO;
     
     @Enumerated(EnumType.STRING)
-    private AnimalBoxStatus status = AnimalBoxStatus.ACTIVE;
+    private ProjectStatus status = ProjectStatus.ACTIVE;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    
+    // Relations
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "campaign_id")
@@ -50,15 +58,51 @@ public class DonationBox {
     private User owner;
 
     @OneToMany(mappedBy = "donationBox", cascade = CascadeType.ALL)
-    private List<Donation> donations = new ArrayList<>();
+    private List<DonationTransaction> donationTransactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "donationBox", cascade = CascadeType.ALL)
     private List<Update> updates = new ArrayList<>();
 
-    @CreationTimestamp
-    private LocalDateTime postedOn;
-}
 
-enum AnimalBoxStatus {
-    ACTIVE, COMPLETED, CLOSED
+    // setters & getters 
+
+    public void setDonationBoxId( Long donationBoxId ) { this.donationBoxId = donationBoxId; }
+    public Long getDonationBoxId() { return donationBoxId; }
+
+
+    public void setDonationBoxPhoto( String donationBoxPhoto ) { this.donationBoxPhoto = donationBoxPhoto; }
+    public String getDonationBoxPhoto() {return donationBoxPhoto;}
+
+    
+    public void setTitle(String title) {this.title = title;}
+    public String getTitle() {return title;}
+
+    public void setDescription(String description) {this.description = description; }
+    public String getDescription() {return description;}
+
+
+    public void setGoalAmount(BigDecimal goalAmount) {this.goalAmount = goalAmount;}
+    public BigDecimal getGoalAmount() {return goalAmount;}
+
+
+    public void setFundsRaised(BigDecimal fundsRaised) {this.fundsRaised = fundsRaised; }
+    public BigDecimal getFundsRaised() { return fundsRaised; }
+    
+
+    public void setCampaign(Campaign campaign) { this.campaign = campaign; }
+    public Campaign getCampaign() {return campaign;}
+
+
+    public void setOwner(User owner) {this.owner = owner;}
+    public User getOwner() {return owner;}
+
+    
+    public List<DonationTransaction> getDonationTransactions() { return donationTransactions; }
+
+
+    public List<Update> getUpdates() {return updates;}
+
+
+    public LocalDateTime getCreatedAt() {return createdAt;}
+
 }

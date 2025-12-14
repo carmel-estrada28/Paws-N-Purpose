@@ -77,7 +77,7 @@ public class OrganizationController {
 
         Map<String, Object> data = new HashMap<>();
         data.put("userId", user.getId());
-        data.put("organizationId", organization.getId());
+        data.put("organizationId", organization.getOrganizationId());
         data.put("email", user.getEmail());
 
         return ResponseEntity.ok(
