@@ -1,7 +1,7 @@
 
 import './SearchBox.css';
 
-export default function SearchBox({ value, onChange, placeholder = "Search campaigns", onFocus, onBlur }) {
+export default function SearchBox({ value, onChange, placeholder = "Search donations", onFocus, onBlur }) {
   return (
     <div className="search-box">
       <div className="search-icon">
