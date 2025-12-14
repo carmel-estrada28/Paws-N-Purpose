@@ -49,15 +49,16 @@
 /* Text overlay on image */
 .donation-box-name-overlay {
   position: absolute;
-  bottom: 0.75rem;
-  left: 0.75rem;
-  background: rgba(255, 255, 255, 0.95);
-  color: #053534;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  font-family: 'DM Sans', sans-serif;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  color: #fff;
+  font-family: 'Cherry Bomb', cursive;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.25);
+  background: none;
+  padding: 0;
+  border-radius: 0;
 }
 
 .donation-box-card-info {
@@ -154,18 +155,9 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .donation-boxes-container {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.75rem;
-    padding: 0.25rem;
-  }
-  
-  .donation-box-card-info {
-    padding: 0.75rem;
-  }
-  
-  .donation-box-image-container {
-    height: 100px;
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
