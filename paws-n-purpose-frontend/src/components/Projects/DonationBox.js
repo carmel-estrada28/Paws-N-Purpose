@@ -10,7 +10,7 @@ import "../Projects/DonationBox.css"
 
 
 
-export default function DonationBox({ donationBox, onView, onDonate, donationBoxTitle, hasMaxWidth=false}) {
+export default function DonationBox({ donationBox, onView, onDonate, donationBoxTitle, yourDonationBox=false, hasMaxWidth=false}) {
     return (
         <div 
             className="DonationBox"
@@ -35,7 +35,12 @@ export default function DonationBox({ donationBox, onView, onDonate, donationBox
                 />
 
                 <div className="DonationBox_tag">
-                    <p style={{ fontSize: "0.8rem", color: "#DD4391" }}>Donation Box</p>
+                    { yourDonationBox ? 
+                        <p style={{ fontSize: "0.8rem", color: "#DD4391", backgroundColor: "#fff", borderRadius:"100rem", padding:"0.3rem 0.9rem"}}>Your Donation Box</p>
+                    : 
+                        <p style={{ fontSize: "0.8rem", color: "#ffffffff", backgroundColor: "#DD4391", borderRadius:"100rem", padding:"0.3rem 0.9rem" }}>Donation Box</p>
+                    }
+                    
                 </div>
 
             </div>

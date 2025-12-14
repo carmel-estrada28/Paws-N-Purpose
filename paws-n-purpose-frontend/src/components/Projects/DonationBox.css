@@ -39,9 +39,8 @@
         .DonationBox_tag {
             position: absolute;
             top: 1rem;
-            right: 1rem;
+            right: 0.5rem;
             border-radius: 100rem;
-            background-color: #fff;
             padding: 0.3rem 0.9rem;
         }
 

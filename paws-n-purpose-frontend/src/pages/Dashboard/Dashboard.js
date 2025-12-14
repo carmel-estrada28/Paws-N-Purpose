@@ -9,7 +9,7 @@ import DonationBox from "../../components/Projects/DonationBox";
 
 
 // carousel component
-function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false}) {
+function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false, yourDonationBoxes=false}) {
 
 
     // useStates
@@ -270,10 +270,14 @@ function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false}) {
                 }}
               >
 
-                <Campaign campaignTitle={"Campaign Dummy"} hasMaxWidth={true}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} />
-                <Campaign campaignTitle={"Campaign Dummy"}  hasMaxWidth={true}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes} />
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
+                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
 
                 <button 
                   type="button"
@@ -360,17 +364,19 @@ export default function Dashboard() {
         >
 
           {/* My Projects */}
-          <Carousel headerText={"Manage your projects"}/>
+          <Carousel headerText={"Manage your donation boxes"} isDisplayed={true} yourDonationBoxes={true}/>
 
           {/* Donate again */}
           <Carousel headerText={"Donate again"}/>
 
           {/* Featured Campaigns */}
-          <Carousel headerText={"Featured Campaigns"} isDisplayed={true}/>
+          <Carousel headerText={"Featured Campaigns"}/>
 
           {/* Donation Boxes */}
           <Carousel headerText={"Featured Donation Boxes"} isDisplayed={true}/>
 
+          {/* Donation Boxes */}
+          <Carousel headerText={"Featured Donation Boxes"} isDisplayed={true}/>
         </div>
       </div>
 
