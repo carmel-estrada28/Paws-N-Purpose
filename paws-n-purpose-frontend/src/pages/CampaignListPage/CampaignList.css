@@ -1,0 +1,82 @@
+.campaign-list-page {
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Main Content Styles */
+.main-content-new {
+  flex: 1;
+  padding: 2rem 2.5rem 3rem 2.5rem;
+  margin: 5.6rem 0 0 18.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+  background: #FBF9F3;
+}
+
+.landing-search-row-wrapper {
+  max-width: 50rem;
+  width: 100%;
+  position: relative;
+}
+
+.landing-search-row {
+  max-width: 50rem;
+  width: 100%;
+  position: relative;
+}
+
+/* Pin search row when modal open (YouTube-like behavior) */
+.landing-search-row.fixed-top {
+  position: fixed;
+  top: 5.6rem; /* adjust if header height differs */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50rem;
+  max-width: 95%;
+  z-index: 1200;
+}
+
+.discover-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.discover-title {
+  font-family: 'Cherry Bomb', cursive;
+  font-size: 1.6rem;
+  color: #053534;
+  margin: 0;
+}
+
+.discover-breadcrumb {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #053534;
+  opacity: 0.7;
+}
+
+.campaigns-list-new {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+  max-width: 72.3rem;
+}
+
+.no-campaigns {
+  text-align: center;
+  padding: 3rem;
+  font-family: 'DM Sans', sans-serif;
+  color: #053534;
+  opacity: 0.7;
+  font-size: 1.1rem;
+}
+
+.campaign-card-wrapper {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 1rem;
+}
