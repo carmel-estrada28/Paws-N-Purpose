@@ -36,11 +36,14 @@ export default function SearchModal({
                 className="search-result-item"
                 onMouseDown={(e) => {
                   e.preventDefault();
-                  onCampaignSelect(item.id);
-                  if (user) {
-                    navigate(`/user/donation-box/${item.id}`);
+                  if (onCampaignSelect) {
+                    onCampaignSelect(item.id);
                   } else {
-                    navigate(`/donation-box/${item.id}`);
+                    if (user) {
+                      navigate(`/user/donation-box/${item.id}`);
+                    } else {
+                      navigate(`/donation-box/${item.id}`);
+                    }
                   }
                 }}
               >
