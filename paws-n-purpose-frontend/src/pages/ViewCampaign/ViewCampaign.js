@@ -1,24 +1,49 @@
-import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import HeaderBeforeLogin from "../../components/Header/Header";
-import Button from '../../components/Buttons/Button';
-import CampaignTabs from '../../components/CampaignTabs/CampaignTabs';
+// pages/ViewCampaign/ViewCampaign.js
+import React, { useState, useContext } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import Header from "../../components/Header/Header";
 import DonationInfo from '../../components/DonationInfo/DonationInfo';
-import MoreCampaigns from '../../components/MoreCampaigns/MoreCampaigns';
+import CampaignHero from '../../components/CampaignHero/CampaignHero';
+import DonationBoxList from '../../components/DonationBoxList/DonationBoxList';
 import { useCampaign } from '../../hooks/useCampaign';
 import { useDonation } from '../../hooks/useDonation';
+import { AuthContext } from '../../components/Routes/AuthContext'; 
 import './ViewCampaign.css';
 
-export default function ViewCampaign({ onLogin }) {
+export default function ViewCampaign() {
   const { campaignId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   
-  const { campaign, loading, error } = useCampaign(campaignId);
+  // Use AuthContext to check if user is logged in
+  const authContext = useContext(AuthContext);
+  const user = authContext?.user || null;
+  const authLoading = authContext?.loading || false;
+  const isAuthenticated = !!user; // true if user exists, false if not
+  
+  // Get referrer from location state (where user came from)
+  // This tells us whether they came from LandingPage or CampaignList
+  const fromPage = location.state?.from || null;
+  
+  // FIX: Determine which header to show based on where user came from
+  // If from LandingPage: show non-logged-in header (false)
+  // If from CampaignList: show logged-in header (true)
+  // If no fromPage: use authentication status
+  let showLoggedInHeader;
+  
+  if (fromPage === '/landing') {
+    showLoggedInHeader = false; // Show non-user header
+  } else if (fromPage === '/campaign-list') {
+    showLoggedInHeader = true; // Show user header
+  } else {
+    showLoggedInHeader = isAuthenticated; // Fallback to auth status
+  }
+  
+  const { campaign, loading: campaignLoading, error } = useCampaign(campaignId);
   const { donate, processing } = useDonation();
 
-  const [activeTab, setActiveTab] = useState('story');
-
-  if (loading) {
+  // Show loading only for campaign data
+  if (campaignLoading) {
     return <div className="loading">Loading campaign...</div>;
   }
 
@@ -30,17 +55,73 @@ export default function ViewCampaign({ onLogin }) {
     return <div className="not-found">Campaign not found</div>;
   }
 
-  const handleDonate = () => {
-    onLogin();
-  };
+  // Check if current user is the campaign owner (only if logged in)
+  const isCampaignOwner = isAuthenticated && user?.id === campaign.creatorId;
 
   const handleShare = () => {
     console.log('Share campaign:', campaignId);
   };
 
+  const handleSave = () => {
+    if (!isAuthenticated) {
+      // If not logged in, go to login page, then return here
+      navigate('/login', { 
+        state: { 
+          from: `/campaign/${campaignId}`,
+          message: 'Please login to save this campaign'
+        }
+      });
+    } else {
+      console.log('Saving campaign for user:', user);
+      // Implement save functionality
+    }
+  };
+
+  const handleEdit = () => {
+    if (isCampaignOwner) {
+      console.log('Editing campaign:', campaignId);
+      navigate(`/campaign/${campaignId}/edit`);
+    }
+  };
+
+  // FIXED: Smart back button logic
+  const handleBack = () => {
+    // 1. First, check if we have a "from" state (where user came from)
+    if (fromPage) {
+      navigate(fromPage); // Go back to where they came from
+      return;
+    }
+    
+    // 2. If no "from" state, decide based on authentication
+    if (isAuthenticated) {
+      navigate('/campaign-list'); // Logged-in users go to CampaignList
+    } else {
+      navigate('/landing'); // Non-logged-in users go to LandingPage
+    }
+  };
+
+  // Determine what text to show on back button
+  const getBackButtonText = () => {
+    if (fromPage === '/landing') {
+      return '← Back to Home';
+    } else if (fromPage === '/campaign-list') {
+      return '← Back to Campaigns';
+    } else if (isAuthenticated) {
+      return '← Back to Campaigns';
+    } else {
+      return '← Back to Home';
+    }
+  };
+
   return (
     <div className="view-campaign-page">
-      <HeaderBeforeLogin withColor={true} isLoggedIn={false}/>
+      {/* 
+        FIXED: Show the correct header based on where user came from
+        - If from LandingPage: isLoggedIn={false} (non-user header)
+        - If from CampaignList: isLoggedIn={true} (user header)
+      */}
+      <Header withColor={true} isLoggedIn={showLoggedInHeader} />
+      
       <div className='green-gradient' 
         style={{
           background: "linear-gradient(180deg, #78B96C 0%, #78B96C 15%, #FFFCF3 60%)",
@@ -51,98 +132,62 @@ export default function ViewCampaign({ onLogin }) {
           width: "100%",
         }}
       />
-      
+
       <div className="view-campaign-content">
         <main className="campaign-main-content">
-          {/* White Container - Everything inside this card */}
           <div className="campaign-detail-container">
-            {/* Back Button inside the card */}
+            {/* Back button with dynamic text */}
             <button 
               className="back-button-inside"
-              onClick={() => navigate('/landing')}
+              onClick={handleBack}
             >
-              ← Back to Campaigns
+              {getBackButtonText()}
             </button>
 
-            <div className="campaign-grid">
-              {/* Left Column - Image and Tabs */}
-              <div className="campaign-left-column">
-                {/* Campaign Image */}
-                {activeTab === 'story' && (
-                  <div className="campaign-image-section">
-                    <div className="campaign-image-container">
-                      <img 
-                        src={campaign.image} 
-                        alt={campaign.name}
-                        className="campaign-image"
-                      />
-                    </div>
-                  </div>
-                )}
+            {/* Show auth loading indicator if needed */}
+            {authLoading && (
+              <div className="auth-loading-indicator">
+                Checking authentication...
+              </div>
+            )}
 
-                {/* Tabs */}
-                <CampaignTabs 
-                  activeTab={activeTab}
-                  onTabChange={setActiveTab}
-                />
+            <CampaignHero
+              image={campaign.image}
+              tag="Campaign"
+              title={campaign.name}
+              subtitle={campaign.description}
+            />
 
-                {/* Campaign Title */}
-                <h1 className="campaign-title-main">
-                  {campaign.name} needs help
-                </h1>
+            <div className="campaign-grid-three">
+              <div className="col-left">
+                <h3 className="section-heading">Donation Boxes</h3>
+                <DonationBoxList donationBoxes={campaign.donationBoxes || [
+                  { id: 1, name: campaign.name, image: campaign.image, condition: '', goalAmount: campaign.goal },
+                ]} />
+              </div>
 
-                {/* Tab Content */}
-                <div className="tab-content">
-                  {activeTab === 'story' && (
-                    <div className="story-content">
-                      <p>
-                        Bella is based in your self-disabilities and we will be informed of any plans you provided to this bella needs help.
-                      </p>
-                      <p>
-                        This helps us understand the benefits of our customers. The right part of the plan has been paid for by the team, but we can also provide a better understanding of how to make decisions about the benefits of our customers.
-                      </p>
-                      
-                      
-                      </div>
-                    
-                  )}
-
-                  {activeTab === 'donation-box' && (
-                    <div className="donation-box-content">
-                      <p>Donation box for this campaign will be listed here.</p>
-                    </div>
-                  )}
-
-                  {activeTab === 'updates' && (
-                    <div className="updates-content">
-                      <p>No updates available yet. Check back soon!</p>
-                    </div>
-                  )}
-
-                  {activeTab === 'activity' && (
-                    <div className="activity-content">
-                      <p>Activity for this campaign will be listed here.</p>
-                    </div>
-                  )}
+              <div className="col-center">
+                <div className="target-date-header">
+                  Target Date: {campaign.targetDate || 'December 09,2025'}
+                </div>
+                <div className="center-cards">
+                  <DonationBoxList donationBoxes={campaign.donationBoxes || [
+                    { id: 10, name: campaign.name, image: campaign.image, condition: '', goalAmount: campaign.goal },
+                  ]} />
                 </div>
               </div>
 
-              {/* Right Column - Donation Info and More Campaigns */}
-              {activeTab === 'story' && (
-                <div className="campaign-right-column">
-                  <DonationInfo 
-                    campaign={campaign}
-                    onDonate={handleDonate}
-                    onShare={handleShare}
-                    processing={processing}
-                  />
-                  
-                  <MoreCampaigns 
-                    currentCampaignId={campaign.id}
-                    onCampaignClick={(id) => navigate(`/campaign/${id}`)}
-                  />
-                </div>
-              )}
+              <div className="col-right">
+                <DonationInfo 
+                  campaign={campaign}
+                  onShare={handleShare}
+                  onSave={handleSave}
+                  onEdit={handleEdit}
+                  processing={processing}
+                  isAuthenticated={isAuthenticated}
+                  isOwner={isCampaignOwner}
+                />
+              </div>
             </div>
           </div>
         </main>
