@@ -48,10 +48,6 @@ public class DonationBox {
     
     
     // Relations
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "campaign_id")
-    private Campaign campaign;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
@@ -87,10 +83,6 @@ public class DonationBox {
 
     public void setFundsRaised(BigDecimal fundsRaised) {this.fundsRaised = fundsRaised; }
     public BigDecimal getFundsRaised() { return fundsRaised; }
-    
-
-    public void setCampaign(Campaign campaign) { this.campaign = campaign; }
-    public Campaign getCampaign() {return campaign;}
 
 
     public void setOwner(User owner) {this.owner = owner;}

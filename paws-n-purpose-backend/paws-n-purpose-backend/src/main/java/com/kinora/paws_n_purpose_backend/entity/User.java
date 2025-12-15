@@ -50,9 +50,6 @@ public class User {
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
     private Wallet wallet;
-    
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Campaign> ownedCampaigns = new ArrayList<>();
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<DonationBox> ownedDonationBoxes = new ArrayList<>();
@@ -117,9 +114,6 @@ public class User {
 
     public Wallet getWallet() { return wallet; }
     public void setWallet(Wallet wallet) { this.wallet = wallet; } 
-
-
-    public List<Campaign> getOwnedCampaigns() { return ownedCampaigns; }
 
 
     public List<DonationBox> getOwnedDonationBoxes() { return ownedDonationBoxes; }
