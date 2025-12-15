@@ -63,59 +63,73 @@ export default function DonationBoxProg({
 
 
 
-      {/* Donate Now Button */}
-      <div className="donate-now-section">
-        <Button 
-          text="Donate Now" 
-          onClick={onDonate} 
-          theme="pink semi-rounded" 
-          height="2.75rem"  
-          style={{ width: '100%' }}
-        />
-      </div>
-
-      {/* Share and Save Buttons */}
-      <div className="share-save-buttons">
-        <Button 
-          text="Share" 
-          onClick={onShare} 
-          theme="pink semi-rounded"
-          height="2.75rem"
-          style={{ 
-            flex: 1,
-            border: '2px solid #DD4391',
-            color: '#DD4391'
-          }}
-        />
-        
-        {isOwner ? (
-          // Edit Button for Owner
-          <Button 
-            text="Edit" 
-            onClick={onEdit} 
-            theme="pink semi-rounded"
-            height="2.75rem"
-            style={{ 
-              flex: 1,
-              border: '2px solid #78B96C',
-              color: '#78B96C'
-            }}
-          />
-        ) : (
-          // Save Button for Non-Owners
-          <Button 
-            text="Save" 
-            onClick={handleSaveClick} 
-            theme="pink semi-rounded"
-            height="2.75rem"
-            style={{ 
-              flex: 1,
-              border: '2px solid #78B96C',
-              color: '#78B96C'
-            }}
-          />
-        )}
-      </div>
+      {/* Action Buttons: Owner vs Non-Owner */}
+      {isOwner ? (
+        // Owner: Show Share and Edit
+        <>
+          <div className="share-save-buttons">
+            <Button 
+              text="Share" 
+              onClick={onShare} 
+              theme="pink semi-rounded"
+              height="2.75rem"
+              style={{ 
+                flex: 1,
+                border: '2px solid #DD4391',
+                color: '#DD4391'
+              }}
+            />
+            <Button 
+              text="Edit" 
+              onClick={onEdit} 
+              theme="pink semi-rounded"
+              height="2.75rem"
+              style={{ 
+                flex: 1,
+                border: '2px solid #78B96C',
+                color: '#78B96C'
+              }}
+            />
+          </div>
+        </>
+      ) : (
+        // Non-owner: Show Donate Now, Share, Save
+        <>
+          <div className="donate-now-section">
+            <Button 
+              text="Donate Now" 
+              onClick={onDonate} 
+              theme="pink semi-rounded" 
+              height="2.75rem"  
+              style={{ width: '100%' }}
+            />
+          </div>
+          <div className="share-save-buttons">
+            <Button 
+              text="Share" 
+              onClick={onShare} 
+              theme="pink semi-rounded"
+              height="2.75rem"
+              style={{ 
+                flex: 1,
+                border: '2px solid #DD4391',
+                color: '#DD4391'
+              }}
+            />
+            <Button 
+              text="Save" 
+              onClick={handleSaveClick} 
+              theme="pink semi-rounded"
+              height="2.75rem"
+              style={{ 
+                flex: 1,
+                border: '2px solid #78B96C',
+                color: '#78B96C'
+              }}
+            />
+          </div>
+        </>
+      )}
 
       {/* Stats Section */}
       <div className="donation-box-stats">
