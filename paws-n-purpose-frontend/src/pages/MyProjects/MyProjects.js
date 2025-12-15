@@ -28,6 +28,7 @@ export default function MyProjects() {
   const categories = [
     { label: 'Active', value: 'Active' },
     { label: 'Archived', value: 'Archived' },
+    { label: 'Closed', value: 'Closed' },
   ];
 
 
