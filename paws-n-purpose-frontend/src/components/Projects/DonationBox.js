@@ -15,7 +15,7 @@ export default function DonationBox({ donationBox, onView, onDonate, donationBox
         <div 
             className="DonationBox"
             style={ hasMaxWidth ? {
-                maxWidth: "23.1rem"
+                maxWidth: "20.1rem"
             } : {
 
             }}
@@ -28,7 +28,7 @@ export default function DonationBox({ donationBox, onView, onDonate, donationBox
             >
                 <img 
                     className="DonationBox_image"
-                    src="https://i.pinimg.com/1200x/ed/09/16/ed0916a30e5d23e1c94c08dd8b8fb41f.jpg"
+                    src={donationBox.donationBoxPhoto}
                     style={{ objectFit: "cover" }}
                     // src={DonationBox.image} 
                     // alt={DonationBox.title}
@@ -59,7 +59,7 @@ export default function DonationBox({ donationBox, onView, onDonate, donationBox
                             letterSpacing: "-0.05rem",
                             fontSize: "1.2rem",
                         }}
-                    >Donation Box Dummy</p>
+                    >{donationBox.title}</p>
                 </div>
                 
                 
@@ -72,7 +72,7 @@ export default function DonationBox({ donationBox, onView, onDonate, donationBox
                             WebkitLineClamp: "2",
                             overflow: "hidden",
                         }}
-                    >Max was found abandoned with a broken leg. He needs immediate surgery to walk again and live...</p>
+                    >{donationBox.description}</p>
                 </div>
 
                 <div 
@@ -88,7 +88,7 @@ export default function DonationBox({ donationBox, onView, onDonate, donationBox
                 </div>
 
                 <div className="DonationBox_preview-info-4">
-                    <p><span style={{ color: "#000" }}>$3,200</span> of $5,000</p>
+                    <p><span style={{ color: "#000" }}>${donationBox.fundsRaised}</span> of ${donationBox.goalAmount}</p>
                 </div>
                 
                 

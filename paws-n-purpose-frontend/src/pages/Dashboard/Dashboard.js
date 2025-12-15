@@ -9,7 +9,7 @@ import DonationBox from "../../components/Projects/DonationBox";
 
 
 // carousel component
-function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false, yourDonationBoxes=false}) {
+function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false, yourDonationBoxes=false, content}) {
 
 
     // useStates
@@ -62,7 +62,6 @@ function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false, your
       el.addEventListener("scroll", updateScrollArrows);
       return () => el.removeEventListener("scroll", updateScrollArrows);
     }, []);
-
 
     // useLayoutEffects
 
@@ -147,6 +146,9 @@ function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false, your
     };
 
 
+    const getOwnDonationBoxes = async (e) => {
+
+    }
 
 
 
@@ -270,14 +272,9 @@ function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false, your
                 }}
               >
 
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes} />
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
-                <DonationBox donationBoxTitle={"Donation Box Dummy"}  hasMaxWidth={true} yourDonationBox={yourDonationBoxes}/>
+                {content && content.map((card) => (
+                  <DonationBox key={card.donationBoxId} donationBox={card} hasMaxWidth={true} />
+                ))}
 
                 <button 
                   type="button"
@@ -301,24 +298,78 @@ function Carousel({ headerText, seeAllLink="/dashboard", isDisplayed=false, your
     );
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function Dashboard() {
   
   // useStates
   const [hasDonated, setHasDonated] = useState(false)
-  const [hasProjects, setHasProjects] = useState(false)
+  const [ownDonationBoxes, setOwnDonationBoxes] = useState(null); 
+  const [donationBoxes, setDonationBoxes] = useState(null);
+
+  // variables
+
+  const firstHalf = donationBoxes ? donationBoxes.slice(0, 12) : [];
+  const secondHalf = donationBoxes ? donationBoxes.slice(12) : [];
 
 
+
+  // useEffects 
 
   
+  useEffect(() => {
+    const getOwnDonationBoxes = async (e) => {
+      try {
+        const response = await fetch('http://localhost:8080/api/donation-boxes/my?limit=12', {
+            method: "GET",
+            credentials: "include"
+        });
+        
+        console.log("%cAPI /api/donation-boxes/my fetched done", "color: green; font-size: 1rem; font-weight: bold;");
 
+        if (response.ok) {
+          const data = await response.json();
+          console.log("My donation boxes:", data);
+          setOwnDonationBoxes(data)
+        } 
+      } catch(err) {
+        console.log("Error: ", err);
+      }
+    }
 
+    const getDonationBoxes = async (e) => {
+      try {
+        const response = await fetch('http://localhost:8080/api/donation-boxes/?limit=24', {
+            method: "GET",
+            credentials: "include"
+        });
 
+        console.log("%cAPI /api/donation-boxes/ fetched done", "color: green; font-size: 1rem; font-weight: bold;");
 
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Donation boxes:", data);
+          setDonationBoxes(data)
+        } 
+      } catch(err) {
+        console.log("Error: ", err);
+      }
+    }
 
-
-
-
-
+    getOwnDonationBoxes()
+    getDonationBoxes()
+  }, [])
 
 
 
@@ -364,19 +415,23 @@ export default function Dashboard() {
         >
 
           {/* My Projects */}
-          <Carousel headerText={"Manage your donation boxes"} isDisplayed={true} yourDonationBoxes={true}/>
+          { ownDonationBoxes &&
+            <Carousel headerText={"Manage your donation boxes"} isDisplayed={true} yourDonationBoxes={true} content={ownDonationBoxes}/>
+          }
 
           {/* Donate again */}
           <Carousel headerText={"Donate again"}/>
 
-          {/* Featured Campaigns */}
-          <Carousel headerText={"Featured Campaigns"}/>
+          {/* Donation Boxes */}
+          { firstHalf.length > 0 && 
+          <Carousel headerText={"Featured Donation Boxes"} isDisplayed={true} content={firstHalf}/>
+          }
 
           {/* Donation Boxes */}
-          <Carousel headerText={"Featured Donation Boxes"} isDisplayed={true}/>
-
-          {/* Donation Boxes */}
-          <Carousel headerText={"Featured Donation Boxes"} isDisplayed={true}/>
+          { secondHalf.length > 0 &&
+          <Carousel headerText={"Featured Donation Boxes"} isDisplayed={true} content={secondHalf}/>
+          }
+        
         </div>
       </div>
 
