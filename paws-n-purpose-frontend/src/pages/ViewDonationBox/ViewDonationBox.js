@@ -9,6 +9,7 @@ import AddUpdates from '../../components/Updates/AddUpdates';
 import UpdatesList from '../../components/Updates/UpdatesList';
 import CampaignCard from '../../components/Projects/CampaignCard';
 import CampaignInfoBar from '../../components/CampaignInfoBar/CampaignInfoBar';
+import DonateModal from '../../components/DonateModal/DonateModal';
 import { AuthContext } from '../../components/Routes/AuthContext'; 
 import './ViewDonationBox.css';
 
@@ -17,6 +18,7 @@ export default function ViewDonationBox() {
   const navigate = useNavigate();
   const location = useLocation();
   const [isAddUpdatesModalOpen, setIsAddUpdatesModalOpen] = useState(false);
+  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
   const [updates, setUpdates] = useState([
     {
       id: 1,
@@ -84,8 +86,7 @@ export default function ViewDonationBox() {
   const isCampaignOwner = isAuthenticated && donationBox.campaign && user?.id === donationBox.campaign.creatorId;
   
   const handleDonate = () => {
-    console.log('Donate clicked for donation box:', donationBox.id);
-    // Navigate to donation page
+    setIsDonateModalOpen(true);
   };
   
   const handleShare = () => {
@@ -259,6 +260,13 @@ export default function ViewDonationBox() {
             )}
           </div>
         </div>
+
+        {/* Donate Modal */}
+        <DonateModal
+          isOpen={isDonateModalOpen}
+          onClose={() => setIsDonateModalOpen(false)}
+          donationBox={donationBox}
+        />
       </main>  
     </div>
   );
