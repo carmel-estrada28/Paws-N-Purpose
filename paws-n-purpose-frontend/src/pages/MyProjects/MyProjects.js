@@ -3,13 +3,16 @@ import Header from '../../components/Header/Header';
 import Campaign from "../../components/Projects/Campaign";
 import SearchBox from "../../components/SearchBox/SearchBox";
 import Button from "../../components/Buttons/Button";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function MyProjects() {
   const [selectedCategory, setSelectedCategory] = useState("All Campaigns");
   const [searchQuery, setSearchQuery] = useState("");
+  const [popupMessage, setPopupMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false)
   const navigate = useNavigate();
+  const location = useLocation();
   
   const campaigns = [
     { id: 1, title: "These stray animals need food", raised: 7000, goal: 10000, status: "active", category: "Active" },
@@ -27,6 +30,24 @@ export default function MyProjects() {
     { label: 'Archived', value: 'Archived' },
   ];
 
+
+  useEffect(() => {
+    if(popupMessage == "") return
+    
+    setShowPopup(true)
+
+    setTimeout(() => {
+      setShowPopup(false)
+    }, 5000)
+  }, [popupMessage])
+
+  useEffect(() => {
+    if (location.state?.message) {
+      setPopupMessage(location.state.message);
+
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Filter campaigns based on selected category and search
   const filteredCampaigns = campaigns.filter(campaign => {
@@ -51,6 +72,22 @@ export default function MyProjects() {
         isFixed={true}
         logoOnly={false}
       />
+
+      <div
+        className={`myprojects-popup ${ showPopup ? "pop" : ""}`}
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "#ffffffff",
+          padding: "1rem",
+          borderRadius: "1rem",
+          zIndex: "100"
+        }}
+      >
+        <p>{popupMessage}</p>
+      </div>
       
       <div className="myprojects-content-wrapper">
         <div className="myprojects-content">

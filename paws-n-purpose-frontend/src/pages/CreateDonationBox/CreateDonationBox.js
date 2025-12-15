@@ -21,7 +21,9 @@ function CreateDonationBox() {
   const [showDiscardModal, setShowDiscardModal] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef(null);
+  
 
   // Check for unsaved changes
   useEffect(() => {
@@ -123,10 +125,61 @@ function CreateDonationBox() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setIsLoading(true)
+
     e.preventDefault();
-    console.log('Donation Box Data:', formData);
-    navigate('/my-projects');
+
+    const boxData = new FormData();
+    boxData.append("title", formData.title);
+    boxData.append("description", formData.description);
+    boxData.append("goalAmount", formData.goalAmount);
+
+    if (formData.photoFile) {
+      boxData.append("photo", formData.photoFile);
+    } else if (formData.photoUrl) {
+      boxData.append("photoUrl", formData.photoUrl);
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/api/donation-boxes/create-donation-box', {
+          method: "POST",
+          body: boxData,
+          credentials: "include"
+      });
+
+      const data = await response.json();
+
+      console.log("%cAPI /api/donation-boxes/create-donation-box fetched done", "color: green; font-size: 1rem; font-weight: bold;");
+      console.log("API response:", data);
+      
+      if (data.success) {
+
+          navigate('/my-projects', { state: { message: "Donation box posted!" } });
+
+          return;
+      } else {
+          // setUser(null);
+          // setHasProfileSet(false);
+          
+          // await delay(1000);
+          // setIsLoading(false);
+
+          // console.log('Errors found:', data.errors);
+
+          // const formatted = {};
+          // Object.entries(data.errors || {}).forEach(([field, errorsArray]) => {
+          //     formatted[field] = errorsArray.map(errObj => errObj.message);
+          // });
+
+          // emailInput.current.focus();
+          // setErrors(formatted);
+      }
+    } catch (err) {
+          console.log("Error: ", err);
+          
+          setIsLoading(false);
+    }
   };
 
   return (
