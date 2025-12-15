@@ -31,7 +31,10 @@ public class DonationBox {
     private Long donationBoxId;
     
     private String donationBoxPhoto;
+
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
     
     @Column(precision = 10, scale = 2)
