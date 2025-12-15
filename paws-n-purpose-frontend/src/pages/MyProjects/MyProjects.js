@@ -33,7 +33,7 @@ export default function MyProjects() {
 
   useEffect(() => {
     if(popupMessage == "") return
-    
+
     setShowPopup(true)
 
     setTimeout(() => {
@@ -132,18 +132,10 @@ export default function MyProjects() {
                 <Button 
                   type="button" 
                   text="Create Donation Box" 
-                  theme="semi-rounded"
+                  theme="pink semi-rounded"
                   vPadding={0.75}
                   hPadding={1.5}
                   onClick={handleCreateDonationBox}
-                />
-                <Button 
-                  type="button"
-                  text="Create A Campaign"
-                  theme="semi-rounded"
-                  vPadding={0.75}
-                  hPadding={1.5}
-                  onClick={() => navigate('/create-campaign/step-1')}
                 />
               </div>
             </div>
