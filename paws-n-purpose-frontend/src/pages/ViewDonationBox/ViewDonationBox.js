@@ -9,6 +9,7 @@ import AddUpdates from '../../components/Updates/AddUpdates';
 import UpdatesList from '../../components/Updates/UpdatesList';
 import CampaignCard from '../../components/Projects/CampaignCard';
 import CampaignInfoBar from '../../components/CampaignInfoBar/CampaignInfoBar';
+import DonateModal from '../../components/DonateModal/DonateModal';
 import { AuthContext } from '../../components/Routes/AuthContext'; 
 import './ViewDonationBox.css';
 
@@ -20,6 +21,26 @@ export default function ViewDonationBox() {
   const { donationBoxId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isAddUpdatesModalOpen, setIsAddUpdatesModalOpen] = useState(false);
+  const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+  const [updates, setUpdates] = useState([
+    {
+      id: 1,
+      userName: 'User\'s Name',
+      datePosted: '2 days ago',
+      content: 'Updates about this donation box. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+      userAvatar: 'https://i.pinimg.com/736x/df/14/35/df14354dfd73264b73f33c2e4f0fdf1b.jpg'
+    },
+    {
+      id: 2,
+      userName: 'Another User',
+      datePosted: '1 week ago',
+      content: 'Another update about the progress. The animal is doing well and responding to treatment.',
+      userAvatar: 'https://randomuser.me/api/portraits/women/44.jpg'
+    }
+  ]);
+  
+  // Use AuthContext
   const authContext = useContext(AuthContext);
   const user = authContext?.user || null;
   const isAuthenticated = !!user;
@@ -107,8 +128,7 @@ export default function ViewDonationBox() {
 
   // Handlers
   const handleDonate = () => {
-    // Implement donation logic or navigation
-    console.log('Donate clicked for donation box:', donationBox?.id);
+    setIsDonateModalOpen(true);
   };
 
   const handleShare = () => {
@@ -264,7 +284,14 @@ export default function ViewDonationBox() {
             </Card>
           </div>
         </div>
-      </main>
+
+        {/* Donate Modal */}
+        <DonateModal
+          isOpen={isDonateModalOpen}
+          onClose={() => setIsDonateModalOpen(false)}
+          donationBox={donationBox}
+        />
+      </main>  
     </div>
   );
 }

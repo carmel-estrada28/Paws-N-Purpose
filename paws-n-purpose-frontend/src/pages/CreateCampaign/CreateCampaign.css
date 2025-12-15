@@ -246,7 +246,7 @@ label {
 input[type="text"],
 input[type="date"],
 textarea {
-  width: 100%;
+  /* width: 100%; */
   padding: 0.5rem 0.5rem;
   border: 1px solid #E0E0E0;
   border-radius: 8px;
